@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 String    @id @default(auto()) @map("_id") @db.ObjectId
+  createAt           DateTime  @default(now())
+  updateAt           DateTime  @updatedAt
+  name               String
+  email              String    @unique
+  emailVerified      DateTime?
+  activationLink     String    @unique
+  hashedPassword     String
+  image              String?
+  tel                String?
+  roles              UserRoles @default(WORKER)
+  vacancyIds         String[]  @db.ObjectId
+  respondedVacancies Vacancy[] @relation(fields: [vacancyIds], references: [id])
+  resume             Resume?
+  token              Token?
+}
+
+model Token {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  refresh_token String @unique
+  userId        String @unique @db.ObjectId
+  user          User   @relation(fields: [userId], references: [id])
+}
+
+model Company {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  vacancies Vacancy[]
+}
+
+model Vacancy {
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  createAt     DateTime    @default(now())
+  updateAt     DateTime    @updatedAt
+  name         String
+  keySkills    KeySkills[]
+  body         String
+  watchingNow  Int         @default(0)
+  closed       Boolean     @default(false)
+  companyId    String      @db.ObjectId
+  company      Company     @relation(fields: [companyId], references: [id])
+  responderIds String[]    @db.ObjectId
+  responders   User[]      @relation(fields: [responderIds], references: [id])
+}
+
+model Resume {
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  body      String
+  keySkills KeySkills[]
+  userId    String      @unique @db.ObjectId
+  user      User        @relation(fields: [userId], references: [id])
+}
+
+enum UserRoles {
+  WORKER
+  EMPLOYER
+}
+
+enum KeySkills {
+  FULLSTACK
+  FRONTEND
+  BACKEND
+}
