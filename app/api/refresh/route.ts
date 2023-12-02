@@ -3,16 +3,11 @@ import prisma from '../../libs/prismadb';
 import { NextResponse } from 'next/server';
 import { UserDto } from '@/app/dtos';
 import { tokenService } from '@/app/services';
+import { cookies } from 'next/headers';
 
-interface IRefresh {
-  refresh_token: string;
-}
-
-export async function POST(req: Request) {
+export async function GET(req: Request) {
   try {
-    const body: IRefresh = await req.json();
-    const { refresh_token } = body;
-
+    const refresh_token = cookies().get('refresh_token')?.value || '';
     const isValidateToken = tokenService.validateRefreshToken(refresh_token);
     const token = await prisma.token.findUnique({
       where: {
@@ -24,13 +19,13 @@ export async function POST(req: Request) {
     });
 
     if (!isValidateToken || !token) {
-      return new NextResponse('Unauthorized', {
+      return new NextResponse('Unauthorization', {
         status: 401,
       });
     }
 
     const userDto = new UserDto(token.user);
-    const tokens = tokenService.generateTokens(userDto);
+    const tokens = tokenService.generateTokens({ ...userDto });
 
     const updateToken = await prisma.token.update({
       where: {
@@ -41,6 +36,7 @@ export async function POST(req: Request) {
       },
     });
 
+    cookies().set('refresh_token', tokens.refresh_token, { httpOnly: true });
     return NextResponse.json({
       access_token: tokens.access_token,
     });

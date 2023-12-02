@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
 import { UserDto } from '@/app/dtos';
 import { tokenService } from '@/app/services';
+import { cookies } from 'next/headers';
 
 interface IRegister {
   email: string;
@@ -40,7 +41,7 @@ export async function POST(req: Request) {
     });
 
     const userDto = new UserDto(user);
-    const tokens = tokenService.generateTokens(userDto);
+    const tokens = tokenService.generateTokens({ ...userDto });
     const createToken = await prisma.token.create({
       data: {
         refresh_token: tokens.refresh_token,
@@ -52,6 +53,7 @@ export async function POST(req: Request) {
       },
     });
 
+    cookies().set('refresh_token', tokens.refresh_token, { httpOnly: true });
     return NextResponse.json({ user: userDto, access_token: tokens.access_token });
   } catch (e: any) {
     return new NextResponse('Internal Error', {

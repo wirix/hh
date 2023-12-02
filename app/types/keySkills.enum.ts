@@ -1,5 +1,5 @@
 export enum KeySkills {
-  FULLSTACK,
-  FRONTEND,
-  BACKEND,
+  FULLSTACK = 'FULLSTACK',
+  FRONTEND = 'FRONTEND',
+  BACKEND = 'BACKEND',
 }

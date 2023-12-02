@@ -1,13 +1,12 @@
 import jwt, { Secret } from 'jsonwebtoken';
 import { UserDto } from '../dtos';
-import { NextResponse } from 'next/server';
 
 class TokenService {
   generateTokens(payload: UserDto) {
-    const access_token = jwt.sign({ ...payload }, process.env.JWT_ACCESS_TOKEN as Secret, {
-      expiresIn: '30m',
+    const access_token = jwt.sign(payload, process.env.JWT_ACCESS_TOKEN as Secret, {
+      expiresIn: '2h',
     });
-    const refresh_token = jwt.sign({ ...payload }, process.env.JWT_REFRESH_TOKEN as Secret, {
+    const refresh_token = jwt.sign(payload, process.env.JWT_REFRESH_TOKEN as Secret, {
       expiresIn: '30d',
     });
     return {

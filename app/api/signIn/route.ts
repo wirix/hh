@@ -3,6 +3,7 @@ import prisma from '../../libs/prismadb';
 import { NextResponse } from 'next/server';
 import { UserDto } from '@/app/dtos';
 import { tokenService } from '@/app/services';
+import { cookies } from 'next/headers';
 
 interface ISignIn {
   email: string;
@@ -17,7 +18,7 @@ export async function POST(req: Request) {
     const user = await prisma.user.findUnique({
       where: {
         email,
-      }
+      },
     });
 
     if (!user) {
@@ -35,15 +36,22 @@ export async function POST(req: Request) {
     }
 
     const userDto = new UserDto(user);
-    const tokens = tokenService.generateTokens(userDto);
+    const tokens = tokenService.generateTokens({ ...userDto });
 
-    const token = await prisma.token.create({
-      data: {
+    const token = await prisma.token.upsert({
+      where: {
+        userId: user.id,
+      },
+      update: {
+        refresh_token: tokens.refresh_token,
+      },
+      create: {
         refresh_token: tokens.refresh_token,
         userId: user.id,
       },
     });
 
+    cookies().set('refresh_token', tokens.refresh_token, { httpOnly: true });
     return NextResponse.json({
       user: userDto,
       access_token: tokens.access_token,

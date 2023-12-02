@@ -43,7 +43,7 @@ model Vacancy {
   createAt     DateTime    @default(now())
   updateAt     DateTime    @updatedAt
   name         String
-  keySkills    KeySkills[]
+  keySkills    KeySkills[] @default([])
   body         String
   watchingNow  Int         @default(0)
   closed       Boolean     @default(false)

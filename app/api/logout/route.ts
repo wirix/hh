@@ -1,17 +1,10 @@
-import bcrypt from 'bcrypt';
 import prisma from '../../libs/prismadb';
 import { NextResponse } from 'next/server';
-import { UserDto } from '@/app/dtos';
-import { tokenService } from '@/app/services';
+import { cookies } from 'next/headers';
 
-interface ILogout {
-  refresh_token: string;
-}
-
-export async function POST(req: Request) {
+export async function GET(req: Request) {
   try {
-    const body: ILogout = await req.json();
-    const { refresh_token } = body;
+    const refresh_token = cookies().get('refresh_token')?.value || '';
 
     const findToken = await prisma.token.findUnique({
       where: {
@@ -20,17 +13,12 @@ export async function POST(req: Request) {
     });
 
     if (!findToken) {
-      return new NextResponse('Unauthorized', {
+      return new NextResponse('Unauthorization', {
         status: 401,
       });
     }
 
-    const deleteToken = await prisma.token.delete({
-      where: {
-        refresh_token,
-      },
-    });
-
+    cookies().delete('refresh_token');
     return NextResponse.json({
       logout: true,
     });
