@@ -6,7 +6,7 @@ import React from 'react';
 export default function Register() {
   const onreg = async () => {
     const res = await axios.post('/api/register', {
-      email: 'basketletterz@gmail.com',
+      email: 'basketletterz1@gmail.com',
       password: 'qwerty123',
       username: 'wirix',
     });

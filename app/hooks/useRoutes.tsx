@@ -17,7 +17,7 @@ export const useRoutes = () => {
   const routes: IRoutes[] = [
     {
       href: '/resume',
-      title: 'Мои резюме',
+      title: 'Мое резюме',
       icon: ImProfile,
       isActive: pathName === '/resume',
     },
