@@ -1,7 +1,6 @@
 import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
 import prisma from '../libs/prismadb';
-import { NextResponse } from 'next/server';
 
 interface ITokenData {
   email: string;

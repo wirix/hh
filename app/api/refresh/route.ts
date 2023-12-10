@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import prisma from '../../libs/prismadb';
 import { NextResponse } from 'next/server';
 import { UserDto } from '@/app/dtos';
