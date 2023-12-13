@@ -39,18 +39,23 @@ model Company {
 }
 
 model Vacancy {
-  id           String      @id @default(auto()) @map("_id") @db.ObjectId
-  createAt     DateTime    @default(now())
-  updateAt     DateTime    @updatedAt
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  createAt     DateTime       @default(now())
+  updateAt     DateTime       @updatedAt
   name         String
-  keySkills    KeySkills[] @default([])
+  country      String
+  city         String
+  companyName  String /// delete
+  salary       Int
+  experience   ExperienceTime @default(NOT)
+  keySkills    KeySkills[]    @default([])
   body         String
-  watchingNow  Int         @default(0)
-  closed       Boolean     @default(false)
-  companyId    String      @db.ObjectId
-  company      Company     @relation(fields: [companyId], references: [id])
-  responderIds String[]    @db.ObjectId
-  responders   User[]      @relation(fields: [responderIds], references: [id])
+  watchingNow  Int            @default(0)
+  closed       Boolean        @default(false)
+  companyId    String         @db.ObjectId
+  company      Company        @relation(fields: [companyId], references: [id])
+  responderIds String[]       @db.ObjectId
+  responders   User[]         @relation(fields: [responderIds], references: [id])
 }
 
 model Resume {
@@ -64,6 +69,12 @@ model Resume {
 enum UserRoles {
   WORKER
   EMPLOYER
+}
+
+enum ExperienceTime {
+  NOT
+  FROM_ONE_TO_THREE
+  FROM_THREE_TO_SIX
 }
 
 enum KeySkills {

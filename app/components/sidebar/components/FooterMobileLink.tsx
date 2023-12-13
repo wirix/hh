@@ -1,15 +1,10 @@
 'use client';
 
+import { IRoutes } from '@/app/hooks';
 import Link from 'next/link';
 import { IconType } from 'react-icons';
 
-export const FooterMobileLink = ({
-  Icon,
-  href,
-}: {
-  Icon: IconType;
-  href: string;
-}) => {
+export const FooterMobileLink = ({ Icon, href }: IRoutes) => {
   return (
     <Link
       href={href}

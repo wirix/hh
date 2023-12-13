@@ -3,12 +3,14 @@ import { CgProfile } from 'react-icons/cg';
 import { TbCurlyLoop } from 'react-icons/tb';
 import { ImProfile } from 'react-icons/im';
 import { IconType } from 'react-icons';
+import { MdOutlineWorkOutline } from 'react-icons/md';
 
-interface IRoutes {
+export interface IRoutes {
   href: string;
   title: string;
-  icon: IconType;
+  Icon: IconType;
   isActive: boolean;
+  isDesktop: boolean;
 }
 
 export const useRoutes = () => {
@@ -18,20 +20,30 @@ export const useRoutes = () => {
     {
       href: '/resume',
       title: 'Мое резюме',
-      icon: ImProfile,
+      Icon: ImProfile,
       isActive: pathName === '/resume',
+      isDesktop: true,
     },
     {
       href: '/negotiations',
       title: 'Отлики',
-      icon: TbCurlyLoop,
+      Icon: TbCurlyLoop,
       isActive: pathName === '/negotiations',
+      isDesktop: true,
+    },
+    {
+      href: '/vacancy',
+      title: 'Вакансии',
+      Icon: MdOutlineWorkOutline,
+      isActive: pathName === '/vacancy',
+      isDesktop: true,
     },
     {
       href: '/profile',
       title: 'Профиль',
-      icon: CgProfile,
+      Icon: CgProfile,
       isActive: pathName === '/profile',
+      isDesktop: false,
     },
   ];
 
