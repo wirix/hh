@@ -7,62 +7,50 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { $api } from '@/app/helpers';
 import { useRouter } from 'next/navigation';
-import { Role } from '@prisma/client';
+import { useState } from 'react';
 
-interface IRegister {
-  username: string;
+interface ISignIn {
   email: string;
   password: string;
-  role?: Role;
 }
 
 const RegistrationSchema = Yup.object().shape({
   email: Yup.string().email(`Неверно указан email`).required('Поле обязательно!'),
   password: Yup.string().required('Поле обязательно!').min(8, 'Минимум 8 символов'),
-  username: Yup.string()
-    .required('Поле обязательно!')
-    .min(3, 'Минимум 3 символа')
-    .max(15, 'Максимум 15 символов'),
-  role: Yup.string().oneOf([Role.WORKER, Role.EMPLOYER], 'Неверное значение роли'),
 });
 
-export default function Register() {
+export default function SignIn() {
   const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
     clearErrors,
-  } = useForm<IRegister>({
+  } = useForm<ISignIn>({
     resolver: yupResolver(RegistrationSchema),
   });
+  const [errorText, setErrorText] = useState<string>('');
 
-  const onSubmit = async (data: IRegister) => {
-    const res = await $api.post('./register', JSON.stringify(data));
-    if (res.status === 409) {
-      console.log('Почта уже используется');
+  const onSubmit = async (data: ISignIn) => {
+    try {
+      const res = await $api.post('./signIn', JSON.stringify(data));
+      localStorage.setItem('access_token', res.data.access_token);
+      router.push(res.data.role === 'WORKER' ? '/vacancy' : '/company');
+    } catch (e: any) {
+      // !!!!
+      if (e.status === 404) {
+        setErrorText(e.status + '');
+      }
     }
-    if (res.status === 200) {
-      router.push(data.role === 'WORKER' ? '/vacancy': '/company');
-    }
-    localStorage.setItem('access_token', res.data.access_token);
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex justify-center">
       <div className="flex flex-col">
         <Input
-          {...register('username', { required: { value: true, message: 'Заполните имя' } })}
-          autoComplete={'off'}
-          placeholder="Имя"
-          color="black"
-          error={errors.username}
-          className={'mb-2'}
-        />
-        <Input
           {...register('email', { required: { value: true, message: 'Заполните почту' } })}
           autoComplete={'off'}
-          placeholder="Почта"
+          placeholder="Email"
           color="black"
           type="email"
           error={errors.email}
@@ -77,21 +65,12 @@ export default function Register() {
           error={errors.password}
           className={'mb-4'}
         />
-        <span className="mb-8">
-          <select {...register('role')}>
-            <option value={Role.WORKER}>
-              Ищу работу
-            </option>
-            <option value={Role.EMPLOYER}>
-              Я Hr
-            </option>
-          </select>
-        </span>
+        {errorText}
         <div className="flex justify-between items-center">
           <Button type="submit" color="green" onClick={() => clearErrors()}>
-            Регистрация
+            Войти
           </Button>
-          <LinkTag text="Есть аккаунт" href="/signIn" />
+          <LinkTag text="Создать аккаунт" href="/register" />
         </div>
       </div>
     </form>

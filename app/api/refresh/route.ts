@@ -36,6 +36,7 @@ export async function GET(req: Request) {
     });
 
     cookies().set('refresh_token', tokens.refresh_token, { httpOnly: true });
+    
     return NextResponse.json({
       access_token: tokens.access_token,
     });

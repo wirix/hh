@@ -1,11 +1,9 @@
 import prisma from '../../libs/prismadb';
 import { NextResponse } from 'next/server';
-import { KeySkills } from '@/app/types';
 import { getCurrentUser } from '@/app/actions';
 
 interface IResume {
   body: string;
-  keySkills: KeySkills[];
 }
 
 export async function GET(req: Request) {
@@ -23,40 +21,40 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { ...data }: IResume = body;
 
-    const userId = await getCurrentUser();
-    if (!userId) {
+    const user = await getCurrentUser();
+    if (!user) {
       return null;
     }
 
     const findResume = await prisma.resume.findUnique({
       where: {
-        userId,
+        userId: user.userId,
       },
     });
 
     if (findResume) {
       const createResume = await prisma.resume.upsert({
         where: {
-          userId,
+          userId: user.userId,
         },
         update: {
           ...data,
-          userId,
+          userId: user.userId,
         },
         create: {
           ...data,
-          userId,
+          userId: user.userId,
         },
       });
     } else {
       const createResume = await prisma.resume.create({
         data: {
           ...data,
-          userId,
+          userId: user.userId,
         },
       });
     }
-    
+
     return NextResponse.json({ success: true });
   } catch (e: any) {
     return new NextResponse('Internal Error', {

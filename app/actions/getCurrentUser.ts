@@ -1,10 +1,12 @@
 import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
 import prisma from '../libs/prismadb';
+import { Role } from '@prisma/client';
 
 interface ITokenData {
   email: string;
   id: string;
+  role: Role;
   iat: number;
   exp: number;
 }
@@ -21,18 +23,16 @@ export const getCurrentUser = async () => {
       return null;
     }
 
-    const userId = decoded.id;
-    
     const findCurrentUser = await prisma.user.findUnique({
       where: {
-        id: userId,
+        id: decoded.id,
       },
     });
     if (!findCurrentUser) {
       return null;
     }
 
-    return userId;
+    return { role: decoded.role, userId: decoded.id, email: decoded.email };
   } catch (e) {
     return null;
   }

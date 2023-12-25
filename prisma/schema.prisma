@@ -9,8 +9,8 @@ datasource db {
 
 model User {
   id                 String    @id @default(auto()) @map("_id") @db.ObjectId
-  createAt           DateTime  @default(now())
-  updateAt           DateTime  @updatedAt
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
   name               String
   email              String    @unique
   emailVerified      DateTime?
@@ -18,11 +18,12 @@ model User {
   hashedPassword     String
   image              String?
   tel                String?
-  roles              UserRoles @default(WORKER)
+  role               Role      @default(WORKER)
   vacancyIds         String[]  @db.ObjectId
   respondedVacancies Vacancy[] @relation(fields: [vacancyIds], references: [id])
   resume             Resume?
   token              Token?
+  company            Company?
 }
 
 model Token {
@@ -33,22 +34,28 @@ model Token {
 }
 
 model Company {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  vacancies Vacancy[]
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  name           String    @unique
+  text           String?
+  countryCenter  String
+  img            String?
+  userId         String    @unique @db.ObjectId
+  user           User      @relation(fields: [userId], references: [id])
+  vacancies      Vacancy[]
+  hashedPassword String
 }
 
 model Vacancy {
   id           String         @id @default(auto()) @map("_id") @db.ObjectId
-  createAt     DateTime       @default(now())
-  updateAt     DateTime       @updatedAt
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
   name         String
   country      String
   city         String
-  companyName  String /// delete
+  isHome       Boolean
   salary       Int
+  currency     Currency
   experience   ExperienceTime @default(NOT)
-  keySkills    KeySkills[]    @default([])
   body         String
   watchingNow  Int            @default(0)
   closed       Boolean        @default(false)
@@ -61,12 +68,11 @@ model Vacancy {
 model Resume {
   id        String      @id @default(auto()) @map("_id") @db.ObjectId
   body      String
-  keySkills KeySkills[] @default([])
   userId    String      @unique @db.ObjectId
   user      User        @relation(fields: [userId], references: [id])
 }
 
-enum UserRoles {
+enum Role {
   WORKER
   EMPLOYER
 }
@@ -81,4 +87,9 @@ enum KeySkills {
   FULLSTACK
   FRONTEND
   BACKEND
+}
+
+enum Currency {
+  RUB
+  USD
 }

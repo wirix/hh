@@ -1,15 +1,20 @@
+'use server';
+
 import { ReactNode } from 'react';
 import { FooterMobile, HeaderDesktop } from './components';
 import { Container } from '../container/Container';
+import { getCurrentUser } from '@/app/actions';
 
-export const Sidebar = ({ children }: { children: ReactNode }) => {
+export const Sidebar = async ({ children }: { children: ReactNode }) => {
+  const user = await getCurrentUser();
+
   return (
     <>
       <Container>
-        <HeaderDesktop />
+        <HeaderDesktop role={user ? user.role : null} />
         <div>{children}</div>
       </Container>
-      <FooterMobile />
+      <FooterMobile role={user ? user.role : null} />
     </>
   );
 };

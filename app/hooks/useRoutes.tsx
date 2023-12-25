@@ -4,13 +4,17 @@ import { TbCurlyLoop } from 'react-icons/tb';
 import { ImProfile } from 'react-icons/im';
 import { IconType } from 'react-icons';
 import { MdOutlineWorkOutline } from 'react-icons/md';
+import { HiViewGrid } from 'react-icons/hi';
+import { Role } from '@prisma/client';
 
 export interface IRoutes {
   href: string;
   title: string;
   Icon: IconType;
   isActive: boolean;
-  isDesktop: boolean;
+  isDesktop?: boolean;
+  role: Role[];
+  isAuth: boolean;
 }
 
 export const useRoutes = () => {
@@ -23,6 +27,8 @@ export const useRoutes = () => {
       Icon: ImProfile,
       isActive: pathName === '/resume',
       isDesktop: true,
+      role: [Role.WORKER],
+      isAuth: true,
     },
     {
       href: '/negotiations',
@@ -30,6 +36,8 @@ export const useRoutes = () => {
       Icon: TbCurlyLoop,
       isActive: pathName === '/negotiations',
       isDesktop: true,
+      role: [Role.WORKER],
+      isAuth: true,
     },
     {
       href: '/vacancy',
@@ -37,6 +45,8 @@ export const useRoutes = () => {
       Icon: MdOutlineWorkOutline,
       isActive: pathName === '/vacancy',
       isDesktop: true,
+      role: [Role.WORKER],
+      isAuth: false,
     },
     {
       href: '/profile',
@@ -44,6 +54,26 @@ export const useRoutes = () => {
       Icon: CgProfile,
       isActive: pathName === '/profile',
       isDesktop: false,
+      role: [Role.WORKER, Role.EMPLOYER],
+      isAuth: true,
+    },
+    {
+      href: '/company',
+      title: 'Компания',
+      Icon: HiViewGrid,
+      isActive: pathName === '/company',
+      isDesktop: true,
+      role: [Role.EMPLOYER],
+      isAuth: true,
+    },
+    {
+      href: '/company/vacancy',
+      title: 'Текущие вакансии',
+      Icon: HiViewGrid,
+      isActive: pathName === '/company/vacancy',
+      isDesktop: true,
+      role: [Role.EMPLOYER],
+      isAuth: true,
     },
   ];
 

@@ -10,7 +10,7 @@ interface IPTag
 export const PTag: FC<IPTag> = ({ children, color = 'white', size = 'base', className, ...props }) => {
   return (
     <p
-      className={cn('text-xl', className, {
+      className={cn(className, {
         ['text-blue-700']: color === 'blue',
         ['text-black']: color === 'black',
         ['text-gray-700']: color === 'gray',

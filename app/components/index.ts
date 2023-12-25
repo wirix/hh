@@ -5,3 +5,5 @@ export * from './Card';
 export * from './PTag';
 export * from './HTag';
 export * from './Button';
+export * from './portal/Portal';
+export * from './VacancyItem';

@@ -7,7 +7,6 @@ export function middleware(request: NextRequest) {
     const requestHeader = new Headers(request.headers);
     const bearerToken = requestHeader.get('Authorization');
     const access_token = bearerToken?.split(' ')[1];
-
     if (!access_token) {
       return new NextResponse('Unauthorization', { status: 401 });
     }
@@ -22,5 +21,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/api/resume'],
+  matcher: ['/api/vacancy', '/api/resume'],
 };

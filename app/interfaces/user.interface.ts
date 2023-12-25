@@ -1,4 +1,4 @@
-import { UserRoles } from '../types';
+import { Role } from '@prisma/client';
 import { IResume } from './resume.interface';
 import { IVacancy } from './vacancy.interface';
 
@@ -11,7 +11,7 @@ export interface IUser {
   emailVerified: Date | null;
   image?: string;
   tel?: string;
-  roles: UserRoles[];
+  roles: Role;
   vacancies: IVacancy[];
   resume: IResume[];
 }

@@ -5,17 +5,19 @@ import { v4 as uuidv4 } from 'uuid';
 import { UserDto } from '@/app/dtos';
 import { tokenService } from '@/app/services';
 import { cookies } from 'next/headers';
+import { Role } from '@prisma/client';
 
 interface IRegister {
   email: string;
   password: string;
   username: string;
+  role: Role;
 }
 
 export async function POST(req: Request) {
   try {
     const body: IRegister = await req.json();
-    const { email, password, username } = body;
+    const { email, password, username, role } = body;
 
     const candidate = await prisma.user.findUnique({
       where: {
@@ -36,6 +38,7 @@ export async function POST(req: Request) {
         email,
         hashedPassword,
         name: username,
+        role,
         activationLink,
       },
     });

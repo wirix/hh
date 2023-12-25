@@ -1,4 +1,3 @@
-import { KeySkills } from '../types';
 import { ICompany } from './company.interface';
 import { IUser } from './user.interface';
 
@@ -7,7 +6,6 @@ export interface IVacancy {
   createAt: Date;
   updateAt: Date;
   name: string;
-  keySkills: KeySkills[];
   about?: string;
   watchingNow: number;
   closed: boolean;
