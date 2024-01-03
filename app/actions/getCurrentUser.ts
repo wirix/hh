@@ -1,19 +1,17 @@
 import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
-import prisma from '../libs/prismadb';
-import { Role } from '@prisma/client';
+import prisma from '@/app/libs/prismadb';
+import { EnumTokens } from '@/app/enums/token.enum';
+import { UserDto } from '@/app/dtos';
 
-interface ITokenData {
-  email: string;
-  id: string;
-  role: Role;
+interface ITokenData extends UserDto {
   iat: number;
   exp: number;
 }
 
 export const getCurrentUser = async () => {
   try {
-    const token = cookies().get('refresh_token')?.value || '';
+    const token = cookies().get(EnumTokens.REFRESH_TOKEN)?.value || '';
     if (!token) {
       return null;
     }

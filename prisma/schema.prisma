@@ -43,6 +43,7 @@ model Company {
   user           User      @relation(fields: [userId], references: [id])
   vacancies      Vacancy[]
   hashedPassword String
+  Resume         Resume[]
 }
 
 model Vacancy {
@@ -66,10 +67,12 @@ model Vacancy {
 }
 
 model Resume {
-  id        String      @id @default(auto()) @map("_id") @db.ObjectId
-  body      String
-  userId    String      @unique @db.ObjectId
-  user      User        @relation(fields: [userId], references: [id])
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  body           String
+  seenCompanyIds String[] @db.ObjectId //
+  company        Company? @relation(fields: [seenCompanyIds], references: [id])
+  userId         String   @unique @db.ObjectId
+  user           User     @relation(fields: [userId], references: [id])
 }
 
 enum Role {

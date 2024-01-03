@@ -1,5 +1,3 @@
-'use client';
-
 import { IRoutes } from '@/app/hooks';
 import Link from 'next/link';
 

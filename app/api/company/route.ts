@@ -1,8 +1,8 @@
-import prisma from '../../libs/prismadb';
+import prisma from '@/app/libs/prismadb';
 import { NextResponse } from 'next/server';
 import { getCurrentUser } from '@/app/actions';
 import bcrypt from 'bcrypt';
-import { ICompanyForm } from '@/app/(employer)/company/components';
+import { ICompanyForm } from '@/app/(pages)/(employer)/company/components';
 
 export async function POST(req: Request) {
   try {
@@ -40,23 +40,3 @@ export async function POST(req: Request) {
     });
   }
 }
-
-// export async function GET(req: Request) {
-//   const user = await getCurrentUser();
-//   if (!user) {
-//     return new NextResponse('Unauthorized', {
-//       status: 401,
-//     });
-//   }
-
-//   const { userId, role } = user;
-
-//   if (role === 'WORKER') {
-//     return new NextResponse('Not correct role', {
-//       status: 403,
-//     });
-//   }
-
-//   const createCompany = await prisma.company.findMany();
-//   return createCompany;
-// }

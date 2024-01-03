@@ -1,10 +1,11 @@
 import prisma from '../../libs/prismadb';
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { EnumTokens } from '@/app/enums/token.enum';
 
 export async function GET(req: Request) {
   try {
-    const refresh_token = cookies().get('refresh_token')?.value || '';
+    const refresh_token = cookies().get(EnumTokens.REFRESH_TOKEN)?.value || '';
 
     const findToken = await prisma.token.findUnique({
       where: {
@@ -18,7 +19,7 @@ export async function GET(req: Request) {
       });
     }
 
-    cookies().delete('refresh_token');
+    cookies().delete(EnumTokens.REFRESH_TOKEN);
     return NextResponse.json({
       logout: true,
     });

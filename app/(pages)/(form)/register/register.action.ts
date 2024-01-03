@@ -1,5 +1,7 @@
+'use server';
+
 import bcrypt from 'bcrypt';
-import prisma from '../../libs/prismadb';
+import prisma from '@/app/libs/prismadb';
 import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
 import { UserDto } from '@/app/dtos';
@@ -15,7 +17,7 @@ interface IRegister {
   role: Role;
 }
 
-export async function POST(req: Request) {
+export async function registerUser(req: any) {
   try {
     const body: IRegister = await req.json();
     const { email, password, username, role } = body;
@@ -58,7 +60,8 @@ export async function POST(req: Request) {
     });
 
     cookies().set(EnumTokens.REFRESH_TOKEN, tokens.refresh_token, { httpOnly: true });
-    return NextResponse.json({ user: userDto, access_token: tokens.access_token });
+    console.log('4');
+    return { user: userDto, access_token: tokens.access_token };
   } catch (e: any) {
     return new NextResponse('Internal Error', {
       status: 500,

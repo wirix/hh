@@ -7,14 +7,15 @@ import { getCurrentUser } from '@/app/actions';
 
 export const Sidebar = async ({ children }: { children: ReactNode }) => {
   const user = await getCurrentUser();
+  const role = user ? user.role : null;
 
   return (
     <>
       <Container>
-        <HeaderDesktop role={user ? user.role : null} />
-        <div>{children}</div>
+        <HeaderDesktop role={role} />
+        {children}
       </Container>
-      <FooterMobile role={user ? user.role : null} />
+      <FooterMobile role={role} />
     </>
   );
 };

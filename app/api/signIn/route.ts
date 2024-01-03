@@ -2,8 +2,9 @@ import bcrypt from 'bcrypt';
 import prisma from '../../libs/prismadb';
 import { NextResponse } from 'next/server';
 import { UserDto } from '@/app/dtos';
-import { tokenService } from '@/app/services';
+import { tokenService } from '@/app/(pages)/(form)/token.services';
 import { cookies } from 'next/headers';
+import { EnumTokens } from '@/app/enums/token.enum';
 
 interface ISignIn {
   email: string;
@@ -51,7 +52,7 @@ export async function POST(req: Request) {
       },
     });
 
-    cookies().set('refresh_token', tokens.refresh_token, { httpOnly: true });
+    cookies().set(EnumTokens.REFRESH_TOKEN, tokens.refresh_token, { httpOnly: true });
     return NextResponse.json({
       user: userDto,
       access_token: tokens.access_token,

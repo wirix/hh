@@ -1,7 +1,7 @@
 import cn from 'classnames';
-import React, { DetailedHTMLProps, FC } from 'react';
+import { DetailedHTMLProps, FC, HTMLAttributes } from 'react';
 
-interface ICard extends DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+interface ICard extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   color: 'gray' | 'whiteShadow';
 }
 

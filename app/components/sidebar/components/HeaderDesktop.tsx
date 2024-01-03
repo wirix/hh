@@ -1,5 +1,6 @@
 'use client';
 
+import { useTransition } from 'react';
 import { useRoutes } from '@/app/hooks';
 import { HeaderMobileLink } from './HeaderMobileLink';
 import Link from 'next/link';
@@ -13,16 +14,20 @@ import { Role } from '@prisma/client';
 export const HeaderDesktop = ({ role }: { role: Role | null }) => {
   const routes = useRoutes();
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
   const logout = async () => {
     const res = await $api.get('./logout');
     if (res.data.logout === true) {
       router.push('/register');
+      startTransition(() => {
+        router.refresh();
+      });
     }
   };
 
   const getSuitRoutes = () => {
-    if (role === 'EMPLOYER' || role === 'WORKER') {
+    if (role) {
       return (
         <>
           {routes.map((route) => {
@@ -32,9 +37,7 @@ export const HeaderDesktop = ({ role }: { role: Role | null }) => {
           })}
         </>
       );
-    }
-
-    if (!role) {
+    } else {
       return (
         <>
           {routes.map((route) => {
@@ -45,8 +48,6 @@ export const HeaderDesktop = ({ role }: { role: Role | null }) => {
         </>
       );
     }
-
-    return <></>;
   };
 
   return (
@@ -60,7 +61,9 @@ export const HeaderDesktop = ({ role }: { role: Role | null }) => {
           </Link>
         </div>
       ) : (
-        <LinkTag href="/signIn" text="Войти" color="green" />
+        <LinkTag href="/signIn" color="green">
+          Войти
+        </LinkTag>
       )}
     </div>
   );

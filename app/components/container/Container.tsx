@@ -1,5 +1,4 @@
-'use client';
-
+import cn from 'classnames';
 import { DetailedHTMLProps, FC, HTMLAttributes, ReactNode } from 'react';
 
 interface ContainerProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
@@ -8,7 +7,7 @@ interface ContainerProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement
 
 export const Container: FC<ContainerProps> = ({ children, className, ...props }) => {
   return (
-    <div className={`m-0 mx-6 pt-6 min-h-screen ${className} pt-2 lg:pt-0 lg:mx-12`} {...props}>
+    <div className={cn(`m-0 mx-6 min-h-screen pt-2 lg:pt-0 lg:mx-12`, className)} {...props}>
       {children}
     </div>
   );

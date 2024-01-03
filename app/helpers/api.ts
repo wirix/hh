@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { EnumTokens } from '../enums/token.enum';
 
 export const baseURL = 'http://localhost:3000/api';
 
@@ -8,7 +9,7 @@ export const $api = axios.create({
 });
 
 $api.interceptors.request.use((config) => {
-  config.headers.Authorization = `Bearer ${localStorage.getItem('access_token')}`;
+  config.headers.Authorization = `Bearer ${localStorage.getItem(EnumTokens.ACCESS_TOKEN)}`;
   return config;
 });
 
@@ -24,7 +25,7 @@ $api.interceptors.response.use(
         const res = await axios.get(`${baseURL}/refresh`, {
           withCredentials: true,
         });
-        localStorage.setItem('access_token', res.data.access_token);
+        localStorage.setItem(EnumTokens.ACCESS_TOKEN, res.data.access_token);
         return $api.request(originalRequest);
       } catch (e) {
         console.log('Unauthorization');
