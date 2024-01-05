@@ -24,10 +24,12 @@ export const ListResumeContent = ({ vacancy }: { vacancy: VacancyType }) => {
   }, []);
 
   const onInviteClick = async (isInvite: boolean) => {
+    if (!selectedUser) return;
+    
     try {
       setStateFetching('isFetching');
       const res = await $api.post('./feedback', {
-        userId: selectedUser?.id,
+        userId: selectedUser.id,
         vacancyId: vacancy.id,
         isInvite,
       });
