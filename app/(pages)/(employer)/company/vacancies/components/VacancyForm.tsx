@@ -7,6 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { $api } from '@/app/helpers';
 import * as Yup from 'yup';
 import { Currency } from '@prisma/client';
+import { useRouter } from 'next/navigation';
 
 export interface IVacancyForm {
   name: string;
@@ -35,6 +36,7 @@ export const VacancyForm = ({
   setIsCreateVacancy: (isOpened: boolean) => void;
   setIsSubmitting: (isSubmitting: boolean) => void;
 }) => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -54,6 +56,7 @@ export const VacancyForm = ({
     } catch (e) {
       console.log(e);
     } finally {
+      router.refresh();
       setIsSubmitting(false);
     }
   };

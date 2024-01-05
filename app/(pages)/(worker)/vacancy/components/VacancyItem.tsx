@@ -27,7 +27,7 @@ export const VacancyItem: FC<IVacancyItem> = ({
   className,
 }) => {
   const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+  const [_, startTransition] = useTransition();
   const [modalData, setModalData] = useState<{ message: string; status: number | null }>({
     message: '',
     status: null,

@@ -43,7 +43,7 @@ export const CompanyVacancyContent = ({ vacancies }: { vacancies: IVacancy[] }) 
       {isCreateVacancy && !isSubmitting && (
         <VacancyForm setIsCreateVacancy={setIsCreateVacancy} setIsSubmitting={setIsSubmitting} />
       )}
-      {isSubmitting && <div>Отправка...</div>}
+      {isSubmitting && <div className="ml-2">Отправка...</div>}
       {vacancies.length ? (
         <table className="text-left border-none">
           <thead>
@@ -66,9 +66,7 @@ export const CompanyVacancyContent = ({ vacancies }: { vacancies: IVacancy[] }) 
               <th className="flex items-center">
                 Не смотрено <FaEyeSlash className="ml-2" />
               </th>
-              <th className="flex items-center">
-                Операции
-              </th>
+              <th className="flex items-center">Операции</th>
             </tr>
           </thead>
           <tbody>

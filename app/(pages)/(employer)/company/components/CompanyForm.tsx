@@ -54,6 +54,7 @@ export const CompanyForm = ({
     } else {
       console.log('Неверные введены данные');
     }
+    router.refresh();
   };
 
   return (

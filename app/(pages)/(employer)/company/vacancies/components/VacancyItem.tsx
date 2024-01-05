@@ -1,5 +1,5 @@
 import { Button, Card, LinkTag, PTag } from '@/app/components';
-import { Company, Vacancy, Role } from '@prisma/client';
+import { Vacancy } from '@prisma/client';
 import { DetailedHTMLProps, FC, HTMLAttributes } from 'react';
 
 interface IVacancyItem
@@ -40,7 +40,9 @@ export const VacancyItem: FC<IVacancyItem> = ({
         <div>{responderIds.length}</div>
         <div>124</div>
         <div className="flex">
-          <Button className="mr-8">Подробности</Button>
+          <LinkTag size="xl" href={`vacancies/${id}`} className="mr-8">
+            Подробности
+          </LinkTag>
           <Button>Изменить</Button>
         </div>
       </div>

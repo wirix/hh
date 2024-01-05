@@ -10,7 +10,7 @@ export default async function VacancyPage() {
     return <div>авторизуйтесь</div>;
   }
 
-  const { userId, role } = user;
+  const { role } = user;
 
   if (role !== 'WORKER') {
     return <div>Вы не ищите работу.</div>;

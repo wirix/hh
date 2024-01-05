@@ -67,10 +67,10 @@ export const useRoutes = () => {
       isAuth: true,
     },
     {
-      href: '/company/vacancy',
+      href: '/company/vacancies',
       title: 'Текущие вакансии',
       Icon: HiViewGrid,
-      isActive: pathName === '/company/vacancy',
+      isActive: pathName === '/company/vacancies',
       isDesktop: true,
       role: [Role.EMPLOYER],
       isAuth: true,

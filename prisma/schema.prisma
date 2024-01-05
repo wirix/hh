@@ -24,6 +24,7 @@ model User {
   resume             Resume?
   token              Token?
   company            Company?
+  feedback           Feedback[]
 }
 
 model Token {
@@ -43,7 +44,6 @@ model Company {
   user           User      @relation(fields: [userId], references: [id])
   vacancies      Vacancy[]
   hashedPassword String
-  Resume         Resume[]
 }
 
 model Vacancy {
@@ -64,15 +64,26 @@ model Vacancy {
   company      Company        @relation(fields: [companyId], references: [id])
   responderIds String[]       @db.ObjectId
   responders   User[]         @relation(fields: [responderIds], references: [id])
+  feedback     Feedback[]
 }
 
 model Resume {
-  id             String   @id @default(auto()) @map("_id") @db.ObjectId
-  body           String
-  seenCompanyIds String[] @db.ObjectId //
-  company        Company? @relation(fields: [seenCompanyIds], references: [id])
-  userId         String   @unique @db.ObjectId
-  user           User     @relation(fields: [userId], references: [id])
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  body    String
+  userId  String @unique @db.ObjectId
+  user    User   @relation(fields: [userId], references: [id])
+  country String
+  city    String
+}
+
+model Feedback {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  isInvite  Boolean
+  vacancyId String   @db.ObjectId
+  vacancy   Vacancy @relation(fields: [vacancyId], references: [id])
+  userId    String   @db.ObjectId
+  user      User    @relation(fields: [userId], references: [id])
+  @@unique([vacancyId, userId])
 }
 
 enum Role {
@@ -96,3 +107,4 @@ enum Currency {
   RUB
   USD
 }
+

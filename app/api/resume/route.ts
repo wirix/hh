@@ -1,9 +1,12 @@
 import prisma from '../../libs/prismadb';
 import { NextResponse } from 'next/server';
 import { getCurrentUser } from '@/app/actions';
+import { Resume } from '@prisma/client';
 
-interface IResume {
+interface IResume extends Omit<Resume, 'id' | 'userId'> {
   body: string;
+  country: string;
+  city: string;
 }
 
 export async function GET(req: Request) {
@@ -55,7 +58,7 @@ export async function POST(req: Request) {
       });
     }
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ isSuccess: true });
   } catch (e: any) {
     return new NextResponse('Internal Error', {
       status: 500,

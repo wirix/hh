@@ -17,7 +17,7 @@ export const LinkTag: FC<ILinkTag> = ({
   ...props
 }) => {
   return (
-    <span>
+    <span className="flex items-center">
       <Link
         href={href}
         className={cn(

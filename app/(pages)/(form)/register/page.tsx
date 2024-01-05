@@ -29,7 +29,7 @@ const RegistrationSchema = Yup.object().shape({
 });
 
 export default function RegisterPage() {
-  const [isPending, startTransition] = useTransition();
+  const [_, startTransition] = useTransition();
   const router = useRouter();
   const {
     register,

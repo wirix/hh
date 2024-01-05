@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes, DetailedHTMLProps, FC } from 'react';
 
 interface IButton
   extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
-  color?: 'blue' | 'black' | 'gray' | 'green' | 'white' | 'transparent';
+  color?: 'blue' | 'black' | 'gray' | 'green' | 'white' | 'red' | 'transparent';
 }
 
 export const Button: FC<IButton> = ({ children, color = 'blue', className, ...props }) => {
@@ -18,6 +18,7 @@ export const Button: FC<IButton> = ({ children, color = 'blue', className, ...pr
             ['bg-gray-700']: color === 'gray',
             ['bg-green-600']: color === 'green',
             ['bg-gray-200']: color === 'white',
+            ['bg-red-500']: color === 'red',
             ['bg-transparent']: color === 'transparent',
           },
           className,

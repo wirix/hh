@@ -9,15 +9,12 @@ interface IParams {
 export async function GET(request: Request, { params }: { params: IParams }) {
   try {
     const user = await getCurrentUser();
-
-    const { vacancyId } = params;
-
     if (!user) {
       return new NextResponse('Unauthorized', {
         status: 401,
       });
     }
-
+    
     const { userId, role } = user;
     if (role !== 'WORKER') {
       return new NextResponse('Not correct role', {
@@ -25,6 +22,8 @@ export async function GET(request: Request, { params }: { params: IParams }) {
       });
     }
 
+    const { vacancyId } = params;
+    
     const vacancy = await prisma.vacancy.findUnique({
       where: {
         id: vacancyId,
