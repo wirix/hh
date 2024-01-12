@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { signInSchema } from './signIn.validation';
 import { EnumTokens } from '@/app/enums/token.enum';
 import { useTransition } from 'react';
+import { toast } from 'react-toastify';
 
 interface ISignIn {
   email: string;
@@ -32,13 +33,25 @@ export default function SignInPage() {
   const onSubmit = async (data: ISignIn) => {
     try {
       const res = await $api.post('./signIn', JSON.stringify(data));
+      if (res.status >= 400) throw new Error();
       localStorage.setItem(EnumTokens.ACCESS_TOKEN, res.data.access_token);
       router.push(res.data.user.role === 'WORKER' ? '/vacancy' : '/company');
       startTransition(() => {
         router.refresh();
       });
+      toast.success('Вы успешно вошли в аккаунт!', {
+        position: 'bottom-right',
+      });
     } catch (e: any) {
-      setErrorText(String(e.status));
+      if (e.response.status === 404) {
+        toast.warning('Аккаунта не существует!', {
+          position: 'bottom-right',
+        });
+      } else {
+        toast.error('Ошибка!', {
+          position: 'bottom-right',
+        });
+      }
     }
   };
 
@@ -63,7 +76,6 @@ export default function SignInPage() {
           error={errors.password}
           className="mb-4"
         />
-        {errorText}
         <div className="flex justify-between items-center">
           <Button type="submit" color="green" onClick={() => clearErrors()}>
             Войти

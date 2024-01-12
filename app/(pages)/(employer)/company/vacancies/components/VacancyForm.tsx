@@ -8,6 +8,7 @@ import { $api } from '@/app/helpers';
 import * as Yup from 'yup';
 import { Currency } from '@prisma/client';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 export interface IVacancyForm {
   name: string;
@@ -48,15 +49,21 @@ export const VacancyForm = ({
     try {
       setIsSubmitting(true);
       const res = await $api.post('./company/vacancy', JSON.stringify(data));
+      router.refresh();
       if (res.status === 200 && res.data.isSuccess) {
+        toast.success('Успешно создана!', {
+          position: 'bottom-right',
+        });
         setIsOpened(false);
       } else {
+        toast.error('Ошибка!', {
+          position: 'bottom-right',
+        });
         console.log('Неверные введены данные');
       }
     } catch (e) {
       console.log(e);
     } finally {
-      router.refresh();
       setIsSubmitting(false);
     }
   };

@@ -1,10 +1,12 @@
 import { Button, Card, LinkTag, PTag } from '@/app/components';
-import { Vacancy } from '@prisma/client';
+import { Feedback, Vacancy } from '@prisma/client';
 import { DetailedHTMLProps, FC, HTMLAttributes } from 'react';
 
 interface IVacancyItem
   extends Vacancy,
-    Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, 'id'> {}
+    Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, 'id'> {
+  feedback: Feedback[];
+}
 
 export const VacancyItem: FC<IVacancyItem> = ({
   id,
@@ -14,6 +16,7 @@ export const VacancyItem: FC<IVacancyItem> = ({
   city,
   experience,
   responderIds,
+  feedback,
 }) => {
   const getExperience = () => {
     switch (experience) {
@@ -38,7 +41,7 @@ export const VacancyItem: FC<IVacancyItem> = ({
         <PTag size="sm">{city}</PTag>
         <div className="flex items-center">{getExperience()}</div>
         <div>{responderIds.length}</div>
-        <div>124</div>
+        <div>{ responderIds.length - feedback.length}</div>
         <div className="flex">
           <LinkTag size="xl" href={`vacancies/${id}`} className="mr-8">
             Подробности

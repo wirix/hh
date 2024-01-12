@@ -3,7 +3,12 @@ import { NextResponse } from 'next/server';
 import { getCurrentUser } from '@/app/actions';
 import { Feedback } from '@prisma/client';
 
-interface IFeedback extends Omit<Feedback, 'id'> {}
+// interface IFeedback extends Omit<Feedback, 'id'> {}
+interface IFeedback {
+  isInvite: boolean;
+  vacancyId: string;
+  userId: string;
+}
 
 export async function POST(req: Request) {
   try {

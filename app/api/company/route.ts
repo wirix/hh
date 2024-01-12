@@ -15,7 +15,7 @@ export async function POST(req: Request) {
     }
 
     const { password, ...data }: ICompanyForm = body;
-    const { userId, role } = user;
+    const { id: userId, role } = user;
 
     if (role === 'WORKER') {
       return new NextResponse('Not correct role', {

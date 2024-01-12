@@ -1,7 +1,7 @@
 'use client';
 
 import { Button, Card, HTag } from '@/app/components';
-import { Company, Vacancy } from '@prisma/client';
+import { Company, Feedback, Vacancy } from '@prisma/client';
 import { useState } from 'react';
 import { VacancyForm } from './VacancyForm';
 import { VacancyItem } from './VacancyItem';
@@ -14,6 +14,7 @@ import { FaEyeSlash } from 'react-icons/fa';
 
 interface IVacancy extends Vacancy {
   company: Company;
+  feedback: Feedback[];
 }
 
 export const CompanyVacancyContent = ({ vacancies }: { vacancies: IVacancy[] }) => {
@@ -43,7 +44,7 @@ export const CompanyVacancyContent = ({ vacancies }: { vacancies: IVacancy[] }) 
       {isCreateVacancy && !isSubmitting && (
         <VacancyForm setIsCreateVacancy={setIsCreateVacancy} setIsSubmitting={setIsSubmitting} />
       )}
-      {isSubmitting && <div className="ml-2">Отправка...</div>}
+      {isSubmitting && <div className="ml-3">Отправка...</div>}
       {vacancies.length ? (
         <table className="text-left border-none">
           <thead>

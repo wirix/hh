@@ -13,7 +13,7 @@ export async function POST(req: Request) {
       });
     }
 
-    const { userId, role } = user;
+    const { id: userId, role } = user;
     if (role === 'WORKER') {
       return new NextResponse('Not correct role', {
         status: 403,

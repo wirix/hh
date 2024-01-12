@@ -1,10 +1,10 @@
 'use client';
 
-import { Button, Card, LinkTag, Modal, PTag } from '@/app/components';
+import { Button, Card, LinkTag, PTag } from '@/app/components';
 import { $api } from '@/app/helpers';
 import { Company, Vacancy } from '@prisma/client';
 import { useRouter } from 'next/navigation';
-import { DetailedHTMLProps, FC, HTMLAttributes, useState, useTransition } from 'react';
+import { DetailedHTMLProps, FC, HTMLAttributes, useTransition } from 'react';
 import { MdOutlineWorkOutline } from 'react-icons/md';
 
 interface IVacancyItem
@@ -26,24 +26,14 @@ export const VacancyItem: FC<IVacancyItem> = ({
   responderIds,
   className,
 }) => {
-  const router = useRouter();
   const [_, startTransition] = useTransition();
-  const [modalData, setModalData] = useState<{ message: string; status: number | null }>({
-    message: '',
-    status: null,
-  });
+  const router = useRouter();
 
   const onSubmitRespond = async () => {
     const res = await $api.get(`./vacancy/${id}`);
-    if (res.data.isSuccess) {
-      setModalData({
-        message: res.data.message,
-        status: res.status,
-      });
-      startTransition(() => {
-        router.refresh();
-      });
-    }
+    startTransition(() => {
+      router.refresh();
+    });
   };
 
   const getExperience = () => {
@@ -94,9 +84,6 @@ export const VacancyItem: FC<IVacancyItem> = ({
           </Button>
         )}
       </Card>
-      {modalData.message && modalData.status && (
-        <Modal className={'fixed bottom-8 right-8'} {...modalData} />
-      )}
     </div>
   );
 };

@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import { Role } from '@prisma/client';
 import { EnumTokens } from '@/app/enums/token.enum';
 import { useTransition } from 'react';
+import { toast } from 'react-toastify';
 
 interface IRegister {
   username: string;
@@ -41,17 +42,27 @@ export default function RegisterPage() {
   });
 
   const onSubmit = async (data: IRegister) => {
-    const res = await $api.post('./register', JSON.stringify(data));
-    if (res.status === 409) {
-      console.log('Почта уже используется');
-    }
-    if (res.status === 200) {
+    try {
+      const res = await $api.post('./register', JSON.stringify(data));
+      localStorage.setItem(EnumTokens.ACCESS_TOKEN, res.data.access_token);
       router.push(data.role === 'WORKER' ? '/vacancy' : '/company');
       startTransition(() => {
         router.refresh();
       });
+      toast.success('Вы успешно создали аккаунт!', {
+        position: 'bottom-right',
+      });
+    } catch (e: any) {
+      if (e.response.status === 409) {
+        toast.warning('Почта уже используется!', {
+          position: 'bottom-right',
+        });
+      } else {
+        toast.error('Ошибка!', {
+          position: 'bottom-right',
+        });
+      }
     }
-    localStorage.setItem(EnumTokens.ACCESS_TOKEN, res.data.access_token);
   };
 
   return (

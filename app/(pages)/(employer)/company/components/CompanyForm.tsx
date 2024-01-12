@@ -12,8 +12,7 @@ import { DetailedHTMLProps, HTMLAttributes } from 'react';
 import cn from 'classnames';
 
 export interface ICompanyForm
-  extends Omit<Company, 'id' | 'hashedPassword' | 'userId' | 'text' | 'img'>,
-    DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  extends Omit<Company, 'id' | 'hashedPassword' | 'userId' | 'text' | 'img'> {
   password: string;
   text?: string;
   img?: string;
@@ -32,10 +31,9 @@ const CompanySchema = Yup.object().shape({
 
 export const CompanyForm = ({
   setIsOpened,
-  className,
   ...props
-}: ICompanyForm & {
-  setIsOpened: (isOpened: boolean) => void;
+}: {
+  setIsOpened: (newValue: boolean) => void;
 }) => {
   const router = useRouter();
   const {
@@ -58,7 +56,7 @@ export const CompanyForm = ({
   };
 
   return (
-    <Card color="gray" className={cn('absolute left-[40%] top-1/4 p-8', className)} {...props}>
+    <Card color="gray" className={cn('absolute left-[40%] top-1/4 p-8')} {...props}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col">
           <Input

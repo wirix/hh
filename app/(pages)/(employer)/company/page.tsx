@@ -13,7 +13,7 @@ export default async function CompanyPage() {
     return <div>Вы не авторизованы. Авторизоваться.</div>;
   }
 
-  const { userId, role } = user;
+  const { id: userId, role } = user;
   if (role === 'WORKER') {
     return <div>Вы не работодатель, чтобы посетить эту страницу.</div>;
   }

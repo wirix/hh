@@ -15,10 +15,16 @@ export async function GET(request: Request, { params }: { params: IParams }) {
       });
     }
     
-    const { userId, role } = user;
+    const { id: userId, role } = user;
     if (role !== 'WORKER') {
       return new NextResponse('Not correct role', {
         status: 403,
+      });
+    }
+
+    if (!user.resume) {
+      return new NextResponse('No exist resume', {
+        status: 400,
       });
     }
 

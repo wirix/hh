@@ -25,12 +25,15 @@ export const getCurrentUser = async () => {
       where: {
         id: decoded.id,
       },
+      include: {
+        resume: true,
+      },
     });
     if (!findCurrentUser) {
       return null;
     }
 
-    return { role: decoded.role, userId: decoded.id, email: decoded.email };
+    return { ...findCurrentUser };
   } catch (e) {
     return null;
   }

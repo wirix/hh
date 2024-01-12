@@ -2,7 +2,7 @@
 
 import prisma from '@/app/libs/prismadb';
 import { getCurrentUser } from '@/app/actions';
-import { VacancyItem } from './components';
+import { Content } from './components';
 
 export default async function VacancyPage() {
   const user = await getCurrentUser();
@@ -26,11 +26,5 @@ export default async function VacancyPage() {
     },
   });
 
-  return (
-    <div>
-      {vacanies.map((v) => (
-        <VacancyItem userId={user.userId} key={v.id} className="mb-4 last:mb-0" {...v} />
-      ))}
-    </div>
-  );
+  return <Content user={user} vacanies={vacanies} />;
 }

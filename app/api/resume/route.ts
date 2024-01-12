@@ -29,31 +29,33 @@ export async function POST(req: Request) {
       return null;
     }
 
+    const { id: userId } = user;
+
     const findResume = await prisma.resume.findUnique({
       where: {
-        userId: user.userId,
+        userId,
       },
     });
 
     if (findResume) {
       const createResume = await prisma.resume.upsert({
         where: {
-          userId: user.userId,
+          userId,
         },
         update: {
           ...data,
-          userId: user.userId,
+          userId,
         },
         create: {
           ...data,
-          userId: user.userId,
+          userId,
         },
       });
     } else {
       const createResume = await prisma.resume.create({
         data: {
           ...data,
-          userId: user.userId,
+          userId,
         },
       });
     }

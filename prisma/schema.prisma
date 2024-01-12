@@ -8,19 +8,19 @@ datasource db {
 }
 
 model User {
-  id                 String    @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
+  id                 String     @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
   name               String
-  email              String    @unique
+  email              String     @unique
   emailVerified      DateTime?
-  activationLink     String    @unique
+  activationLink     String     @unique
   hashedPassword     String
   image              String?
   tel                String?
-  role               Role      @default(WORKER)
-  vacancyIds         String[]  @db.ObjectId
-  respondedVacancies Vacancy[] @relation(fields: [vacancyIds], references: [id])
+  role               Role       @default(WORKER)
+  vacancyIds         String[]   @db.ObjectId
+  respondedVacancies Vacancy[]  @relation(fields: [vacancyIds], references: [id])
   resume             Resume?
   token              Token?
   company            Company?
@@ -79,10 +79,11 @@ model Resume {
 model Feedback {
   id        String  @id @default(auto()) @map("_id") @db.ObjectId
   isInvite  Boolean
-  vacancyId String   @db.ObjectId
+  vacancyId String  @db.ObjectId
   vacancy   Vacancy @relation(fields: [vacancyId], references: [id])
-  userId    String   @db.ObjectId
+  userId    String  @db.ObjectId
   user      User    @relation(fields: [userId], references: [id])
+
   @@unique([vacancyId, userId])
 }
 
@@ -107,4 +108,3 @@ enum Currency {
   RUB
   USD
 }
-
