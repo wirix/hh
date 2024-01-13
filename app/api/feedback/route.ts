@@ -1,9 +1,7 @@
-import prisma from '../../libs/prismadb';
+import prisma from '@/app/libs/prismadb';
 import { NextResponse } from 'next/server';
 import { getCurrentUser } from '@/app/actions';
-import { Feedback } from '@prisma/client';
 
-// interface IFeedback extends Omit<Feedback, 'id'> {}
 interface IFeedback {
   isInvite: boolean;
   vacancyId: string;
@@ -25,32 +23,20 @@ export async function POST(req: Request) {
       });
     }
 
-    const findFeedBack = await prisma.feedback.findMany({
+    const createFeedback = await prisma.feedback.upsert({
       where: {
-        vacancyId: data.vacancyId,
-        userId: data.userId,
+        vacancyId_userId: {
+          vacancyId: data.vacancyId,
+          userId: data.userId,
+        },
+      },
+      update: {
+        ...data,
+      },
+      create: {
+        ...data,
       },
     });
-
-    if (findFeedBack[0]) {
-      const createFeedback = await prisma.feedback.upsert({
-        where: {
-          id: findFeedBack[0].id,
-        },
-        update: {
-          ...data,
-        },
-        create: {
-          ...data,
-        },
-      });
-    } else {
-      const createFeedback = await prisma.feedback.create({
-        data: {
-          ...data,
-        },
-      });
-    }
 
     return NextResponse.json({ isSuccess: true });
   } catch (e: any) {
