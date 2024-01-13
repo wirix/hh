@@ -28,14 +28,13 @@ export default function SignInPage() {
   } = useForm<ISignIn>({
     resolver: yupResolver(signInSchema),
   });
-  const [errorText, setErrorText] = useState<string>('');
 
   const onSubmit = async (data: ISignIn) => {
     try {
       const res = await $api.post('./signIn', JSON.stringify(data));
       if (res.status >= 400) throw new Error();
       localStorage.setItem(EnumTokens.ACCESS_TOKEN, res.data.access_token);
-      router.push(res.data.user.role === 'WORKER' ? '/vacancy' : '/company');
+      router.push(res.data.user.role === 'WORKER' ? '/vacancies' : '/company');
       startTransition(() => {
         router.refresh();
       });

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru">
-      <body className={inter.className} id="__next" suppressHydrationWarning>
+      <body className={inter.className} id="__next">
         <Sidebar>{children}</Sidebar>
         <ToastContainer />
       </body>

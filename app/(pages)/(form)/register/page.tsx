@@ -4,13 +4,13 @@ import { Button, LinkTag } from '@/app/components';
 import { Input } from '@/app/components/tags/Input';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
 import { $api } from '@/app/helpers';
 import { useRouter } from 'next/navigation';
 import { Role } from '@prisma/client';
 import { EnumTokens } from '@/app/enums/token.enum';
 import { useTransition } from 'react';
 import { toast } from 'react-toastify';
+import { RegisterSchema } from './register.validation';
 
 interface IRegister {
   username: string;
@@ -18,16 +18,6 @@ interface IRegister {
   password: string;
   role?: Role;
 }
-
-const RegistrationSchema = Yup.object().shape({
-  email: Yup.string().email(`Неверно указан email`).required('Поле обязательно!'),
-  password: Yup.string().required('Поле обязательно!').min(8, 'Минимум 8 символов'),
-  username: Yup.string()
-    .required('Поле обязательно!')
-    .min(3, 'Минимум 3 символа')
-    .max(15, 'Максимум 15 символов'),
-  role: Yup.string().oneOf([Role.WORKER, Role.EMPLOYER], 'Неверное значение роли'),
-});
 
 export default function RegisterPage() {
   const [_, startTransition] = useTransition();
@@ -38,14 +28,14 @@ export default function RegisterPage() {
     formState: { errors },
     clearErrors,
   } = useForm<IRegister>({
-    resolver: yupResolver(RegistrationSchema),
+    resolver: yupResolver(RegisterSchema),
   });
 
   const onSubmit = async (data: IRegister) => {
     try {
       const res = await $api.post('./register', JSON.stringify(data));
       localStorage.setItem(EnumTokens.ACCESS_TOKEN, res.data.access_token);
-      router.push(data.role === 'WORKER' ? '/vacancy' : '/company');
+      router.push(data.role === 'WORKER' ? '/vacancies' : '/company');
       startTransition(() => {
         router.refresh();
       });

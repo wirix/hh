@@ -6,6 +6,7 @@ import { Company, Vacancy } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { DetailedHTMLProps, FC, HTMLAttributes, useTransition } from 'react';
 import { MdOutlineWorkOutline } from 'react-icons/md';
+import { toast } from 'react-toastify';
 
 interface IVacancyItem
   extends Vacancy,
@@ -26,14 +27,23 @@ export const VacancyItem: FC<IVacancyItem> = ({
   responderIds,
   className,
 }) => {
-  const [_, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
   const onSubmitRespond = async () => {
-    const res = await $api.get(`./vacancy/${id}`);
-    startTransition(() => {
-      router.refresh();
-    });
+    try {
+      const res = await $api.get(`./vacancy/${id}`);
+      startTransition(() => {
+        router.refresh();
+      });
+    } catch (e: any) {
+      console.log('🚀 ~ onSubmitRespond ~ e:', e);
+      if (e.response.status === 400) {
+        toast.error('Вы не можете откликнуться без резюме. Создать', {
+          position: 'bottom-right',
+        });
+      }
+    }
   };
 
   const getExperience = () => {

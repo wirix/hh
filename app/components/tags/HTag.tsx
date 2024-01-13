@@ -3,26 +3,93 @@ import cn from 'classnames';
 
 interface IHTag
   extends DetailedHTMLProps<HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement> {
-  tag: 'h1' | 'h2' | 'h3';
+  tag: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  color?: 'cyan' | 'white';
 }
 
-export const HTag: FC<IHTag> = ({ tag, children, className, ...props }) => {
+export const HTag: FC<IHTag> = ({ tag, children, color = 'white', className, ...props }) => {
   switch (tag) {
     case 'h1':
       return (
-        <h1 className={cn('text-3xl', className)} {...props}>
+        <h1
+          className={cn(
+            'text-3xl',
+            {
+              ['text-cyan-600']: color === 'cyan',
+            },
+            className,
+          )}
+          {...props}>
           {children}
         </h1>
       );
     case 'h2':
       return (
-        <h2 className={cn('text-2xl', className)} {...props}>
+        <h2
+          className={cn(
+            'text-2xl',
+            {
+              ['text-cyan-600']: color === 'cyan',
+            },
+            className,
+          )}
+          {...props}>
           {children}
         </h2>
       );
     case 'h3':
       return (
-        <h3 className={cn('text-xl', className)} {...props}>
+        <h3
+          className={cn(
+            'text-xl',
+            {
+              ['text-cyan-600']: color === 'cyan',
+            },
+            className,
+          )}
+          {...props}>
+          {children}
+        </h3>
+      );
+    case 'h4':
+      return (
+        <h1
+          className={cn(
+            'text-lg',
+            {
+              ['text-cyan-600']: color === 'cyan',
+            },
+            className,
+          )}
+          {...props}>
+          {children}
+        </h1>
+      );
+    case 'h5':
+      return (
+        <h2
+          className={cn(
+            'text-base',
+            {
+              ['text-cyan-600']: color === 'cyan',
+            },
+            className,
+          )}
+          {...props}>
+          {children}
+        </h2>
+      );
+    case 'h6':
+      return (
+        <h3
+          className={cn(
+            'text-sm',
+            {
+              ['text-cyan-600']: color === 'cyan',
+            },
+            className,
+          )}
+          {...props}>
           {children}
         </h3>
       );

@@ -22,15 +22,12 @@ export const Input: FC<IInput> = forwardRef(({ error, className, size = 60, ...p
         ref={ref}
         className={cn(
           'bg-transparent border-2 border-blue-700 rounded p-2 text-blue-600 outline-blue-700',
-          {
-            ['mb-2']: error,
-          },
           className,
         )}
         {...props}
       />
       {error && (
-        <PTag role="alert" className="text-red-500 mb-4">
+        <PTag role="alert" className="text-red-500 mb-2">
           {error.message}
         </PTag>
       )}

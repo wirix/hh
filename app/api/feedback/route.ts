@@ -15,8 +15,8 @@ export async function POST(req: Request) {
 
     const user = await getCurrentUser();
     if (!user) {
-      return new NextResponse('Not exist user', {
-        status: 404,
+      return new NextResponse('Unauthorized', {
+        status: 401,
       });
     }
     if (user.role === 'WORKER') {

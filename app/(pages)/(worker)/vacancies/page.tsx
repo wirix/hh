@@ -4,7 +4,7 @@ import prisma from '@/app/libs/prismadb';
 import { getCurrentUser } from '@/app/actions';
 import { Content } from './components';
 
-export default async function VacancyPage() {
+export default async function VacanciesPage() {
   const user = await getCurrentUser();
   if (!user) {
     return <div>авторизуйтесь</div>;

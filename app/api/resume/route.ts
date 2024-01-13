@@ -26,39 +26,26 @@ export async function POST(req: Request) {
 
     const user = await getCurrentUser();
     if (!user) {
-      return null;
+      return new NextResponse('Unauthorized', {
+        status: 401,
+      });
     }
 
     const { id: userId } = user;
 
-    const findResume = await prisma.resume.findUnique({
+    const upsertResume = await prisma.resume.upsert({
       where: {
         userId,
       },
+      update: {
+        ...data,
+        userId,
+      },
+      create: {
+        ...data,
+        userId,
+      },
     });
-
-    if (findResume) {
-      const createResume = await prisma.resume.upsert({
-        where: {
-          userId,
-        },
-        update: {
-          ...data,
-          userId,
-        },
-        create: {
-          ...data,
-          userId,
-        },
-      });
-    } else {
-      const createResume = await prisma.resume.create({
-        data: {
-          ...data,
-          userId,
-        },
-      });
-    }
 
     return NextResponse.json({ isSuccess: true });
   } catch (e: any) {

@@ -1,9 +1,7 @@
-'use client';
-
 import { VacancyItem } from '../components';
 import { Company, User, Vacancy } from '@prisma/client';
 
-export function Content({
+export async function Content({
   vacanies,
   user,
 }: {

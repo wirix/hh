@@ -40,7 +40,7 @@ export const useRoutes = () => {
       isAuth: true,
     },
     {
-      href: '/vacancy',
+      href: '/vacancies',
       title: 'Вакансии',
       Icon: MdOutlineWorkOutline,
       isActive: pathName === '/vacancy',
