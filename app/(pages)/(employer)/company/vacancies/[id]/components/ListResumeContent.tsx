@@ -89,7 +89,7 @@ export const ListResumeContent = ({ vacancy }: { vacancy: VacancyType }) => {
           ))}
         </div>
         {selectedUser !== null && !(stateFetching === 'fullfiled') && (
-          <Card color="gray" className="w-full bg-sky-900 p-4 relative h-[400px]">
+          <Card color='whiteShadow' className="w-full bg-sky-900 p-4 relative h-[400px]">
             <div className="overflow-auto h-[320px]">Данные: {selectedUser.resume?.text}</div>
             <div className="absolute right-4 bottom-4">{getCurrentButton()}</div>
           </Card>

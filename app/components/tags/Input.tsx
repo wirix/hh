@@ -21,7 +21,7 @@ export const Input: FC<IInput> = forwardRef(({ error, className, size = 60, ...p
       <input
         ref={ref}
         className={cn(
-          'bg-transparent border-2 border-blue-700 rounded p-2 text-blue-600 outline-blue-700',
+          'bg-transparent border-2 border-gray-700 rounded p-2 text-gray-600 outline-gray-700',
           className,
         )}
         {...props}

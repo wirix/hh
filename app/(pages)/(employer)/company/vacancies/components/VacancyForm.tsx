@@ -17,7 +17,9 @@ export interface IVacancyForm {
   currency: Currency;
   isHome: boolean;
   salary: number;
-  body: string;
+  text?: string;
+  responsibilities: string;
+  conditions?: string;
 }
 
 const VacancySchema = Yup.object().shape({
@@ -27,7 +29,9 @@ const VacancySchema = Yup.object().shape({
   currency: Yup.string().required('Поле обязательно!').oneOf([Currency.RUB, Currency.USD]),
   isHome: Yup.boolean().required('Поле обязательно!'),
   salary: Yup.number().required('Обнаружен неразрешимый символ'),
-  body: Yup.string().required('Поле обязательно!'),
+  text: Yup.string(),
+  responsibilities: Yup.string().required('Поле обязательно!'),
+  conditions: Yup.string(),
 });
 
 export const VacancyForm = ({
@@ -41,11 +45,12 @@ export const VacancyForm = ({
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isSubmitted },
+    formState: { errors, isSubmitting },
   } = useForm<IVacancyForm>({
     resolver: yupResolver(VacancySchema),
   });
   const onSubmit = async (data: IVacancyForm) => {
+    console.log("🚀 ~ onSubmit ~ data:", data)
     try {
       setIsSubmitting(true);
       const res = await $api.post('./company/vacancy', JSON.stringify(data));
@@ -113,11 +118,29 @@ export const VacancyForm = ({
             className={'mb-2'}
           />
           <Input
-            {...register('body', { required: { value: true, message: 'Заполните поле' } })}
+            {...register('responsibilities', {
+              required: { value: true, message: 'Заполните поле' },
+            })}
+            autoComplete={'off'}
+            placeholder="Обязанности"
+            color="black"
+            error={errors.responsibilities}
+            className={'mb-2'}
+          />
+          <Input
+            {...register('conditions')}
+            autoComplete={'off'}
+            placeholder="Условия"
+            color="black"
+            error={errors.conditions}
+            className={'mb-2'}
+          />
+          <Input
+            {...register('text', { required: { value: true, message: 'Заполните поле' } })}
             autoComplete={'off'}
             placeholder="Описание вакансии"
             color="black"
-            error={errors.body}
+            error={errors.text}
             className={'mb-2'}
           />
           <div className="flex justify-start items-center">

@@ -4,13 +4,13 @@ import cn from 'classnames';
 
 interface ILinkTag extends AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
-  color?: 'blue' | 'green';
+  color?: 'blue' | 'green' | 'gray' | 'white';
   size?: 'xs' | 'sm' | 'base' | 'lg' | 'xl' | '2xl';
 }
 
 export const LinkTag: FC<ILinkTag> = ({
   href,
-  color = 'blue',
+  color = 'white',
   size = 'base',
   children,
   className,
@@ -24,6 +24,8 @@ export const LinkTag: FC<ILinkTag> = ({
           {
             ['text-blue-700']: color === 'blue',
             ['text-green-600']: color === 'green',
+            ['text-white']: color === 'white',
+            ['text-gray-800']: color === 'gray',
             ['text-xs']: size === 'xs',
             ['text-sm']: size === 'sm',
             ['text-base']: size === 'base',

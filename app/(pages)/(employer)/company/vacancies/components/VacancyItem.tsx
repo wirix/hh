@@ -31,22 +31,22 @@ export const VacancyItem: FC<IVacancyItem> = ({
 
   return (
     <Card className="flex items-center justify-between p-3" color="gray">
-      <div className="grid grid-cols-[400px_200px_100px_100px_100px_150px_auto] items-center">
-        <LinkTag size="2xl" href={`/vacancy/${id}`} className="font-semibold">
-          {name.slice(0, 25)}
+      <div className="grid grid-cols-[300px_200px_100px_100px_100px_150px_auto] items-center">
+        <LinkTag color="white" size="2xl" href={`/vacancy/${id}`} className="font-semibold">
+          {name.slice(0, 24)}
         </LinkTag>
         <PTag className="font-bold" size="lg">
           {salary} {currency}
         </PTag>
         <PTag size="sm">{city}</PTag>
         <div className="flex items-center">{getExperience()}</div>
-        <div>{responderIds.length}</div>
-        <div>{ responderIds.length - feedback.length}</div>
+        <PTag color="white">{responderIds.length}</PTag>
+        <PTag color="white">{responderIds.length - feedback.length}</PTag>
         <div className="flex">
-          <LinkTag size="xl" href={`vacancies/${id}`} className="mr-8">
-            Подробности
+          <LinkTag color='gray' href={`vacancies/${id}`} className="mr-8">
+            <Button color="white">Заявки</Button>
           </LinkTag>
-          <Button>Изменить</Button>
+          <Button color="white">Изменить</Button>
         </div>
       </div>
     </Card>

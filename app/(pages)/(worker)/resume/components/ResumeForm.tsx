@@ -22,11 +22,11 @@ export const ResumeForm = () => {
 
   const onSubmit = async (data: IResumeForm) => {
     const res = await $api.post('./resume', JSON.stringify(data));
-    router.refresh()
+    router.refresh();
   };
 
   return (
-    <Card color="gray" className="p-4 mb-8">
+    <Card color="whiteShadow" className="p-4 mb-8">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
         <Input
           {...register('namePosition', {
@@ -55,19 +55,19 @@ export const ResumeForm = () => {
           className={'mb-2'}
         />
         <Input
-          {...register('text', { required: { value: true, message: 'Заполните поле' } })}
-          autoComplete={'off'}
-          placeholder="О себе"
-          color="black"
-          error={errors.text}
-          className={'mb-2'}
-        />
-        <Input
           {...register('age', { required: { value: true, message: 'Заполните поле' } })}
           autoComplete={'off'}
           placeholder="Возраст"
           color="black"
           error={errors.age}
+          className={'mb-2'}
+        />
+        <Input
+          {...register('text', { required: { value: true, message: 'Заполните поле' } })}
+          autoComplete={'off'}
+          placeholder="О себе"
+          color="black"
+          error={errors.text}
           className={'mb-2'}
         />
         <Button type="submit" className="text-lg" disabled={isSubmitting}>

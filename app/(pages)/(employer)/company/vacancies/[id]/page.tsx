@@ -40,7 +40,7 @@ export default async function ListResume({ params }: { params: IParams }) {
     },
   });
 
-  if (!vacancy) {
+  if (!vacancy || vacancy.responderIds.length === 0) {
     return <div>Никто пока не откликнулся на эту вакансию.</div>;
   }
 

@@ -43,7 +43,7 @@ export const useRoutes = () => {
       href: '/vacancies',
       title: 'Вакансии',
       Icon: MdOutlineWorkOutline,
-      isActive: pathName === '/vacancy',
+      isActive: pathName === '/vacancies',
       isDesktop: true,
       role: [Role.WORKER],
       isAuth: false,

@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { $api } from '@/app/helpers';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import { signInSchema } from './signIn.validation';
 import { EnumTokens } from '@/app/enums/token.enum';
 import { useTransition } from 'react';
@@ -79,7 +78,9 @@ export default function SignInPage() {
           <Button type="submit" color="green" onClick={() => clearErrors()}>
             Войти
           </Button>
-          <LinkTag href="/register">Создать аккаунт</LinkTag>
+          <LinkTag color="gray" href="/register">
+            Создать аккаунт
+          </LinkTag>
         </div>
       </div>
     </form>

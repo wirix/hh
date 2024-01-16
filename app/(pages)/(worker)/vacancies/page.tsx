@@ -26,5 +26,9 @@ export default async function VacanciesPage() {
     },
   });
 
+  if (vacanies.length === 0) {
+    return <div>Вакансий нет.</div>
+  }
+  
   return <Content user={user} vacanies={vacanies} />;
 }

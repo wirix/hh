@@ -23,7 +23,7 @@ export const Overlay = ({ isExistCompany, className, ...props }: IOverlay) => {
           color="blue"
           className="mb-4"
           onClick={() => setIsOpened(!isOpened)}>
-          Создать
+          Создать компанию
         </Button>
       )}
       {isOpened && (

@@ -21,13 +21,13 @@ export const Content = ({ username, age, email, namePosition, text, country, cit
         <HTag tag="h6" color="cyan" className="text-xs">
           Возраст
         </HTag>
-        <PTag>{age} лет</PTag>
+        <PTag color="gray">{age} лет</PTag>
       </div>
       <div>
         <HTag tag="h6" color="cyan" className="text-xs">
           Контакты
         </HTag>
-        <PTag>{email} — предпочитаемый способ связи</PTag>
+        <PTag color="gray">{email} — предпочитаемый способ связи</PTag>
       </div>
       <Hr className="py-4" />
       <div className="mb-4">
@@ -40,10 +40,10 @@ export const Content = ({ username, age, email, namePosition, text, country, cit
         <div>{text}</div>
       </div>
       <div>
-        <HTag tag="h6" color="cyan">
+        <HTag tag="h6" color="cyan" >
           Гражданство
         </HTag>
-        <PTag>
+        <PTag color="gray">
           Местоположение: {country}, {city}
         </PTag>
       </div>

@@ -27,7 +27,7 @@ export default async function CompanyPage() {
       return (
         <div className="grid grid-cols-[200px_auto] gap-4">
           <Card color="gray" className="p-4 flex justify-center items-center">
-            {company.img ? <Image src={company.img} alt="" /> : <IoMdPhotos size="100px" />}
+            {company.img ? <Image src={company.img} width={100} height={40} alt="" /> : <IoMdPhotos size="100px" />}
           </Card>
 
           <div className="col-span-1">

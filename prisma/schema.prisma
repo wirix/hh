@@ -35,36 +35,38 @@ model Token {
 }
 
 model Company {
-  id             String    @id @default(auto()) @map("_id") @db.ObjectId
-  name           String    @unique
-  text           String?
-  countryCenter  String
-  img            String?
-  userId         String    @unique @db.ObjectId
-  user           User      @relation(fields: [userId], references: [id])
-  vacancies      Vacancy[]
-  hashedPassword String
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  hashedPassword    String
+  name              String    @unique
+  text              String?
+  countryCenterFull String
+  img               String?
+  userId            String    @unique @db.ObjectId
+  user              User      @relation(fields: [userId], references: [id])
+  vacancies         Vacancy[]
 }
 
 model Vacancy {
-  id           String         @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  name         String
-  country      String
-  city         String
-  isHome       Boolean
-  salary       Int
-  currency     Currency
-  experience   ExperienceTime @default(NOT)
-  body         String
-  watchingNow  Int            @default(0)
-  closed       Boolean        @default(false)
-  companyId    String         @db.ObjectId
-  company      Company        @relation(fields: [companyId], references: [id])
-  responderIds String[]       @db.ObjectId
-  responders   User[]         @relation(fields: [responderIds], references: [id])
-  feedback     Feedback[]
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  name             String
+  country          String
+  city             String
+  isHome           Boolean
+  salary           Int
+  currency         Currency
+  experience       ExperienceTime @default(NOT)
+  text             String?
+  responsibilities String
+  conditions       String?
+  watchingNow      Int            @default(0)
+  closed           Boolean        @default(false)
+  companyId        String         @db.ObjectId
+  company          Company        @relation(fields: [companyId], references: [id])
+  responderIds     String[]       @db.ObjectId
+  responders       User[]         @relation(fields: [responderIds], references: [id])
+  feedback         Feedback[]
 }
 
 model Resume {

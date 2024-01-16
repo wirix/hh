@@ -21,7 +21,7 @@ export const ResponderItem = ({ user, onResumeClick, index }: IResponderItem) =>
   }
 
   return (
-    <Card color='gray' className="flex items-center bg-slate-800 p-2 mb-4 last:mb-0 relative overflow-hidden">
+    <Card color='whiteShadow' className="flex items-center bg-slate-800 p-2 mb-4 last:mb-0 relative overflow-hidden">
       <span
         className={classNames('absolute left-0 w-1 h-full', {
           ['bg-green-600']: user.feedback[0]?.isInvite === true,
@@ -37,8 +37,8 @@ export const ResponderItem = ({ user, onResumeClick, index }: IResponderItem) =>
       </div>
       <div className="flex items-center relative">
         <div className="w-80">
-          <div>Имя: {user.name}</div>
-          <div>Страна: {user.resume?.country}</div>
+          <div>Должность: {user.resume?.namePosition.slice(0, 24)}</div>
+          <div>Возраст: {user.resume?.age}</div>
         </div>
         <Button className="w-max" onClick={() => onResumeClick(index)}>
           Посмотреть резюме

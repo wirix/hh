@@ -94,7 +94,7 @@ export default function RegisterPage() {
           <Button type="submit" color="green" onClick={() => clearErrors()}>
             Регистрация
           </Button>
-          <LinkTag href="/signIn">Есть аккаунт</LinkTag>
+          <LinkTag color='gray' href="/signIn">Есть аккаунт</LinkTag>
         </div>
       </div>
     </form>

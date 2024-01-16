@@ -35,7 +35,7 @@ export const CompanyVacancyContent = ({ vacancies }: { vacancies: IVacancy[] }) 
               Отменить
             </Button>
           ) : (
-            <Button onClick={() => setIsCreateVacancy(!isCreateVacancy)} className="text-lg">
+            <Button onClick={() => setIsCreateVacancy(!isCreateVacancy)} className="text-lg" color='gray'>
               Создать
             </Button>
           )}
@@ -48,7 +48,7 @@ export const CompanyVacancyContent = ({ vacancies }: { vacancies: IVacancy[] }) 
       {vacancies.length ? (
         <table className="text-left border-none">
           <thead>
-            <tr className="grid grid-cols-[400px_200px_100px_100px_100px_150px_auto] items-center px-3">
+            <tr className="grid grid-cols-[300px_200px_100px_100px_100px_150px_auto] items-center px-3">
               <th className="flex items-center">
                 Название <BiCategory className="ml-2" />
               </th>

@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { EnumTokens } from '../enums/token.enum';
 
-// export const baseURL = 'http://localhost:3000/api';
-export const baseURL = 'https://hh-livid.vercel.app/api';
+export const baseURL =
+  process.env.NODE_ENV === 'production'
+    ? 'https://hh-livid.vercel.app/api'
+    : 'http://localhost:3000/api';
 
 export const $api = axios.create({
   withCredentials: true,
