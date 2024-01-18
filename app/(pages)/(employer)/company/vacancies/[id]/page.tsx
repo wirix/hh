@@ -44,7 +44,7 @@ export default async function ListResume({ params }: { params: IParams }) {
     },
   });
 
-  if (!vacancy || !!vacancy.responderIds.length) {
+  if (!vacancy?.responderIds.length) {
     return <div>Никто пока не откликнулся на эту вакансию.</div>;
   }
 
