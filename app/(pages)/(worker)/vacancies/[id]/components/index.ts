@@ -1,3 +1,3 @@
-export * from './VacancyCard';
-export * from './CompanyCard';
-export * from './VacancyRequirements';
+export * from "./CompanyCard";
+export * from "./VacancyCard";
+export * from "./VacancyRequirements";

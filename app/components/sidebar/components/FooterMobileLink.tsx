@@ -1,5 +1,6 @@
-import { IRoutes } from '@/app/hooks';
 import Link from 'next/link';
+
+import { IRoutes } from '@/app/hooks';
 
 export const FooterMobileLink = ({ Icon, href }: IRoutes) => {
   return (

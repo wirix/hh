@@ -1,5 +1,6 @@
-import Link from 'next/link';
 import cn from 'classnames';
+import Link from 'next/link';
+
 import { IRoutes } from '@/app/hooks';
 
 export const HeaderMobileLink = ({ title, href, isDesktop, isActive }: IRoutes) => {

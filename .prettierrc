@@ -1,0 +1,15 @@
+{
+  "plugins": ["prettier-plugin-tailwindcss", "simple-import-sort", "import"],
+  "singleQuote": false,
+  "env": { "es6": true },
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "rules": {
+    "simple-import-sort/exports": "error",
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/no-duplicates": "error",
+    "simple-import-sort/imports": "error"
+  }
+}

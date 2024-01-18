@@ -1,5 +1,6 @@
-import { HTag } from '@/app/components';
-import { DetailedHTMLProps, HTMLAttributes } from 'react';
+import { DetailedHTMLProps, HTMLAttributes } from "react";
+
+import { HTag } from "@/app/components";
 
 interface IVacancyRequirements
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
@@ -23,10 +24,10 @@ export const VacancyRequirements = ({
   ...props
 }: IVacancyRequirements) => {
   const requirements: IRequirements[] = [
-    { title: 'О компании:', content: companyText },
-    { title: 'Обязанности:', content: responsibilities },
-    { title: 'Условия:', content: conditions },
-    { title: 'Описание:', content: vacancyText },
+    { title: "О компании:", content: companyText },
+    { title: "Обязанности:", content: responsibilities },
+    { title: "Условия:", content: conditions },
+    { title: "Описание:", content: vacancyText },
   ];
 
   return (
@@ -35,7 +36,7 @@ export const VacancyRequirements = ({
         (item, i) =>
           item.content && (
             <div key={i} className="mb-6">
-              <HTag tag="h3" className="font-bold mb-1">
+              <HTag tag="h3" className="mb-1 font-bold">
                 {item.title}
               </HTag>
               <div className="ml-4">{item.content}</div>

@@ -1,5 +1,5 @@
-import { DetailedHTMLProps, FC, HTMLAttributes } from 'react';
 import cn from 'classnames';
+import { DetailedHTMLProps, FC, HTMLAttributes } from 'react';
 
 interface IHTag
   extends DetailedHTMLProps<HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement> {

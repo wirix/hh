@@ -1,8 +1,9 @@
-import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
-import prisma from '@/app/libs/prismadb';
-import { EnumTokens } from '@/app/enums/token.enum';
+import { cookies } from 'next/headers';
+
 import { UserDto } from '@/app/dtos';
+import { EnumTokens } from '@/app/enums/token.enum';
+import prisma from '@/app/libs/prismadb';
 
 interface ITokenData extends UserDto {
   iat: number;

@@ -1,7 +1,9 @@
-import prisma from '../../libs/prismadb';
-import { NextResponse } from 'next/server';
-import { getCurrentUser } from '@/app/actions';
 import { Resume } from '@prisma/client';
+import { NextResponse } from 'next/server';
+
+import { getCurrentUser } from '@/app/actions';
+
+import prisma from '../../libs/prismadb';
 
 interface IResume extends Omit<Resume, 'id' | 'userId'> {
   body: string;

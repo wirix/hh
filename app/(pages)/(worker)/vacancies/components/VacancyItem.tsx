@@ -1,16 +1,20 @@
-'use client';
+"use client";
 
-import { Button, Card, LinkTag, PTag } from '@/app/components';
-import { $api } from '@/app/helpers';
-import { Company, Vacancy } from '@prisma/client';
-import { useRouter } from 'next/navigation';
-import { DetailedHTMLProps, FC, HTMLAttributes, useTransition } from 'react';
-import { MdOutlineWorkOutline } from 'react-icons/md';
-import { toast } from 'react-toastify';
+import { Company, Vacancy } from "@prisma/client";
+import { useRouter } from "next/navigation";
+import { DetailedHTMLProps, FC, HTMLAttributes, useTransition } from "react";
+import { MdOutlineWorkOutline } from "react-icons/md";
+import { toast } from "react-toastify";
+
+import { Button, Card, LinkTag, PTag } from "@/app/components";
+import { $api } from "@/app/helpers";
 
 interface IVacancyItem
   extends Vacancy,
-    Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, 'id'> {
+    Omit<
+      DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+      "id"
+    > {
   company: Company;
   userId: string;
 }
@@ -30,6 +34,7 @@ export const VacancyItem: FC<IVacancyItem> = ({
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
+  // double code
   const onSubmitRespond = async () => {
     try {
       const res = await $api.get(`./vacancy/${id}`);
@@ -37,30 +42,30 @@ export const VacancyItem: FC<IVacancyItem> = ({
         router.refresh();
       });
     } catch (e: any) {
-      console.log('🚀 ~ onSubmitRespond ~ e:', e);
+      console.log(e);
       if (e.response.status === 400) {
-        toast.error('Вы не можете откликнуться без резюме. Создать', {
-          position: 'bottom-right',
-        });
+        toast.error(
+          'Вы не можете откликнуться без резюме. Вкладка "Мое резюме".',
+        );
       }
     }
   };
 
   const getExperience = () => {
     switch (experience) {
-      case 'FROM_ONE_TO_THREE':
+      case "FROM_ONE_TO_THREE":
         return (
           <PTag color="gray" size="sm" className="ml-2">
             Опыт от 1 до 3 лет
           </PTag>
         );
-      case 'FROM_THREE_TO_SIX':
+      case "FROM_THREE_TO_SIX":
         return (
           <PTag color="gray" size="sm" className="ml-2">
             Опыт от 3 до 6 лет
           </PTag>
         );
-      case 'NOT':
+      case "NOT":
         return (
           <PTag color="gray" size="sm" className="ml-2">
             Без опыта
@@ -72,10 +77,15 @@ export const VacancyItem: FC<IVacancyItem> = ({
   return (
     <div className={className}>
       <Card className="flex flex-col p-3" color="whiteShadow">
-        <LinkTag color="blue" size="2xl" href={`/vacancies/${id}`} className="font-semibold">
+        <LinkTag
+          color="blue"
+          size="2xl"
+          href={`/vacancies/${id}`}
+          className="font-semibold"
+        >
           {name}
         </LinkTag>
-        <PTag color="gray" className="font-bold mb-2" size="lg">
+        <PTag color="gray" className="mb-2 font-bold" size="lg">
           {salary} {currency}
         </PTag>
         <PTag color="gray" size="sm">
@@ -84,7 +94,7 @@ export const VacancyItem: FC<IVacancyItem> = ({
         <PTag color="gray" size="sm" className="mb-2">
           {city}
         </PTag>
-        <div className="flex items-center mb-4">
+        <div className="mb-4 flex items-center">
           <MdOutlineWorkOutline />
           {getExperience()}
         </div>
@@ -94,7 +104,7 @@ export const VacancyItem: FC<IVacancyItem> = ({
           </Button>
         ) : (
           <Button disabled color="gray">
-            Вы заявка принята
+            Ваша заявка принята
           </Button>
         )}
       </Card>

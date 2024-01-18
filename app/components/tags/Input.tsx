@@ -1,6 +1,7 @@
 import cn from 'classnames';
 import { DetailedHTMLProps, FC, ForwardedRef, forwardRef, InputHTMLAttributes } from 'react';
 import { FieldError } from 'react-hook-form';
+
 import { PTag } from '@/app/components';
 
 export interface IInput

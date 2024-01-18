@@ -1,10 +1,13 @@
-'use client';
+"use client";
 
-import { Button, Portal } from '@/app/components';
-import { DetailedHTMLProps, HTMLAttributes, useState } from 'react';
-import { CompanyForm } from './CompanyForm';
+import { DetailedHTMLProps, HTMLAttributes, useState } from "react";
 
-interface IOverlay extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+import { Button, Portal } from "@/app/components";
+
+import { CompanyForm } from "./CompanyForm";
+
+interface IOverlay
+  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   isExistCompany: boolean;
 }
 
@@ -22,7 +25,8 @@ export const Overlay = ({ isExistCompany, className, ...props }: IOverlay) => {
           disabled={isOpened}
           color="blue"
           className="mb-4"
-          onClick={() => setIsOpened(!isOpened)}>
+          onClick={() => setIsOpened(!isOpened)}
+        >
           Создать компанию
         </Button>
       )}

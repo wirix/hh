@@ -1,11 +1,11 @@
-import { usePathname } from 'next/navigation';
-import { CgProfile } from 'react-icons/cg';
-import { TbCurlyLoop } from 'react-icons/tb';
-import { ImProfile } from 'react-icons/im';
-import { IconType } from 'react-icons';
-import { MdOutlineWorkOutline } from 'react-icons/md';
-import { HiViewGrid } from 'react-icons/hi';
 import { Role } from '@prisma/client';
+import { usePathname } from 'next/navigation';
+import { IconType } from 'react-icons';
+import { CgProfile } from 'react-icons/cg';
+import { HiViewGrid } from 'react-icons/hi';
+import { ImProfile } from 'react-icons/im';
+import { MdOutlineWorkOutline } from 'react-icons/md';
+import { TbCurlyLoop } from 'react-icons/tb';
 
 export interface IRoutes {
   href: string;

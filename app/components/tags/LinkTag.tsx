@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import { FC, AnchorHTMLAttributes } from 'react';
 import cn from 'classnames';
+import Link from 'next/link';
+import { AnchorHTMLAttributes,FC } from 'react';
 
 interface ILinkTag extends AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;

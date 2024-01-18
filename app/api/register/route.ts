@@ -1,12 +1,14 @@
+import { Role } from '@prisma/client';
 import bcrypt from 'bcrypt';
-import prisma from '../../libs/prismadb';
+import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
-import { UserDto } from '@/app/dtos';
+
 import { tokenService } from '@/app/(pages)/(form)/token.services';
-import { cookies } from 'next/headers';
-import { Role } from '@prisma/client';
+import { UserDto } from '@/app/dtos';
 import { EnumTokens } from '@/app/enums/token.enum';
+
+import prisma from '../../libs/prismadb';
 
 interface IRegister {
   email: string;

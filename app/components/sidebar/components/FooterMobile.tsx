@@ -1,8 +1,10 @@
 'use client';
 
-import { useRoutes } from '@/app/hooks';
-import { FooterMobileLink } from './FooterMobileLink';
 import { Role } from '@prisma/client';
+
+import { useRoutes } from '@/app/hooks';
+
+import { FooterMobileLink } from './FooterMobileLink';
 
 export const FooterMobile = ({ role }: { role: Role | null }) => {
   const routes = useRoutes();

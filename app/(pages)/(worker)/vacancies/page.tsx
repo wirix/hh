@@ -1,8 +1,9 @@
-'use server';
+"use server";
 
-import prisma from '@/app/libs/prismadb';
-import { getCurrentUser } from '@/app/actions';
-import { Content } from './components';
+import { getCurrentUser } from "@/app/actions";
+import prisma from "@/app/libs/prismadb";
+
+import { Content } from "./components";
 
 export default async function VacanciesPage() {
   const user = await getCurrentUser();
@@ -12,14 +13,14 @@ export default async function VacanciesPage() {
 
   const { role } = user;
 
-  if (role !== 'WORKER') {
+  if (role !== "WORKER") {
     return <div>Вы не ищите работу.</div>;
   }
 
   const vacanies = await prisma.vacancy.findMany({
     take: 5,
     orderBy: {
-      createdAt: 'desc',
+      createdAt: "desc",
     },
     include: {
       company: true,
@@ -27,8 +28,8 @@ export default async function VacanciesPage() {
   });
 
   if (vacanies.length === 0) {
-    return <div>Вакансий нет.</div>
+    return <div>Вакансий нет.</div>;
   }
-  
+
   return <Content user={user} vacanies={vacanies} />;
 }

@@ -1,8 +1,9 @@
-import prisma from '@/app/libs/prismadb';
-import { NextResponse } from 'next/server';
-import { getCurrentUser } from '@/app/actions';
 import bcrypt from 'bcrypt';
+import { NextResponse } from 'next/server';
+
 import { ICompanyForm } from '@/app/(pages)/(employer)/company/components';
+import { getCurrentUser } from '@/app/actions';
+import prisma from '@/app/libs/prismadb';
 
 export async function POST(req: Request) {
   try {

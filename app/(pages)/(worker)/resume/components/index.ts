@@ -1,2 +1,2 @@
-export * from './ResumeForm'
-export * from './Content';
+export * from "./Content";
+export * from "./ResumeForm";

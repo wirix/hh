@@ -1,11 +1,13 @@
-'use server';
+"use server";
 
-import { getCurrentUser } from '@/app/actions';
-import prisma from '@/app/libs/prismadb';
-import { Overlay } from './components';
-import { Card, HTag } from '@/app/components';
-import { IoMdPhotos } from 'react-icons/io';
-import Image from 'next/image';
+import Image from "next/image";
+import { IoMdPhotos } from "react-icons/io";
+
+import { getCurrentUser } from "@/app/actions";
+import { Card, HTag } from "@/app/components";
+import prisma from "@/app/libs/prismadb";
+
+import { Overlay } from "./components";
 
 export default async function CompanyPage() {
   const user = await getCurrentUser();
@@ -14,7 +16,7 @@ export default async function CompanyPage() {
   }
 
   const { id: userId, role } = user;
-  if (role === 'WORKER') {
+  if (role === "WORKER") {
     return <div>Вы не работодатель, чтобы посетить эту страницу.</div>;
   }
 
@@ -26,8 +28,12 @@ export default async function CompanyPage() {
     if (company) {
       return (
         <div className="grid grid-cols-[200px_auto] gap-4">
-          <Card color="gray" className="p-4 flex justify-center items-center">
-            {company.img ? <Image src={company.img} width={100} height={40} alt="" /> : <IoMdPhotos size="100px" />}
+          <Card color="gray" className="flex items-center justify-center p-4">
+            {company.img ? (
+              <Image src={company.img} width={100} height={40} alt="" />
+            ) : (
+              <IoMdPhotos size="100px" />
+            )}
           </Card>
 
           <div className="col-span-1">

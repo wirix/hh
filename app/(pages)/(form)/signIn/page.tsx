@@ -1,15 +1,17 @@
-'use client';
+"use client";
 
-import { Button, LinkTag } from '@/app/components';
-import { Input } from '@/app/components/tags/Input';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { $api } from '@/app/helpers';
-import { useRouter } from 'next/navigation';
-import { signInSchema } from './signIn.validation';
-import { EnumTokens } from '@/app/enums/token.enum';
-import { useTransition } from 'react';
-import { toast } from 'react-toastify';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useRouter } from "next/navigation";
+import { useTransition } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+
+import { Button, LinkTag } from "@/app/components";
+import { Input } from "@/app/components/tags/Input";
+import { EnumTokens } from "@/app/enums/token.enum";
+import { $api } from "@/app/helpers";
+
+import { signInSchema } from "./signIn.validation";
 
 interface ISignIn {
   email: string;
@@ -30,25 +32,19 @@ export default function SignInPage() {
 
   const onSubmit = async (data: ISignIn) => {
     try {
-      const res = await $api.post('./signIn', JSON.stringify(data));
+      const res = await $api.post("./signIn", JSON.stringify(data));
       if (res.status >= 400) throw new Error();
       localStorage.setItem(EnumTokens.ACCESS_TOKEN, res.data.access_token);
-      router.push(res.data.user.role === 'WORKER' ? '/vacancies' : '/company');
+      router.push(res.data.user.role === "WORKER" ? "/vacancies" : "/company");
       startTransition(() => {
         router.refresh();
       });
-      toast.success('Вы успешно вошли в аккаунт!', {
-        position: 'bottom-right',
-      });
+      toast.success("Вы успешно вошли в аккаунт!");
     } catch (e: any) {
       if (e.response.status === 404) {
-        toast.warning('Аккаунта не существует!', {
-          position: 'bottom-right',
-        });
+        toast.warning("Аккаунта не существует!");
       } else {
-        toast.error('Ошибка!', {
-          position: 'bottom-right',
-        });
+        toast.error("Ошибка!");
       }
     }
   };
@@ -57,7 +53,9 @@ export default function SignInPage() {
     <form onSubmit={handleSubmit(onSubmit)} className="flex justify-center">
       <div className="flex flex-col">
         <Input
-          {...register('email', { required: { value: true, message: 'Заполните почту' } })}
+          {...register("email", {
+            required: { value: true, message: "Заполните почту" },
+          })}
           autoComplete="off"
           placeholder="Email"
           color="black"
@@ -66,7 +64,9 @@ export default function SignInPage() {
           className="mb-2"
         />
         <Input
-          {...register('password', { required: { value: true, message: 'Заполните пароль' } })}
+          {...register("password", {
+            required: { value: true, message: "Заполните пароль" },
+          })}
           autoComplete="off"
           placeholder="Пароль"
           color="black"
@@ -74,7 +74,7 @@ export default function SignInPage() {
           error={errors.password}
           className="mb-4"
         />
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <Button type="submit" color="green" onClick={() => clearErrors()}>
             Войти
           </Button>

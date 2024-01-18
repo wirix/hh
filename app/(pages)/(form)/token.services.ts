@@ -1,4 +1,5 @@
 import jwt, { Secret } from 'jsonwebtoken';
+
 import { UserDto } from '@/app/dtos';
 
 class TokenService {

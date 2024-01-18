@@ -1,8 +1,9 @@
-'use server';
+"use server";
 
-import { getCurrentUser } from '@/app/actions';
-import prisma from '@/app/libs/prismadb';
-import { ListResumeContent } from './components';
+import { getCurrentUser } from "@/app/actions";
+import prisma from "@/app/libs/prismadb";
+
+import { Content } from "./components";
 
 interface IParams {
   id?: string;
@@ -17,7 +18,7 @@ export default async function ListResume({ params }: { params: IParams }) {
   }
 
   const { role } = user;
-  if (role === 'WORKER') {
+  if (role === "WORKER") {
     return <div>Вы не работодатель, чтобы посетить эту страницу.</div>;
   }
 
@@ -36,13 +37,16 @@ export default async function ListResume({ params }: { params: IParams }) {
           },
         },
         take: 5,
+        orderBy: {
+          createdAt: "desc",
+        },
       },
     },
   });
 
-  if (!vacancy || vacancy.responderIds.length === 0) {
+  if (!vacancy || !!vacancy.responderIds.length) {
     return <div>Никто пока не откликнулся на эту вакансию.</div>;
   }
 
-  return <ListResumeContent vacancy={vacancy} />;
+  return <Content vacancy={vacancy} />;
 }

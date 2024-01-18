@@ -1,5 +1,6 @@
-import { VacancyItem } from '../components';
-import { Company, User, Vacancy } from '@prisma/client';
+import { Company, User, Vacancy } from "@prisma/client";
+
+import { VacancyItem } from "../components";
 
 export async function Content({
   vacanies,
@@ -11,7 +12,12 @@ export async function Content({
   return (
     <>
       {vacanies.map((v) => (
-        <VacancyItem userId={user.id} key={v.id} className="mb-4 last:mb-0" {...v} />
+        <VacancyItem
+          userId={user.id}
+          key={v.id}
+          className="mb-4 last:mb-0"
+          {...v}
+        />
       ))}
     </>
   );

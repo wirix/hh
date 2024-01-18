@@ -1,33 +1,41 @@
-import { Button, Card } from '@/app/components';
-import { Feedback, Resume, User } from '@prisma/client';
-import classNames from 'classnames';
-import Image from 'next/image';
-import React, { DetailedHTMLProps } from 'react';
-import { CgProfile } from 'react-icons/cg';
+"use client";
+
+import classNames from "classnames";
+import Image from "next/image";
+import React, { DetailedHTMLProps } from "react";
+import { CgProfile } from "react-icons/cg";
+
+import { Button, Card } from "@/app/components";
+
+import { UserType } from "./Content";
 
 interface IResponderItem
-  extends DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  user: User & {
-    resume: Resume | null;
-    feedback: (Feedback | null)[];
-  };
+  extends DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  > {
+  user: UserType;
   index: number;
-  onResumeClick: (newIndexResume: number) => void;
+  onResumeClick: (id: string) => void;
 }
 
-export const ResponderItem = ({ user, onResumeClick, index }: IResponderItem) => {
+export const ResponderItem = ({ user, onResumeClick }: IResponderItem) => {
   if (!user) {
     return <div>Нет данных о пользователе.</div>;
   }
 
   return (
-    <Card color='whiteShadow' className="flex items-center bg-slate-800 p-2 mb-4 last:mb-0 relative overflow-hidden">
+    <Card
+      color="whiteShadow"
+      className="relative mb-4 flex items-center overflow-hidden bg-slate-800 p-2 last:mb-0"
+    >
       <span
-        className={classNames('absolute left-0 w-1 h-full', {
-          ['bg-green-600']: user.feedback[0]?.isInvite === true,
-          ['bg-red-600']: user.feedback[0]?.isInvite === false,
-          ['bg-gray-600']: user.feedback[0]?.isInvite === undefined,
-        })}></span>
+        className={classNames("absolute left-0 h-full w-1", {
+          ["bg-green-600"]: user.feedback[0]?.isInvite === true,
+          ["bg-red-600"]: user.feedback[0]?.isInvite === false,
+          ["bg-gray-600"]: user.feedback[0]?.isInvite === undefined,
+        })}
+      ></span>
       <div className="mr-2">
         {user.image ? (
           <Image width={50} height={50} src={user.image} alt="profile" />
@@ -35,12 +43,12 @@ export const ResponderItem = ({ user, onResumeClick, index }: IResponderItem) =>
           <CgProfile size="50px" />
         )}
       </div>
-      <div className="flex items-center relative">
+      <div className="relative flex items-center">
         <div className="w-80">
           <div>Должность: {user.resume?.namePosition.slice(0, 24)}</div>
           <div>Возраст: {user.resume?.age}</div>
         </div>
-        <Button className="w-max" onClick={() => onResumeClick(index)}>
+        <Button className="w-max" onClick={() => onResumeClick(user.id)}>
           Посмотреть резюме
         </Button>
       </div>

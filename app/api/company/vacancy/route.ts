@@ -1,7 +1,8 @@
-import prisma from '@/app/libs/prismadb';
-import { NextResponse } from 'next/server';
-import { getCurrentUser } from '@/app/actions';
 import { Vacancy } from '@prisma/client';
+import { NextResponse } from 'next/server';
+
+import { getCurrentUser } from '@/app/actions';
+import prisma from '@/app/libs/prismadb';
 
 export async function POST(req: Request) {
   try {

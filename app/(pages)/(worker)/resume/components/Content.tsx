@@ -1,7 +1,9 @@
-import { HTag, Hr, PTag } from '@/app/components';
-import { DetailedHTMLProps, HTMLAttributes } from 'react';
+import { DetailedHTMLProps, HTMLAttributes } from "react";
 
-interface IContent extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+import { Hr, HTag, PTag } from "@/app/components";
+
+interface IContent
+  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   username: string;
   age: number;
   email: string;
@@ -11,7 +13,15 @@ interface IContent extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTM
   city: string;
 }
 
-export const Content = ({ username, age, email, namePosition, text, country, city }: IContent) => {
+export const Content = ({
+  username,
+  age,
+  email,
+  namePosition,
+  text,
+  country,
+  city,
+}: IContent) => {
   return (
     <div>
       <HTag tag="h2" className="mb-2">
@@ -40,7 +50,7 @@ export const Content = ({ username, age, email, namePosition, text, country, cit
         <div>{text}</div>
       </div>
       <div>
-        <HTag tag="h6" color="cyan" >
+        <HTag tag="h6" color="cyan">
           Гражданство
         </HTag>
         <PTag color="gray">

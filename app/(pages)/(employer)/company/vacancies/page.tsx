@@ -1,8 +1,9 @@
-'use server';
+"use server";
 
-import { getCurrentUser } from '@/app/actions';
-import prisma from '@/app/libs/prismadb';
-import { CompanyVacancyContent } from './components';
+import { getCurrentUser } from "@/app/actions";
+import prisma from "@/app/libs/prismadb";
+
+import { CompanyVacancyContent } from "./components";
 
 export default async function CompanyVacancyPage() {
   const user = await getCurrentUser();
@@ -11,7 +12,7 @@ export default async function CompanyVacancyPage() {
   }
 
   const { id: userId, role } = user;
-  if (role === 'WORKER') {
+  if (role === "WORKER") {
     return <div>Вы не работодатель, чтобы посетить эту страницу.</div>;
   }
 
@@ -28,11 +29,11 @@ export default async function CompanyVacancyPage() {
     where: { companyId },
     take: 10,
     orderBy: {
-      createdAt: 'desc',
+      createdAt: "desc",
     },
     include: {
       company: true,
-      feedback: true
+      feedback: true,
     },
   });
 

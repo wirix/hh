@@ -1,5 +1,8 @@
-import { getCurrentUser } from '@/app/actions';
-import { Content, ResumeForm } from './components';
+"use server";
+
+import { getCurrentUser } from "@/app/actions";
+
+import { Content, ResumeForm } from "./components";
 
 export default async function ResumePage() {
   const user = await getCurrentUser();
@@ -9,7 +12,7 @@ export default async function ResumePage() {
 
   const { role, email, name, resume } = user;
 
-  if (role !== 'WORKER') {
+  if (role !== "WORKER") {
     return <div>Вы не ищите работу.</div>;
   }
 

@@ -1,9 +1,11 @@
-import prisma from '../../libs/prismadb';
-import { NextResponse } from 'next/server';
-import { UserDto } from '@/app/dtos';
-import { tokenService } from '@/app/(pages)/(form)/token.services';
 import { cookies } from 'next/headers';
+import { NextResponse } from 'next/server';
+
+import { tokenService } from '@/app/(pages)/(form)/token.services';
+import { UserDto } from '@/app/dtos';
 import { EnumTokens } from '@/app/enums/token.enum';
+
+import prisma from '../../libs/prismadb';
 
 export async function GET(req: Request) {
   try {
