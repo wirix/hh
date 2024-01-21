@@ -38,6 +38,10 @@ export const VacancyItem: FC<IVacancyItem> = ({
   const onSubmitRespond = async () => {
     try {
       const res = await $api.get(`./vacancy/${id}`);
+      const feedback = await $api.post("./feedback", {
+        userId,
+        vacancyId: id,
+      });
       startTransition(() => {
         router.refresh();
       });

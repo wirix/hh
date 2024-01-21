@@ -1,4 +1,3 @@
-import cn from 'classnames';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 interface IHr extends DetailedHTMLProps<HTMLAttributes<HTMLHRElement>, HTMLHRElement> {}

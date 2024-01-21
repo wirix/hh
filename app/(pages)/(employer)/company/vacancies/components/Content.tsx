@@ -19,7 +19,7 @@ interface IVacancy extends Vacancy {
   feedback: Feedback[];
 }
 
-export const CompanyVacancyContent = ({
+export const Content = ({
   vacancies,
 }: {
   vacancies: IVacancy[];
@@ -79,7 +79,7 @@ export const CompanyVacancyContent = ({
                 Всего <BsFillWalletFill className="ml-2" />
               </th>
               <th className="flex items-center">
-                Не смотрено <FaEyeSlash className="ml-2" />
+                Не оценено <FaEyeSlash className="ml-2" />
               </th>
               <th className="flex items-center">Операции</th>
             </tr>

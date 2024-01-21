@@ -26,6 +26,10 @@ export const VacancyCard = ({ vacancy, userId, className }: IVacancyCard) => {
   const onSubmitRespond = async () => {
     try {
       const res = await $api.get(`./vacancy/${userId}`);
+      const feedback = await $api.post("./feedback", {
+        userId,
+        vacancyId: vacancy.id,
+      });
       startTransition(() => {
         router.refresh();
       });

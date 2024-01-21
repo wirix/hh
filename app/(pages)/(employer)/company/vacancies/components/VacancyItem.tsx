@@ -50,10 +50,13 @@ export const VacancyItem: FC<IVacancyItem> = ({
         <PTag size="sm">{city}</PTag>
         <div className="flex items-center">{getExperience()}</div>
         <PTag color="white">{responderIds.length}</PTag>
-        <PTag color="white">{responderIds.length - feedback.length}</PTag>
+        <PTag color="white">
+          {responderIds.length -
+            feedback.filter((f) => f.isInvite !== null).length}
+        </PTag>
         <div className="flex">
-          <LinkTag color="gray" href={`vacancies/${id}`} className="mr-8">
-            <Button color="white">Заявки</Button>
+          <LinkTag color="white" href={`vacancies/${id}`} className="mr-8">
+            <Button color="black">Заявки</Button>
           </LinkTag>
           <Button color="white">Изменить</Button>
         </div>

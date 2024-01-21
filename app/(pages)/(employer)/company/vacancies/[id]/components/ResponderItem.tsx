@@ -33,7 +33,7 @@ export const ResponderItem = ({ user, onResumeClick }: IResponderItem) => {
         className={classNames("absolute left-0 h-full w-1", {
           ["bg-green-600"]: user.feedback[0]?.isInvite === true,
           ["bg-red-600"]: user.feedback[0]?.isInvite === false,
-          ["bg-gray-600"]: user.feedback[0]?.isInvite === undefined,
+          ["bg-gray-600"]: user.feedback[0]?.isInvite === null,
         })}
       ></span>
       <div className="mr-2">

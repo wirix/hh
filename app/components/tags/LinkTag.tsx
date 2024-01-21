@@ -25,7 +25,7 @@ export const LinkTag: FC<ILinkTag> = ({
             ['text-blue-700']: color === 'blue',
             ['text-green-600']: color === 'green',
             ['text-white']: color === 'white',
-            ['text-gray-800']: color === 'gray',
+            ['text-gray-600']: color === 'gray',
             ['text-xs']: size === 'xs',
             ['text-sm']: size === 'sm',
             ['text-base']: size === 'base',

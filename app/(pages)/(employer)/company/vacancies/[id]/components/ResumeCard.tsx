@@ -48,7 +48,7 @@ export const ResumeCard = ({
         </PTag>
       </div>
       <div className={cn("absolute bottom-4 right-4")}>
-        {isInvite === undefined && !isFetching ? (
+        {isInvite === null && !isFetching ? (
           <>
             <Button
               color={"green"}

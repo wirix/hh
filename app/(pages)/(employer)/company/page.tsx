@@ -16,7 +16,7 @@ export default async function CompanyPage() {
   }
 
   const { id: userId, role } = user;
-  if (role === "WORKER") {
+  if (role !== "EMPLOYER") {
     return <div>Вы не работодатель, чтобы посетить эту страницу.</div>;
   }
 

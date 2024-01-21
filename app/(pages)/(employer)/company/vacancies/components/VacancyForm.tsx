@@ -53,7 +53,6 @@ export const VacancyForm = ({
     resolver: yupResolver(VacancySchema),
   });
   const onSubmit = async (data: IVacancyForm) => {
-    console.log("🚀 ~ onSubmit ~ data:", data);
     try {
       setIsSubmitting(true);
       const res = await $api.post("./company/vacancy", JSON.stringify(data));

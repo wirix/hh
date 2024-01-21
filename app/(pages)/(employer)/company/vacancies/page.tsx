@@ -3,7 +3,7 @@
 import { getCurrentUser } from "@/app/actions";
 import prisma from "@/app/libs/prismadb";
 
-import { CompanyVacancyContent } from "./components";
+import { Content } from "./components";
 
 export default async function CompanyVacancyPage() {
   const user = await getCurrentUser();
@@ -37,5 +37,5 @@ export default async function CompanyVacancyPage() {
     },
   });
 
-  return <CompanyVacancyContent vacancies={vacancies} />;
+  return <Content vacancies={vacancies} />;
 }
