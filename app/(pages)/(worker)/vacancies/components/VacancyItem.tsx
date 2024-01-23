@@ -1,13 +1,12 @@
 "use client";
 
 import { Company, Vacancy } from "@prisma/client";
-import { useRouter } from "next/navigation";
-import { DetailedHTMLProps, FC, HTMLAttributes, useTransition } from "react";
+import { DetailedHTMLProps, FC, HTMLAttributes } from "react";
 import { MdOutlineWorkOutline } from "react-icons/md";
-import { toast } from "react-toastify";
 
-import { Button, Card, LinkTag, PTag } from "@/app/components";
-import { $api } from "@/app/helpers";
+import { Button, Card, Experience, LinkTag, PTag } from "@/app/components";
+
+import { useRespondVacancy } from "../useRespondVacancy";
 
 interface IVacancyItem
   extends Vacancy,
@@ -31,52 +30,12 @@ export const VacancyItem: FC<IVacancyItem> = ({
   responderIds,
   className,
 }) => {
-  const [isPending, startTransition] = useTransition();
-  const router = useRouter();
-
-  // double code
-  const onSubmitRespond = async () => {
-    try {
-      const res = await $api.get(`./vacancy/${id}`);
-      const feedback = await $api.post("./feedback", {
-        userId,
-        vacancyId: id,
-      });
-      startTransition(() => {
-        router.refresh();
-      });
-    } catch (e: any) {
-      console.log(e);
-      if (e.response.status === 400) {
-        toast.error(
-          'Вы не можете откликнуться без резюме. Вкладка "Мое резюме".',
-        );
-      }
-    }
-  };
-
-  const getExperience = () => {
-    switch (experience) {
-      case "FROM_ONE_TO_THREE":
-        return (
-          <PTag color="gray" size="sm" className="ml-2">
-            Опыт от 1 до 3 лет
-          </PTag>
-        );
-      case "FROM_THREE_TO_SIX":
-        return (
-          <PTag color="gray" size="sm" className="ml-2">
-            Опыт от 3 до 6 лет
-          </PTag>
-        );
-      case "NOT":
-        return (
-          <PTag color="gray" size="sm" className="ml-2">
-            Без опыта
-          </PTag>
-        );
-    }
-  };
+  const {
+    functions: { onSubmitRespond },
+  } = useRespondVacancy({
+    userId,
+    vacancyId: id,
+  });
 
   return (
     <div className={className}>
@@ -100,7 +59,7 @@ export const VacancyItem: FC<IVacancyItem> = ({
         </PTag>
         <div className="mb-4 flex items-center">
           <MdOutlineWorkOutline />
-          {getExperience()}
+          <Experience experience={experience} />
         </div>
         {!responderIds.includes(userId) ? (
           <Button onClick={onSubmitRespond} color="green">

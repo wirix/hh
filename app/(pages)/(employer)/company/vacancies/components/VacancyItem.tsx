@@ -1,7 +1,7 @@
 import { Feedback, Vacancy } from "@prisma/client";
 import { DetailedHTMLProps, FC, HTMLAttributes } from "react";
 
-import { Button, Card, LinkTag, PTag } from "@/app/components";
+import { Button, Card, Experience, LinkTag, PTag } from "@/app/components";
 
 interface IVacancyItem
   extends Vacancy,
@@ -34,21 +34,22 @@ export const VacancyItem: FC<IVacancyItem> = ({
   };
 
   return (
-    <Card className="flex items-center justify-between p-3" color="gray">
-      <div className="grid grid-cols-[300px_200px_100px_100px_100px_150px_auto] items-center">
+    <Card className="flex w-full items-center justify-between p-3" color="gray">
+      <div className="grid grid-cols-[400px_200px_150px_130px_100px_150px_auto] items-center">
         <LinkTag
           color="white"
-          size="2xl"
           href={`/vacancy/${id}`}
           className="font-semibold"
         >
-          {name.slice(0, 24)}
+          {name.slice(0, 42)}
         </LinkTag>
         <PTag className="font-bold" size="lg">
           {salary} {currency}
         </PTag>
         <PTag size="sm">{city}</PTag>
-        <div className="flex items-center">{getExperience()}</div>
+        <div className="flex items-center">
+          <Experience experience={experience} />
+        </div>
         <PTag color="white">{responderIds.length}</PTag>
         <PTag color="white">
           {responderIds.length -
@@ -58,7 +59,6 @@ export const VacancyItem: FC<IVacancyItem> = ({
           <LinkTag color="white" href={`vacancies/${id}`} className="mr-8">
             <Button color="black">Заявки</Button>
           </LinkTag>
-          <Button color="white">Изменить</Button>
         </div>
       </div>
     </Card>

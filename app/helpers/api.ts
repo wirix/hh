@@ -1,11 +1,11 @@
-import axios from 'axios';
+import axios from "axios";
 
-import { EnumTokens } from '../enums/token.enum';
+import { EnumTokens } from "../enums/token.enum";
 
 export const baseURL =
-  process.env.NODE_ENV === 'production'
-    ? 'https://hh-livid.vercel.app/api'
-    : 'http://localhost:3000/api';
+  process.env.NODE_ENV === "production"
+    ? process.env.NEXT_PUBLIC_SERVER_URL + "/api"
+    : process.env.NEXT_PUBLIC_LOCALHOST_URL + '/api';
 
 export const $api = axios.create({
   withCredentials: true,
@@ -23,7 +23,11 @@ $api.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
-    if (error.response.status == 401 && error.config && !error.config._isRetry) {
+    if (
+      error.response.status == 401 &&
+      error.config &&
+      !error.config._isRetry
+    ) {
       originalRequest._isRetry = true;
       try {
         const res = await axios.get(`${baseURL}/refresh`, {
@@ -32,7 +36,7 @@ $api.interceptors.response.use(
         localStorage.setItem(EnumTokens.ACCESS_TOKEN, res.data.access_token);
         return $api.request(originalRequest);
       } catch (e) {
-        console.log('Unauthorization');
+        console.log("Unauthorization");
       }
     }
     throw error;

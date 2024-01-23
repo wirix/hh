@@ -36,7 +36,7 @@ export default async function FeedbackPage() {
     },
   });
 
-  if (feedback.length === 0) {
+  if (!feedback.length) {
     return "Пусто";
   }
 

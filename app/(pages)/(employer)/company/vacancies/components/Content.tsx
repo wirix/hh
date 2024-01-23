@@ -59,10 +59,10 @@ export const Content = ({
         />
       )}
       {isSubmitting && <div className="ml-3">Отправка...</div>}
-      {vacancies.length ? (
+      {!!vacancies.length ? (
         <table className="border-none text-left">
           <thead>
-            <tr className="grid grid-cols-[300px_200px_100px_100px_100px_150px_auto] items-center px-3">
+            <tr className="grid grid-cols-[400px_200px_150px_130px_100px_150px_auto] items-center px-3">
               <th className="flex items-center">
                 Название <BiCategory className="ml-2" />
               </th>

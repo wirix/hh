@@ -27,7 +27,7 @@ export default async function VacanciesPage() {
     },
   });
 
-  if (vacanies.length === 0) {
+  if (!vacanies.length) {
     return <div>Вакансий нет.</div>;
   }
 
