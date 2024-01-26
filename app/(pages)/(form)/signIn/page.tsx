@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 import { Button, LinkTag } from "@/app/components";
 import { Input } from "@/app/components/tags/Input";
-import { EnumTokens } from "@/app/enums/token.enum";
+import { EnumTokens } from "@/app/enum/token.enum";
 import { $api } from "@/app/helpers";
 
 import { signInSchema } from "./signIn.validation";

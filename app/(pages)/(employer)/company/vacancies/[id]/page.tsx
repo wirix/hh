@@ -14,12 +14,12 @@ export default async function ListResume({ params }: { params: IParams }) {
 
   const user = await getCurrentUser();
   if (!user) {
-    return <div>Вы не авторизованы. Авторизоваться.</div>;
+    return <div className='dark:text-white'>Вы не авторизованы. Авторизоваться.</div>;
   }
 
   const { role } = user;
   if (role === "WORKER") {
-    return <div>Вы не работодатель, чтобы посетить эту страницу.</div>;
+    return <div className='dark:text-white'>Вы не работодатель, чтобы посетить эту страницу.</div>;
   }
 
   const vacancy = await prisma.vacancy.findUnique({
@@ -45,7 +45,7 @@ export default async function ListResume({ params }: { params: IParams }) {
   });
 
   if (!vacancy?.responderIds.length) {
-    return <div>Никто пока не откликнулся на эту вакансию.</div>;
+    return <div className="dark:text-white">Никто пока не откликнулся на эту вакансию.</div>;
   }
 
   return <Content vacancy={vacancy} />;

@@ -1,14 +1,14 @@
-import { Role } from '@prisma/client';
-import bcrypt from 'bcrypt';
-import { cookies } from 'next/headers';
-import { NextResponse } from 'next/server';
-import { v4 as uuidv4 } from 'uuid';
+import { Role } from "@prisma/client";
+import bcrypt from "bcrypt";
+import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
+import { v4 as uuidv4 } from "uuid";
 
-import { tokenService } from '@/app/(pages)/(form)/token.services';
-import { UserDto } from '@/app/dtos';
-import { EnumTokens } from '@/app/enums/token.enum';
+import { tokenService } from "@/app/(pages)/(form)/token.services";
+import { UserDto } from "@/app/dto";
+import { EnumTokens } from "@/app/enum/token.enum";
 
-import prisma from '../../libs/prismadb';
+import prisma from "../../libs/prismadb";
 
 interface IRegister {
   email: string;
@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     });
 
     if (candidate) {
-      return new NextResponse('Email already exists', {
+      return new NextResponse("Email already exists", {
         status: 409,
       });
     }
@@ -59,10 +59,15 @@ export async function POST(req: Request) {
       },
     });
 
-    cookies().set(EnumTokens.REFRESH_TOKEN, tokens.refresh_token, { httpOnly: true });
-    return NextResponse.json({ user: userDto, access_token: tokens.access_token });
+    cookies().set(EnumTokens.REFRESH_TOKEN, tokens.refresh_token, {
+      httpOnly: true,
+    });
+    return NextResponse.json({
+      user: userDto,
+      access_token: tokens.access_token,
+    });
   } catch (e: any) {
-    return new NextResponse('Internal Error', {
+    return new NextResponse("Internal Error", {
       status: 500,
     });
   }

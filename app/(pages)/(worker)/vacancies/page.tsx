@@ -8,13 +8,13 @@ import { VacancyItem } from "./components";
 export default async function VacanciesPage() {
   const user = await getCurrentUser();
   if (!user) {
-    return <div>авторизуйтесь</div>;
+    return <div className="dark:text-white">авторизуйтесь</div>;
   }
 
   const { role } = user;
 
   if (role !== "WORKER") {
-    return <div>Вы не ищите работу.</div>;
+    return <div className="dark:text-white">Вы не ищите работу.</div>;
   }
 
   const vacanies = await prisma.vacancy.findMany({
@@ -28,7 +28,7 @@ export default async function VacanciesPage() {
   });
 
   if (!vacanies.length) {
-    return <div>Вакансий нет.</div>;
+    return <div className="dark:text-white">Вакансий нет.</div>;
   }
 
   return (

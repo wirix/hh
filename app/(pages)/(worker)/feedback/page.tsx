@@ -5,22 +5,32 @@ import "moment/locale/ru";
 import moment from "moment";
 
 import { getCurrentUser } from "@/app/actions";
-import { LinkTag } from "@/app/components";
+import { LinkTag, PTag } from "@/app/components";
 import prisma from "@/app/libs/prismadb";
 
 export default async function FeedbackPage() {
   const user = await getCurrentUser();
   if (!user) {
-    return <div>Вы не авторизованы. Авторизоваться.</div>;
+    return (
+      <div className="dark:text-white">Вы не авторизованы. Авторизоваться.</div>
+    );
   }
 
   const { role, resume, id } = user;
   if (role !== "WORKER") {
-    return <div>Вы не соискатель, чтобы посетить эту страницу.</div>;
+    return (
+      <div className="dark:text-white">
+        Вы не соискатель, чтобы посетить эту страницу.
+      </div>
+    );
   }
 
   if (!resume) {
-    return <div>У вас нет резюме, чтобы посетить эту страницу.</div>;
+    return (
+      <div className="dark:text-white">
+        У вас нет резюме, чтобы посетить эту страницу.
+      </div>
+    );
   }
 
   const feedback = await prisma.feedback.findMany({
@@ -37,16 +47,16 @@ export default async function FeedbackPage() {
   });
 
   if (!feedback.length) {
-    return "Пусто";
+    return <div className="dark:text-white">Пока ничего нет.</div>;
   }
 
   return (
     <table className="w-full border-none text-left">
       <thead className="border-b-[1px]">
-        <tr className="grid grid-cols-[300px_1fr_250px] items-center text-xs text-gray-500 underline decoration-dashed">
-          <th className="px-4 py-2">Статус</th>
-          <th className="px-4 py-2">Вакансия</th>
-          <th className="px-4 py-2">Дата</th>
+        <tr className="grid grid-cols-[300px_1fr_250px] items-center text-xs text-gray-500 underline decoration-dashed dark:decoration-neutral-100">
+          <th className="px-4 py-2 dark:text-white">Статус</th>
+          <th className="px-4 py-2 dark:text-white">Вакансия</th>
+          <th className="px-4 py-2 dark:text-white">Дата</th>
         </tr>
       </thead>
       <tbody>
@@ -57,21 +67,25 @@ export default async function FeedbackPage() {
           >
             <th className="p-4">
               {f.isInvite ? (
-                <div className="text-green-600">Приглашение</div>
+                <div className="text-green-600 dark:text-green-400">
+                  Приглашение
+                </div>
               ) : f.isInvite === null ? (
-                <div className="text-gray-500">Ожидание</div>
+                <div className="text-gray-500 dark:text-gray-300">Ожидание</div>
               ) : (
-                <div className="text-red-500">Отказ</div>
+                <div className="text-red-500 dark:text-red-300">Отказ</div>
               )}
             </th>
             <th className="p-4">
               <LinkTag color="gray" href={`/vacancies/${f.vacancyId}`}>
                 {f.vacancy.name}
               </LinkTag>
-              <div className="text-gray-500">в {f.vacancy.company.name}</div>
+              <PTag color="gray">в {f.vacancy.company.name}</PTag>
             </th>
             <th className="p-4">
-              {moment(f.createdAt).locale("ru").format("DD MMMM YYYY")}
+              <PTag color='gray'>
+                {moment(f.createdAt).locale("ru").format("DD MMMM YYYY")}
+              </PTag>
             </th>
           </tr>
         ))}

@@ -1,14 +1,22 @@
-import cn from 'classnames';
-import { DetailedHTMLProps, FC, HTMLAttributes, ReactNode } from 'react';
+import cn from "classnames";
+import type { DetailedHTMLProps, FC, HTMLAttributes } from "react";
 
 interface ContainerProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
 
-export const Container: FC<ContainerProps> = ({ children, className, ...props }) => {
+export const Container: FC<ContainerProps> = ({
+  children,
+  className,
+  ...props
+}) => {
   return (
     <div
-      className={cn(`container w-[1280px] min-h-screen pt-2 lg:pt-0`, className)}
-      {...props}>
+      className={cn(
+        `container min-h-screen w-[1280px] pt-2 lg:pt-0`,
+        className,
+      )}
+      {...props}
+    >
       {children}
     </div>
   );

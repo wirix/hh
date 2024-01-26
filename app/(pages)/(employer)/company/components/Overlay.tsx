@@ -12,7 +12,7 @@ interface IOverlay
 }
 
 export const Overlay = ({ isExistCompany, className, ...props }: IOverlay) => {
-  const [isOpened, setIsOpened] = useState<boolean>(false);
+  const [isOpened, setIsOpened] = useState(false);
 
   const onIsOpenedClick = (bool: boolean) => {
     setIsOpened(bool);
@@ -22,12 +22,11 @@ export const Overlay = ({ isExistCompany, className, ...props }: IOverlay) => {
     <div className={className} {...props}>
       {!isExistCompany && (
         <Button
-          disabled={isOpened}
           color="blue"
           className="mb-4"
           onClick={() => setIsOpened(!isOpened)}
         >
-          Создать компанию
+          {isOpened ? "Отменить" : "Создать компанию"}
         </Button>
       )}
       {isOpened && (

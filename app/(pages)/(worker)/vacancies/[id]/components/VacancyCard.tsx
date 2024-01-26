@@ -1,10 +1,10 @@
 "use client";
 
-import { Vacancy } from "@prisma/client";
+import type { Vacancy } from "@prisma/client";
 import cn from "classnames";
-import { DetailedHTMLProps } from "react";
+import type { DetailedHTMLProps } from "react";
 
-import { Button, Card, HTag } from "@/app/components";
+import { Button, Card, HTag, PTag } from "@/app/components";
 
 import { useRespondVacancy } from "../../useRespondVacancy";
 
@@ -26,15 +26,18 @@ export const VacancyCard = ({ vacancy, userId, className }: IVacancyCard) => {
   });
 
   return (
-    <Card color="whiteShadow" className={cn("p-4 text-black", className)}>
+    <Card
+      color="whiteShadow"
+      className={cn("p-4 text-black dark:shadow-none", className)}
+    >
       <HTag tag="h1" className="mb-2 font-bold">
         {vacancy.name}
       </HTag>
       <HTag tag="h2" className="mb-4">
         от {vacancy.salary} {vacancy.currency} на руки
       </HTag>
-      <div>Требуемый опыт работы: {vacancy.experience}</div>
-      <div>Полная занятость, удаленная работа</div>
+      <PTag color='gray'>Требуемый опыт работы: {vacancy.experience}</PTag>
+      <PTag color='gray'>Полная занятость, удаленная работа</PTag>
       <div className="mt-4">
         {!vacancy.responderIds.includes(userId) ? (
           <Button

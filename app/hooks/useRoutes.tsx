@@ -1,6 +1,6 @@
 import { Role } from '@prisma/client';
 import { usePathname } from 'next/navigation';
-import { IconType } from 'react-icons';
+import type { IconType } from 'react-icons';
 import { CgProfile } from 'react-icons/cg';
 import { HiViewGrid } from 'react-icons/hi';
 import { ImProfile } from 'react-icons/im';

@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, HTMLAttributes } from "react";
+import type { DetailedHTMLProps, HTMLAttributes } from "react";
 
 import { Hr, HTag, PTag } from "@/app/components";
 
@@ -47,7 +47,7 @@ export const Content = ({
         <HTag tag="h4" color="cyan">
           Обо мне
         </HTag>
-        <div>{text}</div>
+        <PTag color="black">{text}</PTag>
       </div>
       <div>
         <HTag tag="h6" color="cyan">

@@ -14,12 +14,12 @@ export default async function VacancyContent({ params }: { params: IParams }) {
 
   const user = await getCurrentUser();
   if (!user) {
-    return <div>Вы не авторизованы. Авторизоваться.</div>;
+    return <div className='dark:text-white'>Вы не авторизованы. Авторизоваться.</div>;
   }
 
   const { role, id: userId } = user;
   if (role !== "WORKER") {
-    return <div>Вы не соискатель, чтобы посетить эту страницу.</div>;
+    return <div className="dark:text-white">Вы не соискатель, чтобы посетить эту страницу.</div>;
   }
 
   const vacancy = await prisma.vacancy.findUnique({
@@ -33,7 +33,7 @@ export default async function VacancyContent({ params }: { params: IParams }) {
   });
 
   if (!vacancy) {
-    return <div>Такой вакансии нет.</div>;
+    return <div className="dark:text-white">Такой вакансии нет.</div>;
   }
 
   return (
@@ -49,7 +49,7 @@ export default async function VacancyContent({ params }: { params: IParams }) {
         responsibilities={vacancy.responsibilities}
         conditions={vacancy.conditions}
         companyText={vacancy.company.text}
-        className={"col-span-1 row-[3/4]"}
+        className="col-span-1 row-[3/4]"
       />
     </div>
   );

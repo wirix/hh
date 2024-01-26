@@ -1,6 +1,6 @@
 "use client";
 
-import { Feedback, Resume, User, Vacancy } from "@prisma/client";
+import type { Feedback, Resume, User, Vacancy } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 

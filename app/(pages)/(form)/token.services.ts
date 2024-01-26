@@ -1,6 +1,6 @@
 import jwt, { Secret } from 'jsonwebtoken';
 
-import { UserDto } from '@/app/dtos';
+import { UserDto } from '@/app/dto';
 
 class TokenService {
   generateTokens(payload: UserDto) {

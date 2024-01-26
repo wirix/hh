@@ -1,12 +1,12 @@
-import bcrypt from 'bcrypt';
-import { cookies } from 'next/headers';
-import { NextResponse } from 'next/server';
+import bcrypt from "bcrypt";
+import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 
-import { tokenService } from '@/app/(pages)/(form)/token.services';
-import { UserDto } from '@/app/dtos';
-import { EnumTokens } from '@/app/enums/token.enum';
+import { tokenService } from "@/app/(pages)/(form)/token.services";
+import { UserDto } from "@/app/dto";
+import { EnumTokens } from "@/app/enum/token.enum";
 
-import prisma from '../../libs/prismadb';
+import prisma from "../../libs/prismadb";
 
 interface ISignIn {
   email: string;
@@ -25,15 +25,18 @@ export async function POST(req: Request) {
     });
 
     if (!user) {
-      return new NextResponse('Account not found', {
+      return new NextResponse("Account not found", {
         status: 404,
       });
     }
 
-    const isMatchesPassword = await bcrypt.compare(password, user.hashedPassword);
+    const isMatchesPassword = await bcrypt.compare(
+      password,
+      user.hashedPassword,
+    );
 
     if (!isMatchesPassword) {
-      return new NextResponse('Account not found', {
+      return new NextResponse("Account not found", {
         status: 404,
       });
     }
@@ -54,13 +57,15 @@ export async function POST(req: Request) {
       },
     });
 
-    cookies().set(EnumTokens.REFRESH_TOKEN, tokens.refresh_token, { httpOnly: true });
+    cookies().set(EnumTokens.REFRESH_TOKEN, tokens.refresh_token, {
+      httpOnly: true,
+    });
     return NextResponse.json({
       user: userDto,
       access_token: tokens.access_token,
     });
   } catch (e: any) {
-    return new NextResponse('Internal Error', {
+    return new NextResponse("Internal Error", {
       status: 500,
     });
   }

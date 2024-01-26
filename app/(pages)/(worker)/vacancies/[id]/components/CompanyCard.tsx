@@ -1,7 +1,7 @@
-import { Company } from "@prisma/client";
+import type { Company } from "@prisma/client";
 import cn from "classnames";
 import Image from "next/image";
-import { DetailedHTMLProps, HTMLAttributes } from "react";
+import type { DetailedHTMLProps, HTMLAttributes } from "react";
 
 import { Card, HTag, PTag } from "@/app/components";
 
@@ -12,7 +12,10 @@ interface ICompanyCard
 
 export const CompanyCard = ({ company, className }: ICompanyCard) => {
   return (
-    <Card color="whiteShadow" className={cn("p-4 text-black", className)}>
+    <Card
+      color="whiteShadow"
+      className={cn("p-4 text-black dark:shadow-none", className)}
+    >
       <div className="mb-2">
         {company.img ? (
           <Image width={"40"} height={"20"} src={company.img} alt="" />

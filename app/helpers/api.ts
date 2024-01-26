@@ -1,11 +1,11 @@
 import axios from "axios";
 
-import { EnumTokens } from "../enums/token.enum";
+import { EnumTokens } from "../enum/token.enum";
 
 export const baseURL =
   process.env.NODE_ENV === "production"
     ? process.env.NEXT_PUBLIC_SERVER_URL + "/api"
-    : process.env.NEXT_PUBLIC_LOCALHOST_URL + '/api';
+    : process.env.NEXT_PUBLIC_LOCALHOST_URL + "/api";
 
 export const $api = axios.create({
   withCredentials: true,

@@ -1,6 +1,6 @@
-import { DetailedHTMLProps, HTMLAttributes } from "react";
+import type { DetailedHTMLProps, HTMLAttributes } from "react";
 
-import { HTag } from "@/app/components";
+import { HTag, PTag } from "@/app/components";
 
 interface IVacancyRequirements
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
@@ -39,7 +39,9 @@ export const VacancyRequirements = ({
               <HTag tag="h3" className="mb-1 font-bold">
                 {item.title}
               </HTag>
-              <div className="ml-4">{item.content}</div>
+              <PTag color="gray" className="ml-4">
+                {item.content}
+              </PTag>
             </div>
           ),
       )}

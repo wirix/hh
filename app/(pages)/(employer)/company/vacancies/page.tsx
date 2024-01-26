@@ -8,19 +8,19 @@ import { Content } from "./components";
 export default async function CompanyVacancyPage() {
   const user = await getCurrentUser();
   if (!user) {
-    return <div>Вы не авторизованы. Авторизоваться</div>;
+    return <div className='dark:text-white'>Вы не авторизованы. Авторизоваться</div>;
   }
 
   const { id: userId, role } = user;
   if (role === "WORKER") {
-    return <div>Вы не работодатель, чтобы посетить эту страницу.</div>;
+    return <div className='dark:text-white'>Вы не работодатель, чтобы посетить эту страницу.</div>;
   }
 
   const company = await prisma.company.findUnique({
     where: { userId },
   });
   if (!company) {
-    return <div>Нет компании, по которой вы ищете вакансии.</div>;
+    return <div className="dark:text-white">Нет компании, по которой вы ищете вакансии.</div>;
   }
 
   const { id: companyId } = company;

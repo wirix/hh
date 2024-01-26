@@ -1,7 +1,7 @@
 "use client";
 
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Company } from "@prisma/client";
+import type { Company } from "@prisma/client";
 import cn from "classnames";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";

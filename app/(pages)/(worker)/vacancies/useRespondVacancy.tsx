@@ -11,7 +11,6 @@ export const useRespondVacancy = ({
   userId: string;
   vacancyId: string;
 }) => {
-  console.log(userId, vacancyId);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 

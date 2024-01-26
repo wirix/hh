@@ -2,18 +2,15 @@
 
 import classNames from "classnames";
 import Image from "next/image";
-import React, { DetailedHTMLProps } from "react";
+import type { DetailedHTMLProps, HTMLAttributes } from "react";
 import { CgProfile } from "react-icons/cg";
 
-import { Button, Card } from "@/app/components";
+import { Button, Card, PTag } from "@/app/components";
 
 import { UserType } from "./Content";
 
 interface IResponderItem
-  extends DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
-  > {
+  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   user: UserType;
   index: number;
   onResumeClick: (id: string) => void;
@@ -27,7 +24,7 @@ export const ResponderItem = ({ user, onResumeClick }: IResponderItem) => {
   return (
     <Card
       color="whiteShadow"
-      className="relative mb-4 flex items-center overflow-hidden bg-slate-800 p-2 last:mb-0"
+      className="relative mb-4 flex items-center overflow-hidden bg-slate-800 p-2 last:mb-0 dark:shadow-none"
     >
       <span
         className={classNames("absolute left-0 h-full w-1", {
@@ -36,7 +33,7 @@ export const ResponderItem = ({ user, onResumeClick }: IResponderItem) => {
           ["bg-gray-600"]: user.feedback[0]?.isInvite === null,
         })}
       ></span>
-      <div className="mr-2">
+      <div className="mr-2 dark:text-gray-200">
         {user.image ? (
           <Image width={50} height={50} src={user.image} alt="profile" />
         ) : (
@@ -45,8 +42,10 @@ export const ResponderItem = ({ user, onResumeClick }: IResponderItem) => {
       </div>
       <div className="relative flex items-center">
         <div className="w-80">
-          <div>Должность: {user.resume?.namePosition.slice(0, 24)}</div>
-          <div>Возраст: {user.resume?.age}</div>
+          <PTag color="gray">
+            Должность: {user.resume?.namePosition.slice(0, 24)}
+          </PTag>
+          <PTag color="gray">Возраст: {user.resume?.age}</PTag>
         </div>
         <Button className="w-max" onClick={() => onResumeClick(user.id)}>
           Посмотреть резюме

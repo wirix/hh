@@ -1,7 +1,7 @@
 "use client";
 
 import cn from "classnames";
-import { DetailedHTMLProps, InputHTMLAttributes } from "react";
+import type { DetailedHTMLProps, InputHTMLAttributes } from "react";
 
 import { Button, Card, PTag } from "@/app/components";
 
@@ -27,7 +27,7 @@ export const ResumeCard = ({
   return (
     <Card
       color="whiteShadow"
-      className="relative h-[400px] w-full bg-sky-900 p-4"
+      className="relative h-[400px] w-full bg-sky-900 p-4 dark:shadow-none"
     >
       <div className="h-[320px] overflow-auto">
         <PTag color="black" size="xl" className="font-semibold">
@@ -42,7 +42,9 @@ export const ResumeCard = ({
         <PTag color="black" size="xl" className="font-semibold">
           Гражданство: {user.resume?.country}, {user.resume?.city}
         </PTag>
-        <div className="text-xl font-semibold text-black">О себе:</div>
+        <div className="text-xl font-semibold text-black dark:text-white">
+          О себе:
+        </div>
         <PTag color="black" size="base" className="ml-4">
           {user.resume?.text}
         </PTag>

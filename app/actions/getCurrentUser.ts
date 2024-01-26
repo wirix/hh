@@ -1,9 +1,9 @@
-import jwt from 'jsonwebtoken';
-import { cookies } from 'next/headers';
+import jwt from "jsonwebtoken";
+import { cookies } from "next/headers";
 
-import { UserDto } from '@/app/dtos';
-import { EnumTokens } from '@/app/enums/token.enum';
-import prisma from '@/app/libs/prismadb';
+import { UserDto } from "@/app/dto";
+import { EnumTokens } from "@/app/enum/token.enum";
+import prisma from "@/app/libs/prismadb";
 
 interface ITokenData extends UserDto {
   iat: number;
@@ -12,7 +12,7 @@ interface ITokenData extends UserDto {
 
 export const getCurrentUser = async () => {
   try {
-    const token = cookies().get(EnumTokens.REFRESH_TOKEN)?.value || '';
+    const token = cookies().get(EnumTokens.REFRESH_TOKEN)?.value || "";
     if (!token) {
       return null;
     }

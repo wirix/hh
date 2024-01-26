@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 import { Button, LinkTag } from "@/app/components";
 import { Input } from "@/app/components/tags/Input";
-import { EnumTokens } from "@/app/enums/token.enum";
+import { EnumTokens } from "@/app/enum/token.enum";
 import { $api } from "@/app/helpers";
 
 import { RegisterSchema } from "./register.validation";
@@ -87,7 +87,10 @@ export default function RegisterPage() {
           className={"mb-4"}
         />
         <span className="mb-8">
-          <select {...register("role")}>
+          <select
+            {...register("role")}
+            className="rounded dark:bg-green-600 dark:text-white"
+          >
             <option value={Role.WORKER}>Соискатель</option>
             <option value={Role.EMPLOYER}>Работодатель</option>
           </select>

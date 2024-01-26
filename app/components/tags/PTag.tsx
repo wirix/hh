@@ -1,16 +1,19 @@
-import cn from 'classnames';
-import { DetailedHTMLProps, FC, HTMLAttributes } from 'react';
+import cn from "classnames";
+import type { DetailedHTMLProps, FC, HTMLAttributes } from "react";
 
 interface IPTag
-  extends DetailedHTMLProps<HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement> {
-  color?: 'blue' | 'black' | 'gray' | 'green' | 'white';
-  size?: 'xs' | 'sm' | 'base' | 'lg' | 'xl';
+  extends DetailedHTMLProps<
+    HTMLAttributes<HTMLParagraphElement>,
+    HTMLParagraphElement
+  > {
+  color?: "blue" | "black" | "gray" | "green" | "white";
+  size?: "xs" | "sm" | "base" | "lg" | "xl";
 }
 
 export const PTag: FC<IPTag> = ({
   children,
-  color = 'white',
-  size = 'base',
+  color = "white",
+  size = "base",
   className,
   ...props
 }) => {
@@ -18,20 +21,21 @@ export const PTag: FC<IPTag> = ({
     <p
       className={cn(
         {
-          ['text-blue-700']: color === 'blue',
-          ['text-black']: color === 'black',
-          ['text-gray-700']: color === 'gray',
-          ['text-green-600']: color === 'green',
-          ['text-gray-200']: color === 'white',
-          ['text-xs']: size === 'xs',
-          ['text-sm']: size === 'sm',
-          ['text-base']: size === 'base',
-          ['text-lg']: size === 'lg',
-          ['text-xl']: size === 'xl',
+          ["text-blue-700 dark:text-gray-200"]: color === "blue",
+          ["text-black dark:text-gray-200"]: color === "black",
+          ["text-gray-700 dark:text-gray-200"]: color === "gray",
+          ["text-green-600 dark:text-green-300"]: color === "green",
+          ["text-gray-200 "]: color === "white",
+          ["text-xs"]: size === "xs",
+          ["text-sm"]: size === "sm",
+          ["text-base"]: size === "base",
+          ["text-lg"]: size === "lg",
+          ["text-xl"]: size === "xl",
         },
         className,
       )}
-      {...props}>
+      {...props}
+    >
       {children}
     </p>
   );
