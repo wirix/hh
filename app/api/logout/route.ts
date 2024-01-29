@@ -1,9 +1,8 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-import { EnumTokens } from "@/app/enum/token.enum";
-
-import prisma from "../../libs/prismadb";
+import { EnumTokens } from "@/enum/token.enum";
+import prisma from "@/libs/prismadb";
 
 export async function GET(req: Request) {
   try {

@@ -1,22 +1,22 @@
-import type { Vacancy } from '@prisma/client';
-import { NextResponse } from 'next/server';
+import type { Vacancy } from "@prisma/client";
+import { NextResponse } from "next/server";
 
-import { getCurrentUser } from '@/app/actions';
-import prisma from '@/app/libs/prismadb';
+import { getCurrentUser } from "@/app/actions";
+import prisma from "@/libs/prismadb";
 
 export async function POST(req: Request) {
   try {
     const body: Vacancy = await req.json();
     const user = await getCurrentUser();
     if (!user) {
-      return new NextResponse('Unauthorized', {
+      return new NextResponse("Unauthorized", {
         status: 401,
       });
     }
 
     const { id: userId, role } = user;
-    if (role === 'WORKER') {
-      return new NextResponse('Not correct role', {
+    if (role === "WORKER") {
+      return new NextResponse("Not correct role", {
         status: 403,
       });
     }
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
       where: { userId },
     });
     if (!company) {
-      return new NextResponse('Not exist company', {
+      return new NextResponse("Not exist company", {
         status: 404,
       });
     }
@@ -43,7 +43,7 @@ export async function POST(req: Request) {
       isSuccess: true,
     });
   } catch (e: any) {
-    return new NextResponse('Internal Error', {
+    return new NextResponse("Internal Error", {
       status: 500,
     });
   }

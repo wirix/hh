@@ -1,0 +1,69 @@
+{
+  "navigation": {
+    "home": "Home",
+    "about": "About"
+  },
+  "page": {
+    "home": {
+      "title": "Welcome to NextJs i18n",
+      "description": "Internationalization in NextJs 13 App router"
+    },
+    "signIn": {
+      "textSignIn": "Sign in",
+      "password": "Password",
+      "createAccount": "Create Account"
+    },
+    "company": {
+      "organisation": "Organisation",
+      "description": "Description",
+      "listWorkers": "List of workers",
+      "cancel": "Cancel",
+      "createCompany": "Create company",
+      "form": {
+        "name": "Company Name",
+        "password": "Password",
+        "countryCenterFull": "Center Address",
+        "urlPhoto": "Url Logo",
+        "description": "Description",
+        "create": "Create"
+      }
+    },
+    "companyVacancies": {
+      "openedVacancies": "Opened Vacancies",
+      "cancel": "Cancel",
+      "create": "Create",
+      "sending": "Sending",
+      "empty": "Empty",
+      "tableHead": {
+        "name": "Name",
+        "salary": "Salary",
+        "city": "City",
+        "experience": "Experience",
+        "total": "Total",
+        "notRated": "Not Rated",
+        "actions": "Actions"
+      },
+      "tableBody": {
+        "applications": "Requests"
+      },
+      "form": {
+        "name": "Vacancy Name",
+        "country": "Country",
+        "city": "City",
+        "salary": "Salary",
+        "currency": "Currency",
+        "conditions": "Conditions",
+        "responsibilities": "Responsibilities",
+        "text": "Vacancy Description",
+        "isHome": "Remote Work",
+        "create": "Create"
+      }
+    },
+    "errors": {
+      "400": "Bad request",
+      "401": "Unauthorized",
+      "404": "Page not found",
+      "500": "Server error"
+    }
+  }
+}

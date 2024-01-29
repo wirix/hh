@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
-import { getCurrentUser } from '@/app/actions';
-import prisma from '@/app/libs/prismadb';
+import { getCurrentUser } from "@/app/actions";
+import prisma from "@/libs/prismadb";
 
 interface IParams {
   vacancyId?: string;
@@ -11,33 +11,33 @@ export async function GET(request: Request, { params }: { params: IParams }) {
   try {
     const user = await getCurrentUser();
     if (!user) {
-      return new NextResponse('Unauthorized', {
+      return new NextResponse("Unauthorized", {
         status: 401,
       });
     }
-    
+
     const { id: userId, role } = user;
-    if (role !== 'WORKER') {
-      return new NextResponse('Not correct role', {
+    if (role !== "WORKER") {
+      return new NextResponse("Not correct role", {
         status: 403,
       });
     }
 
     if (!user.resume) {
-      return new NextResponse('No exist resume', {
+      return new NextResponse("No exist resume", {
         status: 400,
       });
     }
 
     const { vacancyId } = params;
-    
+
     const vacancy = await prisma.vacancy.findUnique({
       where: {
         id: vacancyId,
       },
     });
     if (!vacancy) {
-      return new NextResponse('Not exist vacancy', {
+      return new NextResponse("Not exist vacancy", {
         status: 404,
       });
     }
@@ -47,7 +47,7 @@ export async function GET(request: Request, { params }: { params: IParams }) {
       return NextResponse.json({
         isSuccess: true,
         isAllReady: true,
-        message: 'Ваша заявка была уже отправлена!',
+        message: "Ваша заявка была уже отправлена!",
       });
     }
 
@@ -65,10 +65,10 @@ export async function GET(request: Request, { params }: { params: IParams }) {
     return NextResponse.json({
       isSuccess: true,
       isAllReady: false,
-      message: 'Заявка успешно принята!',
+      message: "Заявка успешно принята!",
     });
   } catch (e: any) {
-    return new NextResponse('Error', {
+    return new NextResponse("Error", {
       status: 500,
     });
   }

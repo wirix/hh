@@ -1,7 +1,6 @@
 "use client";
 
 import { Role } from "@prisma/client";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { CgProfile } from "react-icons/cg";
@@ -13,7 +12,11 @@ import { useRoutes } from "@/app/hooks";
 
 import { HeaderLink } from "./HeaderLink";
 
-export const HeaderDesktop = ({ role }: { role: Role | null }) => {
+export const HeaderDesktop = ({
+  role,
+}: {
+  role: Role | null;
+}) => {
   const routes = useRoutes();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -58,10 +61,14 @@ export const HeaderDesktop = ({ role }: { role: Role | null }) => {
       {role ? (
         <div className="flex items-center justify-center">
           <ThemeSwitcher className="mr-4" />
-          <Link href="/profile" className="mr-4 cursor-pointer">
-            <CgProfile size="32px" />
-          </Link>
-          <TbLogout2 size="32px" onClick={logout} className="cursor-pointer" />
+          <LinkTag href="/profile" className="mr-4">
+            <CgProfile size="32px" className="text-black dark:text-white" />
+          </LinkTag>
+          <TbLogout2
+            size="32px"
+            onClick={logout}
+            className="text-black dark:text-white сursor-pointer"
+          />
         </div>
       ) : (
         <LinkTag href="/signIn" color="green">

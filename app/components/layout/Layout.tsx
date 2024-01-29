@@ -10,7 +10,6 @@ import { FooterMobile, HeaderDesktop } from "./components";
 export const Layout = async ({ children }: { children: ReactNode }) => {
   const user = await getCurrentUser();
   const role = user ? user.role : null;
-
   return (
     <>
       <Container>

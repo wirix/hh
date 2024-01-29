@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { getCurrentUser } from "@/app/actions";
-import prisma from "@/app/libs/prismadb";
+import prisma from "@/libs/prismadb";
 
 interface IFeedback {
   isInvite: boolean;

@@ -1,11 +1,11 @@
-import type { Resume } from '@prisma/client';
-import { NextResponse } from 'next/server';
+import type { Resume } from "@prisma/client";
+import { NextResponse } from "next/server";
 
-import { getCurrentUser } from '@/app/actions';
+import { getCurrentUser } from "@/app/actions";
+import prisma from "@/libs/prismadb";
 
-import prisma from '../../libs/prismadb';
 
-interface IResume extends Omit<Resume, 'id' | 'userId'> {
+interface IResume extends Omit<Resume, "id" | "userId"> {
   body: string;
   country: string;
   city: string;
@@ -13,9 +13,9 @@ interface IResume extends Omit<Resume, 'id' | 'userId'> {
 
 export async function GET(req: Request) {
   try {
-    return NextResponse.json({ data: 'body' });
+    return NextResponse.json({ data: "body" });
   } catch (e: any) {
-    return new NextResponse('Internal Error', {
+    return new NextResponse("Internal Error", {
       status: 500,
     });
   }
@@ -28,7 +28,7 @@ export async function POST(req: Request) {
 
     const user = await getCurrentUser();
     if (!user) {
-      return new NextResponse('Unauthorized', {
+      return new NextResponse("Unauthorized", {
         status: 401,
       });
     }
@@ -51,7 +51,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ isSuccess: true });
   } catch (e: any) {
-    return new NextResponse('Internal Error', {
+    return new NextResponse("Internal Error", {
       status: 500,
     });
   }
