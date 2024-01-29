@@ -28,7 +28,7 @@ export default function RootLayout({
     <html lang={params.lang}>
       <body className={inter.className + " dark:bg-gray-900"} id="__next">
         <ProviderTheme>
-          <Layout lang={params.lang}>{children}</Layout>
+          <Layout>{children}</Layout>
           <ToastContainer position="bottom-right" />
         </ProviderTheme>
       </body>
