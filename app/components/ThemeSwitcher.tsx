@@ -2,7 +2,7 @@
 
 import cn from "classnames";
 import { useTheme } from "next-themes";
-import { IconBaseProps } from "react-icons";
+import type { IconBaseProps } from "react-icons";
 import { FaMoon, FaSun } from "react-icons/fa";
 
 interface IThemeSwitcher extends IconBaseProps {}

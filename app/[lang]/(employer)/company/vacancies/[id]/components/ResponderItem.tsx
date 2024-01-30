@@ -17,7 +17,7 @@ interface IResponderItem
 }
 
 export const ResponderItem = ({ user, onResumeClick }: IResponderItem) => {
-  if (!user) {
+  if (!user) {  
     return <div>Нет данных о пользователе.</div>;
   }
 

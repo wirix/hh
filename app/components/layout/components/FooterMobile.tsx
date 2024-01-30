@@ -2,7 +2,7 @@
 
 import type { Role } from "@prisma/client";
 
-import { useRoutes } from "@/app/hooks";
+import { useRoutes } from "@/hooks";
 
 import { FooterLink } from "./FooterLink";
 

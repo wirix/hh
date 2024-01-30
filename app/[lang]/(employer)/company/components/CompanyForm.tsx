@@ -9,7 +9,7 @@ import * as Yup from "yup";
 
 import { Button, Card } from "@/app/components";
 import { Input } from "@/app/components/tags/Input";
-import { $api } from "@/app/helpers";
+import { $api } from "@/helpers";
 
 export interface ICompanyForm
   extends Omit<Company, "id" | "hashedPassword" | "userId" | "text" | "img"> {

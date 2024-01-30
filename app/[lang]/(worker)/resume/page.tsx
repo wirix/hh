@@ -1,8 +1,9 @@
 "use server";
 
-import { getCurrentUser } from "@/app/actions";
+import { getCurrentUser } from "@/actions";
 
-import { Content, ResumeForm } from "./components";
+import { ResumeForm } from "./components";
+import Content from "./components/Content";
 
 export default async function ResumePage() {
   const user = await getCurrentUser();
@@ -13,7 +14,7 @@ export default async function ResumePage() {
   const { role, email, name, resume } = user;
 
   if (role !== "WORKER") {
-    return <div className='dark:text-white'>Вы не ищите работу.</div>;
+    return <div className="dark:text-white">Вы не ищите работу.</div>;
   }
 
   if (!resume) return <ResumeForm />;

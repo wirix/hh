@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 
-import { tokenService } from "@/app/[lang]/(form)/token.services";
+import { tokenService } from "@/app/[lang]/(form)/token-services";
 import { UserDto } from "@/dto";
 import { EnumTokens } from "@/enum/token.enum";
 import prisma from "@/libs/prismadb";

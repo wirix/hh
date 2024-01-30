@@ -1,3 +1,5 @@
+"use server";
+
 import type { DetailedHTMLProps, HTMLAttributes } from "react";
 
 import { Hr, HTag, PTag } from "@/app/components";
@@ -13,7 +15,7 @@ interface IContent
   city: string;
 }
 
-export const Content = ({
+export default async function Content({
   username,
   age,
   email,
@@ -21,7 +23,7 @@ export const Content = ({
   text,
   country,
   city,
-}: IContent) => {
+}: IContent) {
   return (
     <div>
       <HTag tag="h2" className="mb-2">
@@ -59,4 +61,4 @@ export const Content = ({
       </div>
     </div>
   );
-};
+}

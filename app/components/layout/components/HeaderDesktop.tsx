@@ -7,16 +7,12 @@ import { CgProfile } from "react-icons/cg";
 import { TbLogout2 } from "react-icons/tb";
 
 import { LinkTag, ThemeSwitcher } from "@/app/components";
-import { $api } from "@/app/helpers";
-import { useRoutes } from "@/app/hooks";
+import { $api } from "@/helpers";
+import { useRoutes } from "@/hooks";
 
 import { HeaderLink } from "./HeaderLink";
 
-export const HeaderDesktop = ({
-  role,
-}: {
-  role: Role | null;
-}) => {
+export const HeaderDesktop = ({ role }: { role: Role | null }) => {
   const routes = useRoutes();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -67,7 +63,7 @@ export const HeaderDesktop = ({
           <TbLogout2
             size="32px"
             onClick={logout}
-            className="text-black dark:text-white сursor-pointer"
+            className="сursor-pointer text-black dark:text-white"
           />
         </div>
       ) : (

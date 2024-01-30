@@ -1,9 +1,10 @@
 "use server";
 
-import { getCurrentUser } from "@/app/actions";
+import { getCurrentUser } from "@/actions";
 import prisma from "@/libs/prismadb";
 
-import { Content } from "./components";
+import { NewVacancy } from "./components";
+import VacancyTable from "./components/VacancyTable";
 
 export default async function CompanyVacancyPage() {
   const user = await getCurrentUser();
@@ -47,5 +48,10 @@ export default async function CompanyVacancyPage() {
     },
   });
 
-  return <Content vacancies={vacancies} />;
+  return (
+    <div className="flex flex-col">
+      <NewVacancy />
+      <VacancyTable vacancies={vacancies} />
+    </div>
+  );
 }

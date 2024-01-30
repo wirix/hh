@@ -1,7 +1,7 @@
 import cn from "classnames";
 import Link from "next/link";
 
-import type { IRoutes } from "@/app/hooks";
+import type { IRoutes } from "@/hooks";
 
 interface IHeaderLink extends IRoutes {
   className?: string;

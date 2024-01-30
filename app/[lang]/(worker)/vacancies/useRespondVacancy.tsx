@@ -2,7 +2,7 @@ import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { toast } from "react-toastify";
 
-import { $api } from "@/app/helpers";
+import { $api } from "@/helpers";
 
 export const useRespondVacancy = ({
   userId,
@@ -34,5 +34,5 @@ export const useRespondVacancy = ({
     }
   };
 
-	return {state: { isPending }, functions: { onSubmitRespond }}
+  return { state: { isPending }, functions: { onSubmitRespond } };
 };

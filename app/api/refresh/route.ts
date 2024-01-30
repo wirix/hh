@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-import { tokenService } from "@/app/[lang]/(form)/token.services";
+import { tokenService } from "@/app/[lang]/(form)/token-services";
 import { UserDto } from "@/dto";
 import { EnumTokens } from "@/enum/token.enum";
 import prisma from "@/libs/prismadb";
@@ -9,7 +9,6 @@ import prisma from "@/libs/prismadb";
 export async function GET(req: Request) {
   try {
     const refresh_token = cookies().get(EnumTokens.REFRESH_TOKEN)?.value || "";
-    const isValidateToken = tokenService.validateRefreshToken(refresh_token);
     const token = await prisma.token.findUnique({
       where: {
         refresh_token,
@@ -19,7 +18,7 @@ export async function GET(req: Request) {
       },
     });
 
-    if (!isValidateToken || !token) {
+    if (!token) {
       return new NextResponse("Unauthorization", {
         status: 401,
       });

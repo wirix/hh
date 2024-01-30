@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 
-import { getCurrentUser } from "@/app/actions";
+import { getCurrentUser } from "@/actions";
 
 import { Container } from "../container/Container";
 import { FooterMobile, HeaderDesktop } from "./components";

@@ -9,10 +9,10 @@ import { toast } from "react-toastify";
 
 import { Button, LinkTag } from "@/app/components";
 import { Input } from "@/app/components/tags/Input";
-import { $api } from "@/app/helpers";
+import { $api } from "@/helpers";
 import { EnumTokens } from "@/enum/token.enum";
 
-import { RegisterSchema } from "./register.validation";
+import { RegisterSchema } from "./register-validation";
 
 interface IRegister {
   username: string;

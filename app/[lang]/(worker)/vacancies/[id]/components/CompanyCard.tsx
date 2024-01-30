@@ -1,3 +1,5 @@
+"use server";
+
 import type { Company } from "@prisma/client";
 import cn from "classnames";
 import Image from "next/image";
@@ -10,7 +12,10 @@ interface ICompanyCard
   company: Company;
 }
 
-export const CompanyCard = ({ company, className }: ICompanyCard) => {
+export default async function CompanyCard({
+  company,
+  className,
+}: ICompanyCard) {
   return (
     <Card
       color="whiteShadow"
@@ -29,4 +34,4 @@ export const CompanyCard = ({ company, className }: ICompanyCard) => {
       <PTag color="black">{company.countryCenterFull}</PTag>
     </Card>
   );
-};
+}

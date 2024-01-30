@@ -6,9 +6,9 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 import { Button, Card, Input } from "@/app/components";
-import { $api } from "@/app/helpers";
+import { $api } from "@/helpers";
 
-import { ResumeSchema } from "../resume.validation";
+import { ResumeSchema } from "../resume-validation";
 
 export interface IResumeForm extends Omit<Resume, "id" | "userId"> {}
 

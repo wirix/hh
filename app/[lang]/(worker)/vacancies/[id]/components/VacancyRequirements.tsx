@@ -1,3 +1,5 @@
+"use server";
+
 import type { DetailedHTMLProps, HTMLAttributes } from "react";
 
 import { HTag, PTag } from "@/app/components";
@@ -15,14 +17,14 @@ interface IRequirements {
   content: string | null;
 }
 
-export const VacancyRequirements = ({
+export default async function VacancyRequirements({
   vacancyText,
   responsibilities,
   conditions,
   companyText,
   className,
   ...props
-}: IVacancyRequirements) => {
+}: IVacancyRequirements) {
   const requirements: IRequirements[] = [
     { title: "О компании:", content: companyText },
     { title: "Обязанности:", content: responsibilities },
@@ -47,4 +49,4 @@ export const VacancyRequirements = ({
       )}
     </div>
   );
-};
+}

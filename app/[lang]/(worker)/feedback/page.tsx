@@ -4,7 +4,7 @@ import "moment/locale/ru";
 
 import moment from "moment";
 
-import { getCurrentUser } from "@/app/actions";
+import { getCurrentUser } from "@/actions";
 import { LinkTag, PTag } from "@/app/components";
 import prisma from "@/libs/prismadb";
 
@@ -77,10 +77,7 @@ export default async function FeedbackPage() {
               )}
             </th>
             <th className="p-4">
-              <LinkTag
-                color="gray"
-                href={`/vacancies/${f.vacancyId}`}
-              >
+              <LinkTag color="gray" href={`/vacancies/${f.vacancyId}`}>
                 {f.vacancy.name}
               </LinkTag>
               <PTag color="gray">в {f.vacancy.company.name}</PTag>

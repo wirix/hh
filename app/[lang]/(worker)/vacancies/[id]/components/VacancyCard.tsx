@@ -1,6 +1,6 @@
 "use client";
 
-import type { Vacancy } from "@prisma/client";
+import type { Role, Vacancy } from "@prisma/client";
 import cn from "classnames";
 import type { DetailedHTMLProps } from "react";
 
@@ -13,11 +13,17 @@ interface IVacancyCard
     React.HTMLAttributes<HTMLDivElement>,
     HTMLDivElement
   > {
+  role: Role;
   vacancy: Vacancy;
   userId: string;
 }
 
-export const VacancyCard = ({ vacancy, userId, className }: IVacancyCard) => {
+export const VacancyCard = ({
+  vacancy,
+  userId,
+  role,
+  className,
+}: IVacancyCard) => {
   const {
     functions: { onSubmitRespond },
   } = useRespondVacancy({
@@ -36,10 +42,14 @@ export const VacancyCard = ({ vacancy, userId, className }: IVacancyCard) => {
       <HTag tag="h2" className="mb-4">
         от {vacancy.salary} {vacancy.currency} на руки
       </HTag>
-      <PTag color='gray'>Требуемый опыт работы: {vacancy.experience}</PTag>
-      <PTag color='gray'>Полная занятость, удаленная работа</PTag>
+      <PTag color="gray">Требуемый опыт работы: {vacancy.experience}</PTag>
+      <PTag color="gray">Полная занятость, удаленная работа</PTag>
       <div className="mt-4">
-        {!vacancy.responderIds.includes(userId) ? (
+        {role !== "WORKER" ? (
+          <Button disabled color="green" className="text-white">
+            Войдите в аккаунт соискатем
+          </Button>
+        ) : !vacancy.responderIds.includes(userId) && role === "WORKER" ? (
           <Button
             onClick={onSubmitRespond}
             color="green"

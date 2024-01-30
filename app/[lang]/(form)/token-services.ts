@@ -8,7 +8,7 @@ class TokenService {
       payload,
       process.env.JWT_ACCESS_TOKEN as Secret,
       {
-        expiresIn: "2h",
+        expiresIn: "2d",
       },
     );
     const refresh_token = jwt.sign(

@@ -1,9 +1,11 @@
 "use server";
 
-import { getCurrentUser } from "@/app/actions";
+import { getCurrentUser } from "@/actions";
 import prisma from "@/libs/prismadb";
 
-import { CompanyCard, VacancyCard, VacancyRequirements } from "./components";
+import { VacancyCard } from "./components";
+import VacancyRequirements from "./components/VacancyRequirements";
+import CompanyCard from "./components/CompanyCard";
 
 interface IParams {
   id?: string;
@@ -19,14 +21,7 @@ export default async function VacancyContent({ params }: { params: IParams }) {
     );
   }
 
-  const { role, id: userId } = user;
-  if (role !== "WORKER") {
-    return (
-      <div className="dark:text-white">
-        Вы не соискатель, чтобы посетить эту страницу.
-      </div>
-    );
-  }
+  const { id: userId, role } = user;
 
   const vacancy = await prisma.vacancy.findUnique({
     where: {
@@ -45,6 +40,7 @@ export default async function VacancyContent({ params }: { params: IParams }) {
   return (
     <div className="grid grid-cols-[770px_450px] grid-rows-[140px_80px_auto] gap-2 p-4">
       <VacancyCard
+        role={role}
         userId={userId}
         vacancy={vacancy}
         className="col-span-1 row-span-2"

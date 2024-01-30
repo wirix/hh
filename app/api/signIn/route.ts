@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-import { tokenService } from "@/app/[lang]/(form)/token.services";
+import { tokenService } from "@/app/[lang]/(form)/token-services";
 import { UserDto } from "@/dto";
 import { EnumTokens } from "@/enum/token.enum";
 import prisma from "@/libs/prismadb";

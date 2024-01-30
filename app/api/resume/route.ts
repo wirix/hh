@@ -1,9 +1,8 @@
 import type { Resume } from "@prisma/client";
 import { NextResponse } from "next/server";
 
-import { getCurrentUser } from "@/app/actions";
+import { getCurrentUser } from "@/actions";
 import prisma from "@/libs/prismadb";
-
 
 interface IResume extends Omit<Resume, "id" | "userId"> {
   body: string;

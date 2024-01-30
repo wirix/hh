@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import type { IRoutes } from "@/app/hooks";
+import type { IRoutes } from "@/hooks";
 
 export const FooterLink = ({ Icon, href }: IRoutes) => {
   return (

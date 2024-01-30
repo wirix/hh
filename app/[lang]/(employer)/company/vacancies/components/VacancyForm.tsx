@@ -9,7 +9,7 @@ import * as Yup from "yup";
 
 import { Button, Card, PTag } from "@/app/components";
 import { Input } from "@/app/components/tags/Input";
-import { $api } from "@/app/helpers";
+import { $api } from "@/helpers";
 import type { DictionaryPage } from "@/libs/dictionary";
 
 export interface IVacancyForm {

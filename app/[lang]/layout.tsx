@@ -10,6 +10,7 @@ import type { LangParamsType } from '@/libs/dictionary';
 
 import { Layout } from "../components";
 import { ProviderTheme } from "./provider-theme";
+import { i18n } from '@/i18n.config';
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
@@ -25,7 +26,7 @@ export default function RootLayout({
   params: LangParamsType;
 }) {
   return (
-    <html lang={params.lang}>
+    <html lang={params.lang ?? i18n.defaultLocale}>
       <body className={inter.className + " dark:bg-gray-900"} id="__next">
         <ProviderTheme>
           <Layout>{children}</Layout>

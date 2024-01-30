@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
 import { HTag } from "@/app/components";
-import { $api } from "@/app/helpers";
+import { $api } from "@/helpers";
 
 import { ResponderItem } from "./ResponderItem";
 import { ResumeCard } from "./ResumeCard";
@@ -19,11 +19,7 @@ type VacancyType = Vacancy & {
   responders: UserType[];
 };
 
-export const Content = ({
-  vacancy,
-}: {
-  vacancy: VacancyType;
-}) => {
+export const Content = ({ vacancy }: { vacancy: VacancyType }) => {
   const router = useRouter();
   const [idCandidate, setIdCandidate] = useState<string | null>(null);
   const [isFetching, setIsFetching] = useState(false);

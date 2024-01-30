@@ -27,7 +27,7 @@ export const VacancyItem: FC<IVacancyItem> = ({
       <div className="grid grid-cols-[400px_200px_150px_130px_100px_150px_auto] items-center">
         <LinkTag
           color="white"
-          href={`/vacancy/${id}`}
+          href={`/vacancies/${id}`}
           className="font-semibold"
         >
           {name.slice(0, 42)}

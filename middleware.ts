@@ -1,10 +1,8 @@
 import { match as matchLocale } from "@formatjs/intl-localematcher";
-import jwt from "jsonwebtoken";
 import Negotiator from "negotiator";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-import { $api } from "@/app/helpers";
 import { i18n } from "@/i18n.config";
 
 function getLocale(request: NextRequest): string | undefined {
@@ -21,8 +19,6 @@ function getLocale(request: NextRequest): string | undefined {
 
 export const middleware = (request: NextRequest) => {
   try {
-    const requestHeader = new Headers(request.headers);
-
     const pathname = request.nextUrl.pathname;
     const pathnameIsMissingLocale = i18n.locales.every(
       (locale) =>
@@ -49,17 +45,6 @@ export const middleware = (request: NextRequest) => {
         ),
       );
     }
-
-    const bearerToken = requestHeader.get("Authorization");
-    // const access_token = bearerToken?.split(" ")[1];
-    // if (!access_token) {
-    //   return new NextResponse("Unauthorization", { status: 401 });
-    // }
-
-    // const decoded = jwt.decode(access_token, { complete: true });
-    // if (!decoded) {
-    //   return new NextResponse("Unauthorization", { status: 401 });
-    // }
   } catch (e) {
     return new NextResponse("Internal Error", { status: 500 });
   }

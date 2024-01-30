@@ -8,6 +8,7 @@ import { MdOutlineWorkOutline } from "react-icons/md";
 import { Button, Card, Experience, LinkTag, PTag } from "@/app/components";
 
 import { useRespondVacancy } from "../useRespondVacancy";
+import { formatSalary } from '@/helpers';
 
 interface IVacancyItem
   extends Vacancy,
@@ -37,30 +38,6 @@ export const VacancyItem: FC<IVacancyItem> = ({
     userId,
     vacancyId: id,
   });
-
-  const formatSalary = (salary: number, currency: string) => {
-    const getLocale = () => {
-      switch (currency) {
-        case "USD":
-          return "en-US";
-        case "RUB":
-          return "ru-RU";
-        default:
-          return "en-US";
-      }
-    };
-
-    const locale = getLocale();
-
-    const intl = new Intl.NumberFormat(locale, {
-      style: "currency",
-      currency: currency,
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 2,
-    });
-
-    return intl.format(salary);
-  };
 
   return (
     <Card className={cn("flex flex-col p-3", className)} color="whiteShadow">

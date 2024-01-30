@@ -1,7 +1,7 @@
 import type { Vacancy } from "@prisma/client";
 import { NextResponse } from "next/server";
 
-import { getCurrentUser } from "@/app/actions";
+import { getCurrentUser } from "@/actions";
 import prisma from "@/libs/prismadb";
 
 export async function POST(req: Request) {

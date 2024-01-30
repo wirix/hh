@@ -1,4 +1,4 @@
-"use client";
+"use server";
 
 import type { Company } from "@prisma/client";
 import Image from "next/image";
@@ -6,7 +6,11 @@ import { IoMdPhotos } from "react-icons/io";
 
 import { Card, HTag, PTag } from "@/app/components";
 
-export const CompanyInfo = ({ company }: { company: Company | null }) => {
+export default async function CompanyInfo({
+  company,
+}: {
+  company: Company | null;
+}) {
   if (!company) {
     return (
       <div className="dark:text-white">
@@ -37,4 +41,4 @@ export const CompanyInfo = ({ company }: { company: Company | null }) => {
       </div>
     </div>
   );
-};
+}
