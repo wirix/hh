@@ -1,6 +1,8 @@
+import { Role } from '@prisma/client';
 import { NextResponse } from "next/server";
 
 import { getCurrentUser } from "@/actions";
+import { ResponseError } from "@/api-service";
 import prisma from "@/libs/prismadb";
 
 interface IParams {
@@ -11,22 +13,16 @@ export async function GET(request: Request, { params }: { params: IParams }) {
   try {
     const user = await getCurrentUser();
     if (!user) {
-      return new NextResponse("Unauthorized", {
-        status: 401,
-      });
+      return ResponseError.Unauthorized();
     }
 
     const { id: userId, role } = user;
-    if (role !== "WORKER") {
-      return new NextResponse("Not correct role", {
-        status: 403,
-      });
+    if (role !== Role.WORKER) {
+      return ResponseError.NotMatchesRole(Role.WORKER);
     }
 
     if (!user.resume) {
-      return new NextResponse("No exist resume", {
-        status: 400,
-      });
+      return ResponseError.NotFound("Resume");
     }
 
     const { vacancyId } = params;
@@ -37,9 +33,7 @@ export async function GET(request: Request, { params }: { params: IParams }) {
       },
     });
     if (!vacancy) {
-      return new NextResponse("Not exist vacancy", {
-        status: 404,
-      });
+      return ResponseError.NotFound("Vacancy");
     }
 
     const responderIds = vacancy.responderIds ?? [];
@@ -68,8 +62,6 @@ export async function GET(request: Request, { params }: { params: IParams }) {
       message: "Заявка успешно принята!",
     });
   } catch (e: any) {
-    return new NextResponse("Error", {
-      status: 500,
-    });
+    return ResponseError.InternalServer();
   }
 }

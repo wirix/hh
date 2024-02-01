@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
+import { ResponseError } from "@/api-service";
 import { tokenService } from "@/app/[lang]/(form)/token-services";
 import { UserDto } from "@/dto";
 import { EnumTokens } from "@/enum/token.enum";
@@ -24,9 +25,7 @@ export async function POST(req: Request) {
     });
 
     if (!user) {
-      return new NextResponse("Account not found", {
-        status: 404,
-      });
+      return ResponseError.NotFound("Account");
     }
 
     const isMatchesPassword = await bcrypt.compare(
@@ -35,9 +34,7 @@ export async function POST(req: Request) {
     );
 
     if (!isMatchesPassword) {
-      return new NextResponse("Account not found", {
-        status: 404,
-      });
+      return ResponseError.NotFound("Account");
     }
 
     const userDto = new UserDto(user);
@@ -64,8 +61,6 @@ export async function POST(req: Request) {
       access_token: tokens.access_token,
     });
   } catch (e: any) {
-    return new NextResponse("Internal Error", {
-      status: 500,
-    });
+    return ResponseError.InternalServer();
   }
 }

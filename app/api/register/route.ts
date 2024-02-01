@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 
+import { ResponseError } from "@/api-service";
 import { tokenService } from "@/app/[lang]/(form)/token-services";
 import { UserDto } from "@/dto";
 import { EnumTokens } from "@/enum/token.enum";
@@ -28,9 +29,7 @@ export async function POST(req: Request) {
     });
 
     if (candidate) {
-      return new NextResponse("Email already exists", {
-        status: 409,
-      });
+      return ResponseError.AccountExistsAlready();
     }
 
     const hashedPassword = await bcrypt.hash(password, 3);
@@ -66,8 +65,6 @@ export async function POST(req: Request) {
       access_token: tokens.access_token,
     });
   } catch (e: any) {
-    return new NextResponse("Internal Error", {
-      status: 500,
-    });
+    return ResponseError.InternalServer();
   }
 }

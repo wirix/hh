@@ -1,8 +1,10 @@
+import { Role } from '@prisma/client';
 import bcrypt from "bcrypt";
 import { NextResponse } from "next/server";
 
-import { ICompanyForm } from "@/app/[lang]/(employer)/company/components";
 import { getCurrentUser } from "@/actions";
+import { ResponseError } from "@/api-service";
+import { ICompanyForm } from "@/app/[lang]/(employer)/company/components";
 import prisma from "@/libs/prismadb";
 
 export async function POST(req: Request) {
@@ -10,18 +12,14 @@ export async function POST(req: Request) {
     const body = await req.json();
     const user = await getCurrentUser();
     if (!user) {
-      return new NextResponse("Unauthorized", {
-        status: 401,
-      });
+      return ResponseError.Unauthorized();
     }
 
     const { password, ...data }: ICompanyForm = body;
     const { id: userId, role } = user;
 
-    if (role === "WORKER") {
-      return new NextResponse("Not correct role", {
-        status: 403,
-      });
+    if (role !== Role.EMPLOYER) {
+      return ResponseError.NotMatchesRole(Role.EMPLOYER);
     }
 
     const hashedPassword = await bcrypt.hash(password, 3);
@@ -36,8 +34,6 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ isSuccess: true });
   } catch (e) {
-    return new NextResponse("Internal Error", {
-      status: 500,
-    });
+    return ResponseError.InternalServer();
   }
 }

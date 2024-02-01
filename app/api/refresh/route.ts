@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
+import { ResponseError } from '@/api-service';
 import { tokenService } from "@/app/[lang]/(form)/token-services";
 import { UserDto } from "@/dto";
 import { EnumTokens } from "@/enum/token.enum";
@@ -19,9 +20,7 @@ export async function GET(req: Request) {
     });
 
     if (!token) {
-      return new NextResponse("Unauthorization", {
-        status: 401,
-      });
+      return ResponseError.Unauthorized();
     }
 
     const userDto = new UserDto(token.user);
@@ -44,8 +43,6 @@ export async function GET(req: Request) {
       access_token: tokens.access_token,
     });
   } catch (e: any) {
-    return new NextResponse("Internal Error", {
-      status: 500,
-    });
+    return ResponseError.InternalServer();
   }
 }

@@ -1,12 +1,14 @@
 "use server";
 
-import { Card, PTag } from "@/app/components";
 import type { Company, Feedback, Vacancy } from "@prisma/client";
 import { BiCategory } from "react-icons/bi";
 import { BsFillWalletFill } from "react-icons/bs";
 import { FaCity, FaEyeSlash } from "react-icons/fa";
 import { FaMoneyBillWave } from "react-icons/fa6";
 import { MdOutlineWorkOutline } from "react-icons/md";
+
+import { Card, PTag } from "@/app/components";
+
 import { VacancyItem } from ".";
 
 export default async function VacancyTable({

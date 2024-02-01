@@ -1,4 +1,4 @@
-export default async function VacanciesLayout({
+export default function VacanciesLayout({
   children,
 }: {
   children: React.ReactNode;

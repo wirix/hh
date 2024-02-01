@@ -17,7 +17,7 @@ interface IRequirements {
   content: string | null;
 }
 
-export default async function VacancyRequirements({
+export async function VacancyRequirements({
   vacancyText,
   responsibilities,
   conditions,

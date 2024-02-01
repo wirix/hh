@@ -2,6 +2,7 @@ import type { Resume } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 import { getCurrentUser } from "@/actions";
+import { ResponseError } from "@/api-service";
 import prisma from "@/libs/prismadb";
 
 interface IResume extends Omit<Resume, "id" | "userId"> {
@@ -14,9 +15,7 @@ export async function GET(req: Request) {
   try {
     return NextResponse.json({ data: "body" });
   } catch (e: any) {
-    return new NextResponse("Internal Error", {
-      status: 500,
-    });
+    return ResponseError.InternalServer();
   }
 }
 
@@ -27,9 +26,7 @@ export async function POST(req: Request) {
 
     const user = await getCurrentUser();
     if (!user) {
-      return new NextResponse("Unauthorized", {
-        status: 401,
-      });
+      return ResponseError.Unauthorized();
     }
 
     const { id: userId } = user;
@@ -50,8 +47,6 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ isSuccess: true });
   } catch (e: any) {
-    return new NextResponse("Internal Error", {
-      status: 500,
-    });
+    return ResponseError.InternalServer();
   }
 }

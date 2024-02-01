@@ -5,6 +5,8 @@ import { NextResponse } from "next/server";
 
 import { i18n } from "@/i18n.config";
 
+import { ResponseError } from "./api-service";
+
 function getLocale(request: NextRequest): string | undefined {
   const negotiatorHeaders: Record<string, string> = {};
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
@@ -46,7 +48,7 @@ export const middleware = (request: NextRequest) => {
       );
     }
   } catch (e) {
-    return new NextResponse("Internal Error", { status: 500 });
+    return ResponseError.InternalServer();
   }
 };
 

@@ -6,9 +6,9 @@ import type { DetailedHTMLProps, FC, HTMLAttributes } from "react";
 import { MdOutlineWorkOutline } from "react-icons/md";
 
 import { Button, Card, Experience, LinkTag, PTag } from "@/app/components";
+import { formatSalary } from '@/helpers';
 
 import { useRespondVacancy } from "../useRespondVacancy";
-import { formatSalary } from '@/helpers';
 
 interface IVacancyItem
   extends Vacancy,

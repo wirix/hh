@@ -12,7 +12,7 @@ interface ICompanyCard
   company: Company;
 }
 
-export default async function CompanyCard({
+export async function CompanyCard({
   company,
   className,
 }: ICompanyCard) {

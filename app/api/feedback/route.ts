@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { getCurrentUser } from "@/actions";
+import { ResponseError } from "@/api-service";
 import prisma from "@/libs/prismadb";
 
 interface IFeedback {
@@ -16,9 +17,7 @@ export async function POST(req: Request) {
 
     const user = await getCurrentUser();
     if (!user) {
-      return new NextResponse("Unauthorized", {
-        status: 401,
-      });
+      return ResponseError.Unauthorized();
     }
 
     const createFeedback = await prisma.feedback.upsert({
@@ -43,8 +42,6 @@ export async function POST(req: Request) {
       },
     );
   } catch (e: any) {
-    return new NextResponse("Internal Error", {
-      status: 500,
-    });
+    return ResponseError.InternalServer();
   }
 }
