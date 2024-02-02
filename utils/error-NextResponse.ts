@@ -1,7 +1,7 @@
 import { Role } from "@prisma/client";
 import { NextResponse } from "next/server";
 
-export class ResponseError {
+export class NextResponseError {
   status: number;
   message: string;
   constructor(status: number, message: string) {

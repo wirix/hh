@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 
 import { UserDto } from "@/dto";
-import { EnumTokens } from "@/enum/token.enum";
+import { EnumTokens } from "@/enum";
 import prisma from "@/libs/prismadb";
 
 interface ITokenData extends UserDto {

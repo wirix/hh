@@ -1,9 +1,9 @@
-import { Role } from '@prisma/client';
+import { Role } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 import { getCurrentUser } from "@/actions";
-import { ResponseError } from "@/api-service";
 import prisma from "@/libs/prismadb";
+import { NextResponseError } from "@/utils";
 
 interface IParams {
   vacancyId?: string;
@@ -13,19 +13,22 @@ export async function GET(request: Request, { params }: { params: IParams }) {
   try {
     const user = await getCurrentUser();
     if (!user) {
-      return ResponseError.Unauthorized();
+      return NextResponseError.Unauthorized();
     }
 
     const { id: userId, role } = user;
     if (role !== Role.WORKER) {
-      return ResponseError.NotMatchesRole(Role.WORKER);
+      return NextResponseError.NotMatchesRole(Role.WORKER);
     }
 
     if (!user.resume) {
-      return ResponseError.NotFound("Resume");
+      return NextResponseError.NotFound("Resume");
     }
 
     const { vacancyId } = params;
+    if (!vacancyId) {
+      return NextResponseError.NotFound("VacancyId");
+    }
 
     const vacancy = await prisma.vacancy.findUnique({
       where: {
@@ -33,7 +36,7 @@ export async function GET(request: Request, { params }: { params: IParams }) {
       },
     });
     if (!vacancy) {
-      return ResponseError.NotFound("Vacancy");
+      return NextResponseError.NotFound("Vacancy");
     }
 
     const responderIds = vacancy.responderIds ?? [];
@@ -56,12 +59,19 @@ export async function GET(request: Request, { params }: { params: IParams }) {
       },
     });
 
+    const sendFeedbackToUser = await prisma.feedback.create({
+      data: {
+        vacancyId,
+        userId,
+      },
+    });
+
     return NextResponse.json({
       isSuccess: true,
       isAllReady: false,
       message: "Заявка успешно принята!",
     });
   } catch (e: any) {
-    return ResponseError.InternalServer();
+    return NextResponseError.InternalServer();
   }
 }

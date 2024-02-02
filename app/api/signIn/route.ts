@@ -2,11 +2,11 @@ import bcrypt from "bcrypt";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-import { ResponseError } from "@/api-service";
 import { tokenService } from "@/app/[lang]/(form)/token-services";
 import { UserDto } from "@/dto";
-import { EnumTokens } from "@/enum/token.enum";
+import { EnumTokens } from "@/enum";
 import prisma from "@/libs/prismadb";
+import { NextResponseError } from "@/utils";
 
 interface ISignIn {
   email: string;
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
     });
 
     if (!user) {
-      return ResponseError.NotFound("Account");
+      return NextResponseError.NotFound("Account");
     }
 
     const isMatchesPassword = await bcrypt.compare(
@@ -34,7 +34,7 @@ export async function POST(req: Request) {
     );
 
     if (!isMatchesPassword) {
-      return ResponseError.NotFound("Account");
+      return NextResponseError.NotFound("Account");
     }
 
     const userDto = new UserDto(user);
@@ -61,6 +61,6 @@ export async function POST(req: Request) {
       access_token: tokens.access_token,
     });
   } catch (e: any) {
-    return ResponseError.InternalServer();
+    return NextResponseError.InternalServer();
   }
 }

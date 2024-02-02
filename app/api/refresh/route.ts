@@ -1,11 +1,11 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-import { ResponseError } from '@/api-service';
 import { tokenService } from "@/app/[lang]/(form)/token-services";
 import { UserDto } from "@/dto";
-import { EnumTokens } from "@/enum/token.enum";
+import { EnumTokens } from "@/enum";
 import prisma from "@/libs/prismadb";
+import { NextResponseError } from "@/utils";
 
 export async function GET(req: Request) {
   try {
@@ -20,7 +20,7 @@ export async function GET(req: Request) {
     });
 
     if (!token) {
-      return ResponseError.Unauthorized();
+      return NextResponseError.Unauthorized();
     }
 
     const userDto = new UserDto(token.user);
@@ -43,6 +43,6 @@ export async function GET(req: Request) {
       access_token: tokens.access_token,
     });
   } catch (e: any) {
-    return ResponseError.InternalServer();
+    return NextResponseError.InternalServer();
   }
 }

@@ -27,7 +27,6 @@ export const VacancyCard = ({
   const {
     functions: { onSubmitRespond },
   } = useRespondVacancy({
-    userId,
     vacancyId: vacancy.id,
   });
 

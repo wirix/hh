@@ -1,1 +1,1 @@
-export * from './token.enum'
+export * from "./token-enum";

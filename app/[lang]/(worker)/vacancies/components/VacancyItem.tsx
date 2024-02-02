@@ -35,7 +35,6 @@ export const VacancyItem: FC<IVacancyItem> = ({
   const {
     functions: { onSubmitRespond },
   } = useRespondVacancy({
-    userId,
     vacancyId: id,
   });
 

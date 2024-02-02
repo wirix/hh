@@ -4,11 +4,11 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 
-import { ResponseError } from "@/api-service";
 import { tokenService } from "@/app/[lang]/(form)/token-services";
 import { UserDto } from "@/dto";
-import { EnumTokens } from "@/enum/token.enum";
+import { EnumTokens } from "@/enum";
 import prisma from "@/libs/prismadb";
+import { NextResponseError } from "@/utils";
 
 interface IRegister {
   email: string;
@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     });
 
     if (candidate) {
-      return ResponseError.AccountExistsAlready();
+      return NextResponseError.AccountExistsAlready();
     }
 
     const hashedPassword = await bcrypt.hash(password, 3);
@@ -65,6 +65,6 @@ export async function POST(req: Request) {
       access_token: tokens.access_token,
     });
   } catch (e: any) {
-    return ResponseError.InternalServer();
+    return NextResponseError.InternalServer();
   }
 }

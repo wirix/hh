@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { EnumTokens } from "@/enum/token.enum";
+import { EnumTokens } from "@/enum";
 
 export const baseURL =
   process.env.NODE_ENV === "production"

@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 
 import { getCurrentUser } from "@/actions";
-import { ResponseError } from "@/api-service";
 import prisma from "@/libs/prismadb";
+import { NextResponseError } from "@/utils";
 
 interface IFeedback {
-  isInvite: boolean;
+  isInvite?: boolean;
   vacancyId: string;
   userId: string;
 }
@@ -17,10 +17,10 @@ export async function POST(req: Request) {
 
     const user = await getCurrentUser();
     if (!user) {
-      return ResponseError.Unauthorized();
+      return NextResponseError.Unauthorized();
     }
 
-    const createFeedback = await prisma.feedback.upsert({
+    const sendFeedbackToUser = await prisma.feedback.upsert({
       where: {
         vacancyId_userId: {
           vacancyId: data.vacancyId,
@@ -42,6 +42,6 @@ export async function POST(req: Request) {
       },
     );
   } catch (e: any) {
-    return ResponseError.InternalServer();
+    return NextResponseError.InternalServer();
   }
 }

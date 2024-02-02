@@ -1,9 +1,9 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-import { ResponseError } from "@/api-service";
-import { EnumTokens } from "@/enum/token.enum";
+import { EnumTokens } from "@/enum";
 import prisma from "@/libs/prismadb";
+import { NextResponseError } from "@/utils";
 
 export async function GET(req: Request) {
   try {
@@ -16,7 +16,7 @@ export async function GET(req: Request) {
     });
 
     if (!findToken) {
-      return ResponseError.Unauthorized();
+      return NextResponseError.Unauthorized();
     }
 
     cookies().delete(EnumTokens.REFRESH_TOKEN);
@@ -24,6 +24,6 @@ export async function GET(req: Request) {
       logout: true,
     });
   } catch (e: any) {
-    return ResponseError.InternalServer();
+    return NextResponseError.InternalServer();
   }
 }

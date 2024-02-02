@@ -4,7 +4,7 @@ import { getCurrentUser } from "@/actions";
 import prisma from "@/libs/prismadb";
 
 import { Overlay } from "./components";
-import CompanyInfo from './components/CompanyInfo';
+import CompanyInfo from "./components/CompanyInfo";
 
 export default async function CompanyPage() {
   const user = await getCurrentUser();

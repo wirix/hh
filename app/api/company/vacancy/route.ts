@@ -2,27 +2,27 @@ import { Role, type Vacancy } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 import { getCurrentUser } from "@/actions";
-import { ResponseError } from "@/api-service";
 import prisma from "@/libs/prismadb";
+import { NextResponseError } from "@/utils";
 
 export async function POST(req: Request) {
   try {
     const body: Vacancy = await req.json();
     const user = await getCurrentUser();
     if (!user) {
-      return ResponseError.Unauthorized();
+      return NextResponseError.Unauthorized();
     }
 
     const { id: userId, role } = user;
     if (role !== Role.EMPLOYER) {
-      return ResponseError.NotMatchesRole(Role.EMPLOYER);
+      return NextResponseError.NotMatchesRole(Role.EMPLOYER);
     }
 
     const company = await prisma.company.findUnique({
       where: { userId },
     });
     if (!company) {
-      return ResponseError.NotFound("Company");
+      return NextResponseError.NotFound("Company");
     }
 
     const { id: companyId } = company;
@@ -38,6 +38,6 @@ export async function POST(req: Request) {
       isSuccess: true,
     });
   } catch (e: any) {
-    return ResponseError.InternalServer();
+    return NextResponseError.InternalServer();
   }
 }
