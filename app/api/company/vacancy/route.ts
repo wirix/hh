@@ -34,9 +34,7 @@ export async function POST(req: Request) {
       },
     });
 
-    return NextResponse.json({
-      isSuccess: true,
-    });
+    return NextResponse.json({});
   } catch (e: any) {
     return NextResponseError.InternalServer();
   }

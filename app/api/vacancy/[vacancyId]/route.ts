@@ -9,6 +9,11 @@ interface IParams {
   vacancyId?: string;
 }
 
+export interface IVacancyResponse {
+  isAllReady: boolean;
+  message: string;
+}
+
 export async function GET(request: Request, { params }: { params: IParams }) {
   try {
     const user = await getCurrentUser();
@@ -41,8 +46,7 @@ export async function GET(request: Request, { params }: { params: IParams }) {
 
     const responderIds = vacancy.responderIds ?? [];
     if (responderIds.includes(userId)) {
-      return NextResponse.json({
-        isSuccess: true,
+      return NextResponse.json<IVacancyResponse>({
         isAllReady: true,
         message: "Ваша заявка была уже отправлена!",
       });
@@ -66,8 +70,7 @@ export async function GET(request: Request, { params }: { params: IParams }) {
       },
     });
 
-    return NextResponse.json({
-      isSuccess: true,
+    return NextResponse.json<IVacancyResponse>({
       isAllReady: false,
       message: "Заявка успешно принята!",
     });

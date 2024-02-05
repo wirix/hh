@@ -1,83 +1,45 @@
 "use client";
 
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useRouter } from "next/navigation";
-import { useTransition } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
-
-import { Button, LinkTag } from "@/app/components";
+import { LinkTag, SubmitButton } from "@/app/components";
 import { Input } from "@/app/components/tags/Input";
-import { EnumTokens } from "@/enum";
-import { $api } from "@/helpers";
 
-import { signInSchema } from "./signIn-validation";
-
-interface ISignIn {
-  email: string;
-  password: string;
-}
+import { useActionForm } from "../useActionForm";
+import { IFormData, sighInAction } from "./_action";
 
 export default function SignInPage() {
-  const [isPending, startTransition] = useTransition();
-  const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    clearErrors,
-  } = useForm<ISignIn>({
-    resolver: yupResolver(signInSchema),
-  });
-
-  const onSubmit = async (data: ISignIn) => {
-    try {
-      const res = await $api.post("./signIn", JSON.stringify(data));
-      if (res.status >= 400) throw new Error();
-      localStorage.setItem(EnumTokens.ACCESS_TOKEN, res.data.access_token);
-      router.push(res.data.user.role === "WORKER" ? "/vacancies" : "/company");
-      startTransition(() => {
-        router.refresh();
-      });
-      toast.success("Вы успешно вошли в аккаунт!");
-    } catch (e: any) {
-      if (e.response.status === 404) {
-        toast.warning("Аккаунта не существует!");
-      } else {
-        toast.error("Ошибка!");
-      }
-    }
-  };
+  const { state, actionForm } = useActionForm<IFormData>(sighInAction);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex justify-center">
+    <form action={actionForm} className="flex justify-center">
       <div className="flex flex-col">
         <Input
-          {...register("email", {
-            required: { value: true, message: "Заполните почту" },
-          })}
+          className="mb-2"
           autoComplete="off"
           placeholder="Email"
           color="black"
           type="email"
-          error={errors.email}
-          className="mb-2"
+          name="email"
+          error={
+            state !== null && "error" in state
+              ? { message: state.error.email?._errors[0] }
+              : { message: "" }
+          }
         />
         <Input
-          {...register("password", {
-            required: { value: true, message: "Заполните пароль" },
-          })}
+          className="mb-2"
           autoComplete="off"
           placeholder="Пароль"
           color="black"
           type="password"
-          error={errors.password}
-          className="mb-4"
+          name="password"
+          error={
+            state !== null && "error" in state
+              ? { message: state.error.password?._errors[0] }
+              : { message: "" }
+          }
         />
         <div className="flex items-center justify-between">
-          <Button type="submit" color="green" onClick={() => clearErrors()}>
-            Войти
-          </Button>
+          <SubmitButton>Войти</SubmitButton>
           <LinkTag color="gray" href="/register">
             Создать аккаунт
           </LinkTag>

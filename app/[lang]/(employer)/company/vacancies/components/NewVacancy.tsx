@@ -39,7 +39,7 @@ export const NewVacancy = () => {
           setIsSubmitting={setIsSubmitting}
         />
       )}
-      {isSubmitting && <div className="ml-3">Отправка...</div>}
+      {isSubmitting && <div className="ml-3 dark:text-white">Отправка...</div>}
     </div>
   );
 };

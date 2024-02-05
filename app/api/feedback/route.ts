@@ -4,7 +4,7 @@ import { getCurrentUser } from "@/actions";
 import prisma from "@/libs/prismadb";
 import { NextResponseError } from "@/utils";
 
-interface IFeedback {
+export interface IFeedback {
   isInvite?: boolean;
   vacancyId: string;
   userId: string;
@@ -35,12 +35,7 @@ export async function POST(req: Request) {
       },
     });
 
-    return NextResponse.json(
-      { isSuccess: true },
-      {
-        status: 200,
-      },
-    );
+    return NextResponse.json({});
   } catch (e: any) {
     return NextResponseError.InternalServer();
   }

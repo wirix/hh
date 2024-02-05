@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 import { Button, Card, Input } from "@/app/components";
-import { $api } from "@/helpers";
+import { apiTypedRoutes } from "@/utils";
 
 import { ResumeSchema } from "../resume-validation";
 
@@ -23,7 +23,7 @@ export const ResumeForm = () => {
   });
 
   const onSubmit = async (data: IResumeForm) => {
-    const res = await $api.post("./resume", JSON.stringify(data));
+    const createResume = await apiTypedRoutes.resume.post(data);
     router.refresh();
   };
 

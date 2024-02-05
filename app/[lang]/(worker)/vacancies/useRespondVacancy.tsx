@@ -2,20 +2,15 @@ import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { toast } from "react-toastify";
 
-import { apiRoutes } from "@/utils";
+import { apiTypedRoutes } from "@/utils";
 
-export const useRespondVacancy = ({
-  vacancyId,
-}: {
-  vacancyId: string;
-}) => {
+export const useRespondVacancy = ({ vacancyId }: { vacancyId: string }) => {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
   const onSubmitRespond = async () => {
     try {
-      const vacancyRes = await apiRoutes.vacancy.get(vacancyId);
-      console.log("🚀 ~ onSubmitRespond ~ vacancyRes:", vacancyRes)
+      const sendResumeToVacancy = await apiTypedRoutes.vacancy.get(vacancyId);
       startTransition(() => {
         router.refresh();
       });

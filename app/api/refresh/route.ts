@@ -1,46 +1,50 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-import { tokenService } from "@/app/[lang]/(form)/token-services";
-import { UserDto } from "@/dto";
-import { EnumTokens } from "@/enum";
+import { Token } from "@/constants";
+import { UserDto } from "@/helpers";
 import prisma from "@/libs/prismadb";
+import { tokenMethods } from "@/utils";
 import { NextResponseError } from "@/utils";
 
 export async function GET(req: Request) {
   try {
-    const refresh_token = cookies().get(EnumTokens.REFRESH_TOKEN)?.value || "";
-    const token = await prisma.token.findUnique({
+    const token = cookies().get(Token)?.value ?? "";
+    const findToken = await prisma.token.findUnique({
       where: {
-        refresh_token,
+        token,
       },
       include: {
         user: true,
       },
     });
 
-    if (!token) {
+    if (!findToken) {
       return NextResponseError.Unauthorized();
     }
 
-    const userDto = new UserDto(token.user);
-    const tokens = tokenService.generateTokens({ ...userDto });
+    const userDto = new UserDto(findToken.user);
+
+    const newToken = tokenMethods.generateToken({ ...userDto });
+    if (!newToken) {
+      return NextResponseError.NotFound("Token");
+    }
 
     const updateToken = await prisma.token.update({
       where: {
-        id: token.id,
+        id: findToken.id,
       },
       data: {
-        refresh_token: tokens.refresh_token,
+        token: newToken,
       },
     });
 
-    cookies().set(EnumTokens.REFRESH_TOKEN, tokens.refresh_token, {
+    cookies().set(Token, newToken, {
       httpOnly: true,
     });
 
     return NextResponse.json({
-      access_token: tokens.access_token,
+      isSuccess: true,
     });
   } catch (e: any) {
     return NextResponseError.InternalServer();

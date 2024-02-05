@@ -1,7 +1,7 @@
 type methodType = "get" | "post" | "delete" | "put";
 
 interface IFetchParams {
-  data?: Record<string, string | number>;
+  data?: Record<string, any>;
   header?: Record<string, string>;
 }
 
@@ -58,7 +58,7 @@ export const fetchCustomTyped = async <T>(
     throw ApiError.Error(response.statusText, response.status);
   }
 
-  const responseData = (await response.json()) as T;
+  const responseData = await response.json();
 
-  return { ...responseData, status: response.status };
+  return { ...responseData, status: response.status } as T;
 };

@@ -1,17 +1,17 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-import { EnumTokens } from "@/enum";
+import { Token } from "@/constants";
 import prisma from "@/libs/prismadb";
 import { NextResponseError } from "@/utils";
 
 export async function GET(req: Request) {
   try {
-    const refresh_token = cookies().get(EnumTokens.REFRESH_TOKEN)?.value || "";
+    const token = cookies().get(Token)?.value || "";
 
     const findToken = await prisma.token.findUnique({
       where: {
-        refresh_token,
+        token,
       },
     });
 
@@ -19,10 +19,8 @@ export async function GET(req: Request) {
       return NextResponseError.Unauthorized();
     }
 
-    cookies().delete(EnumTokens.REFRESH_TOKEN);
-    return NextResponse.json({
-      logout: true,
-    });
+    cookies().delete(Token);
+    return NextResponse.json({});
   } catch (e: any) {
     return NextResponseError.InternalServer();
   }

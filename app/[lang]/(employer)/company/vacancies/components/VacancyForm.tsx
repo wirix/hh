@@ -9,8 +9,7 @@ import * as Yup from "yup";
 
 import { Button, Card, PTag } from "@/app/components";
 import { Input } from "@/app/components/tags/Input";
-import { $api } from "@/helpers";
-import type { DictionaryPage } from "@/libs/dictionary";
+import { apiTypedRoutes } from '@/utils';
 
 export interface IVacancyForm {
   name: string;
@@ -53,21 +52,18 @@ export const VacancyForm = ({
   } = useForm<IVacancyForm>({
     resolver: yupResolver(VacancySchema),
   });
+  
   const onSubmit = async (data: IVacancyForm) => {
     try {
       setIsSubmitting(true);
-      const res = await $api.post("./company/vacancy", JSON.stringify(data));
-      router.refresh();
-      if (res.status === 200 && res.data.isSuccess) {
-        toast.success("Успешно создана!");
-        setIsOpened(false);
-      } else {
-        toast.error("Ошибка!");
-        console.log("Неверные введены данные");
-      }
+      const res = await apiTypedRoutes.companyVacancy.post(data)
+      toast.success("Успешно создана!");
+      setIsOpened(false);
     } catch (e) {
+      toast.error("Ошибка!");
       console.log(e);
     } finally {
+      router.refresh();
       setIsSubmitting(false);
     }
   };

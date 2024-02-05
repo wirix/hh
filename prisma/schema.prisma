@@ -28,19 +28,19 @@ model User {
 }
 
 model Token {
-  id            String @id @default(auto()) @map("_id") @db.ObjectId
-  refresh_token String @unique
-  userId        String @unique @db.ObjectId
-  user          User   @relation(fields: [userId], references: [id])
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  token  String @unique
+  userId String @unique @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
 }
 
 model Company {
   id                String    @id @default(auto()) @map("_id") @db.ObjectId
   hashedPassword    String
   name              String    @unique
-  text              String?
+  text              String
   countryCenterFull String
-  img               String?
+  img               String
   userId            String    @unique @db.ObjectId
   user              User      @relation(fields: [userId], references: [id])
   vacancies         Vacancy[]

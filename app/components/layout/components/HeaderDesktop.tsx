@@ -2,28 +2,27 @@
 
 import { Role } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { useTransition } from "react";
 import { CgProfile } from "react-icons/cg";
 import { TbLogout2 } from "react-icons/tb";
 
 import { LinkTag, ThemeSwitcher } from "@/app/components";
-import { $api } from "@/helpers";
 import { useRoutes } from "@/hooks";
+import { apiTypedRoutes } from "@/utils";
 
 import { HeaderLink } from "./HeaderLink";
 
 export const HeaderDesktop = ({ role }: { role: Role | null }) => {
   const routes = useRoutes();
   const router = useRouter();
-  const [isPending, startTransition] = useTransition();
 
   const logout = async () => {
-    const res = await $api.get("./logout");
-    if (res.data.logout === true) {
+    try {
+      const res = await apiTypedRoutes.logout.get();
       router.push("/register");
-      startTransition(() => {
-        router.refresh();
-      });
+    } catch (e: any) {
+      console.log(e);
+    } finally {
+      router.refresh();
     }
   };
 

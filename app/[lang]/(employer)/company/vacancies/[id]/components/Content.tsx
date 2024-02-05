@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
 import { HTag } from "@/app/components";
-import { $api } from "@/helpers";
+import { apiTypedRoutes } from "@/utils";
 
 import { ResponderItem } from "./ResponderItem";
 import { ResumeCard } from "./ResumeCard";
@@ -32,19 +32,21 @@ export const Content = ({ vacancy }: { vacancy: VacancyType }) => {
   const onInviteClick = async (isInvite: boolean) => {
     if (!idCandidate) return;
 
+    const data = {
+      userId: idCandidate,
+      vacancyId: vacancy.id,
+      isInvite,
+    };
+
     try {
       setIsFetching(true);
-      const res = await $api.post("./feedback", {
-        userId: idCandidate,
-        vacancyId: vacancy.id,
-        isInvite,
-      });
+      const res = await apiTypedRoutes.feedback.post(data);
     } catch (e: any) {
       console.log(e);
     } finally {
+      router.refresh();
       setIdCandidate(null);
       setIsFetching(false);
-      router.refresh();
     }
   };
 

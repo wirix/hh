@@ -1,104 +1,72 @@
 "use client";
 
-import { yupResolver } from "@hookform/resolvers/yup";
 import { Role } from "@prisma/client";
-import { useRouter } from "next/navigation";
-import { useTransition } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 
-import { Button, LinkTag } from "@/app/components";
+import { LinkTag, SubmitButton } from "@/app/components";
 import { Input } from "@/app/components/tags/Input";
-import { EnumTokens } from "@/enum";
-import { $api } from "@/helpers";
 
-import { RegisterSchema } from "./register-validation";
-
-interface IRegister {
-  username: string;
-  email: string;
-  password: string;
-  role?: Role;
-}
+import { useActionForm } from "../useActionForm";
+import { IFormData, registerAction } from "./_action";
 
 export default function RegisterPage() {
-  const [_, startTransition] = useTransition();
-  const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    clearErrors,
-  } = useForm<IRegister>({
-    resolver: yupResolver(RegisterSchema),
-  });
-
-  const onSubmit = async (data: IRegister) => {
-    try {
-      const res = await $api.post("./register", JSON.stringify(data));
-      localStorage.setItem(EnumTokens.ACCESS_TOKEN, res.data.access_token);
-      router.push(data.role === "WORKER" ? "/vacancies" : "/company");
-      startTransition(() => {
-        router.refresh();
-      });
-      toast.success("Вы успешно создали аккаунт!");
-    } catch (e: any) {
-      if (e.response.status === 409) {
-        toast.warning("Почта уже используется!");
-      } else {
-        toast.error("Ошибка!");
-      }
-    }
-  };
+  const { state, actionForm } = useActionForm<IFormData>(registerAction);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex justify-center">
+    <form action={actionForm} className="flex justify-center">
       <div className="flex flex-col">
         <Input
-          {...register("username", {
-            required: { value: true, message: "Заполните имя" },
-          })}
-          autoComplete={"off"}
+          className="mb-2"
+          autoComplete="off"
           placeholder="Имя"
           color="black"
-          error={errors.username}
-          className={"mb-2"}
+          id="username"
+          name="username"
+          error={
+            state !== null && "error" in state
+              ? { message: state.error.username?._errors[0] }
+              : { message: "" }
+          }
         />
         <Input
-          {...register("email", {
-            required: { value: true, message: "Заполните почту" },
-          })}
-          autoComplete={"off"}
+          className="mb-2"
+          autoComplete="off"
           placeholder="Почта"
           color="black"
           type="email"
-          error={errors.email}
-          className={"mb-2"}
+          id="email"
+          name="email"
+          error={
+            state !== null && "error" in state
+              ? { message: state.error.email?._errors[0] }
+              : { message: "" }
+          }
         />
         <Input
-          {...register("password", {
-            required: { value: true, message: "Заполните пароль" },
-          })}
-          autoComplete={"off"}
+          className="mb-2"
+          autoComplete="off"
           placeholder="Пароль"
           color="black"
           type="password"
-          error={errors.password}
-          className={"mb-4"}
+          id="password"
+          name="password"
+          error={
+            state !== null && "error" in state
+              ? { message: state.error.password?._errors[0] }
+              : { message: "" }
+          }
         />
         <span className="mb-8">
           <select
-            {...register("role")}
             className="rounded dark:bg-green-600 dark:text-white"
+            name="role"
+            defaultValue={Role.WORKER}
           >
             <option value={Role.WORKER}>Соискатель</option>
             <option value={Role.EMPLOYER}>Работодатель</option>
           </select>
         </span>
         <div className="flex items-center justify-between">
-          <Button type="submit" color="green" onClick={() => clearErrors()}>
-            Регистрация
-          </Button>
+          <SubmitButton>Регистрация</SubmitButton>
           <LinkTag color="gray" href="/signIn">
             Есть аккаунт
           </LinkTag>

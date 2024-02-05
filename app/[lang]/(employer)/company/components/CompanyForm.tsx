@@ -9,13 +9,11 @@ import * as Yup from "yup";
 
 import { Button, Card } from "@/app/components";
 import { Input } from "@/app/components/tags/Input";
-import { $api } from "@/helpers";
+import { apiTypedRoutes } from "@/utils";
 
 export interface ICompanyForm
-  extends Omit<Company, "id" | "hashedPassword" | "userId" | "text" | "img"> {
+  extends Omit<Company, "id" | "hashedPassword" | "userId"> {
   password: string;
-  text?: string;
-  img?: string;
 }
 
 const CompanySchema = Yup.object().shape({
@@ -26,9 +24,11 @@ const CompanySchema = Yup.object().shape({
     .required("Поле обязательно!")
     .min(3, "Минимум 3 символа")
     .max(35, "Максимум 35 символов"),
-  text: Yup.string().max(5000, "Максимум 5000 символов"),
+  text: Yup.string()
+    .required("Поле обязательно!")
+    .max(5000, "Максимум 5000 символов"),
   countryCenterFull: Yup.string().required("Поле обязательно!"),
-  img: Yup.string(), // validation link
+  img: Yup.string().required("Поле обязательно!"), // !!!
 });
 
 export const CompanyForm = ({
@@ -48,11 +48,11 @@ export const CompanyForm = ({
   });
 
   const onSubmit = async (data: ICompanyForm) => {
-    const res = await $api.post("./company", JSON.stringify(data));
-    if (res.status === 200 && res.data.isSuccess) {
+    try {
+      const res = await apiTypedRoutes.company.post(data);
       setIsOpened(false);
-    } else {
-      console.log("Неверные введены данные");
+    } catch (e: any) {
+      console.log(e);
     }
     router.refresh();
   };
@@ -72,7 +72,7 @@ export const CompanyForm = ({
           placeholder={"Название компании"}
           color="black"
           error={errors.name}
-          className={"mb-4"}
+          className={"mb-2"}
         />
         <Input
           {...register("password", {
@@ -83,7 +83,7 @@ export const CompanyForm = ({
           color="black"
           type="password"
           error={errors.password}
-          className={"mb-4"}
+          className={"mb-2"}
         />
         <Input
           {...register("countryCenterFull", {
@@ -93,22 +93,27 @@ export const CompanyForm = ({
           placeholder={"Адрес центра"}
           color="black"
           error={errors.countryCenterFull}
-          className={"mb-4"}
+          className={"mb-2"}
         />
         <Input
-          {...register("img", { required: false })}
+          {...register("img", {
+            required: { value: true, message: "Заполните поле" },
+          })}
           autoComplete={"off"}
           placeholder={"Ссылка на фото"}
           color="black"
-          className={"mb-4"}
+          error={errors.img}
+          className={"mb-2"}
         />
         <Input
-          {...register("text", { required: false })}
+          {...register("text", {
+            required: { value: true, message: "Заполните поле" },
+          })}
           autoComplete={"off"}
           placeholder={"Описание"}
           color="black"
           error={errors.text}
-          className={"mb-4"}
+          className={"mb-2"}
         />
         <Button type="submit" color="green" onClick={() => clearErrors()}>
           Создать

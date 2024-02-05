@@ -11,14 +11,6 @@ interface IResume extends Omit<Resume, "id" | "userId"> {
   city: string;
 }
 
-export async function GET(req: Request) {
-  try {
-    return NextResponse.json({ data: "body" });
-  } catch (e: any) {
-    return NextResponseError.InternalServer();
-  }
-}
-
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -45,7 +37,7 @@ export async function POST(req: Request) {
       },
     });
 
-    return NextResponse.json({ isSuccess: true });
+    return NextResponse.json({});
   } catch (e: any) {
     return NextResponseError.InternalServer();
   }
