@@ -1,15 +1,13 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-import { Token } from "@/constants";
-import { UserDto } from "@/helpers";
 import prisma from "@/libs/prismadb";
-import { tokenMethods } from "@/utils";
+import { encrypt } from "@/libs/session/session";
 import { NextResponseError } from "@/utils";
 
 export async function GET(req: Request) {
   try {
-    const token = cookies().get(Token)?.value ?? "";
+    const token = cookies().get("Token")?.value ?? "";
     const findToken = await prisma.token.findUnique({
       where: {
         token,
@@ -23,9 +21,7 @@ export async function GET(req: Request) {
       return NextResponseError.Unauthorized();
     }
 
-    const userDto = new UserDto(findToken.user);
-
-    const newToken = tokenMethods.generateToken({ ...userDto });
+    const newToken = await encrypt(findToken.user);
     if (!newToken) {
       return NextResponseError.NotFound("Token");
     }
@@ -39,7 +35,7 @@ export async function GET(req: Request) {
       },
     });
 
-    cookies().set(Token, newToken, {
+    cookies().set("Token", newToken, {
       httpOnly: true,
     });
 

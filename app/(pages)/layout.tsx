@@ -8,7 +8,6 @@ import { ToastContainer } from "react-toastify";
 
 import { i18n } from "@/i18n.config";
 
-// import { type LangParamsType } from "@/libs/dictionary";
 import { Layout } from "../components";
 import { ProviderTheme } from "./theme-provider";
 
@@ -20,10 +19,8 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-  // params: { lang },
 }: {
   children: ReactNode;
-  // params: LangParamsType;
 }) {
   return (
     <html lang={i18n.defaultLocale}>

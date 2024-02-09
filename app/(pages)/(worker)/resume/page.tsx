@@ -8,7 +8,7 @@ import Content from "./components/Content";
 export default async function ResumePage() {
   const user = await getCurrentUser();
   if (!user) {
-    return <div>авторизуйтесь</div>;
+    return <div className="dark:text-white">авторизуйтесь</div>;
   }
 
   const { role, email, name, resume } = user;

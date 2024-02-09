@@ -16,8 +16,6 @@ export const LinkTag: FC<ILinkTag> = ({
   className,
   ...props
 }) => {
-  // const isDefaultLang = lang === i18n.defaultLocale;
-  // const path = isDefaultLang ? href : `/${lang}${href}`;
   return (
     <span className="flex items-center">
       <Link

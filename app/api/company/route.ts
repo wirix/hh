@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import { NextResponse } from "next/server";
 
 import { getCurrentUser } from "@/actions";
-import { ICompanyForm } from "@/app/[lang]/(employer)/company/components";
+import { ICompanyForm } from "@/app/(pages)/(employer)/company/components";
 import prisma from "@/libs/prismadb";
 import { NextResponseError } from "@/utils";
 

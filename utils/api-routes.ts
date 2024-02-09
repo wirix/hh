@@ -1,6 +1,6 @@
-import { ICompanyForm } from "@/app/[lang]/(employer)/company/components";
-import { IVacancyForm } from "@/app/[lang]/(employer)/company/vacancies/components";
-import { IResumeForm } from "@/app/[lang]/(worker)/resume/components";
+import { ICompanyForm } from "@/app/(pages)/(employer)/company/components";
+import { IVacancyForm } from "@/app/(pages)/(employer)/company/vacancies/components";
+import { IResumeForm } from "@/app/(pages)/(worker)/resume/components";
 import { IFeedback } from "@/app/api/feedback/route";
 import { IVacancyResponse } from "@/app/api/vacancy/[vacancyId]/route";
 

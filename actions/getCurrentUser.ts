@@ -1,9 +1,8 @@
-import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 
-import { Token } from '@/constants';
-import { UserDto } from "@/helpers";
 import prisma from "@/libs/prismadb";
+import { decrypt } from "@/libs/session/session";
+import { UserDto } from "@/libs/session/user-dto";
 
 interface ITokenData extends UserDto {
   iat: number;
@@ -12,12 +11,13 @@ interface ITokenData extends UserDto {
 
 export const getCurrentUser = async () => {
   try {
-    const token = cookies().get(Token)?.value || "";
+    const token = cookies().get("session")?.value || "";
     if (!token) {
       return null;
     }
 
-    const decoded = jwt.decode(token) as ITokenData;
+    const decoded = (await decrypt(token)) as ITokenData;
+    // console.log("🚀 ~ getCurrentUser ~ decoded:", decoded);
     if (!decoded) {
       return null;
     }

@@ -4,10 +4,8 @@ import bcrypt from "bcrypt";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
-import { Token } from "@/constants";
-import { UserDto } from "@/helpers";
 import prisma from "@/libs/prismadb";
-import { tokenMethods } from "@/utils";
+import { encrypt } from "@/libs/session/session";
 
 import { IResponseAction } from "../response-types";
 import { FormDataSchema } from "./schema";
@@ -47,8 +45,7 @@ export const sighInAction = async (
       return { serverErrorMessage: "Неверно введены данные!" };
     }
 
-    const userDto = new UserDto(user);
-    const token = tokenMethods.generateToken({ ...userDto });
+    const token = await encrypt(user);
     if (!token) {
       return { serverErrorMessage: "Произошла ошибка!" };
     }
@@ -65,8 +62,9 @@ export const sighInAction = async (
       },
     });
 
-    cookies().set(Token, token, {
+    cookies().set("session", token, {
       httpOnly: true,
+      expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
     });
 
     revalidatePath("/");
