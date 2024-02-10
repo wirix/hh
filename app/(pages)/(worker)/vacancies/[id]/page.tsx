@@ -3,7 +3,7 @@
 import { getCurrentUser } from "@/actions";
 import prisma from "@/libs/prismadb";
 
-import { CompanyCard, VacancyCard, VacancyRequirements } from './components';
+import { CompanyCard, VacancyCard, VacancyRequirements } from "./components";
 
 interface IParams {
   id?: string;

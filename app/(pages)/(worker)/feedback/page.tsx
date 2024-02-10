@@ -16,14 +16,7 @@ export default async function FeedbackPage() {
     );
   }
 
-  const { role, resume, id } = user;
-  if (role !== "WORKER") {
-    return (
-      <div className="dark:text-white">
-        Вы не соискатель, чтобы посетить эту страницу.
-      </div>
-    );
-  }
+  const { resume, id } = user;
 
   if (!resume) {
     return (

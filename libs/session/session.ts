@@ -1,4 +1,4 @@
-import { jwtVerify,SignJWT } from "jose";
+import { jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -13,7 +13,7 @@ export async function encrypt(data: any) {
   return await new SignJWT({ ...payload })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setExpirationTime("200sec")
+    .setExpirationTime("7days")
     .sign(secret_key);
 }
 
@@ -26,10 +26,6 @@ export async function decrypt(input: string): Promise<any> {
   } catch (e: any) {
     console.log(e);
   }
-}
-
-export async function logout() {
-  cookies().set("session", "", { expires: new Date(0) });
 }
 
 export async function getSession() {

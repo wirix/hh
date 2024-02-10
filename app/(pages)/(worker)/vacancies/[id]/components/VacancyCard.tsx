@@ -7,6 +7,7 @@ import type { DetailedHTMLProps } from "react";
 import { Button, Card, HTag, PTag } from "@/app/components";
 
 import { useRespondVacancy } from "../../useRespondVacancy";
+import { formatSalary } from "@/helpers";
 
 interface IVacancyCard
   extends DetailedHTMLProps<
@@ -39,7 +40,7 @@ export const VacancyCard = ({
         {vacancy.name}
       </HTag>
       <HTag tag="h2" className="mb-4">
-        от {vacancy.salary} {vacancy.currency} на руки
+        от {formatSalary(vacancy.salary, vacancy.currency)} на руки
       </HTag>
       <PTag color="gray">Требуемый опыт работы: {vacancy.experience}</PTag>
       <PTag color="gray">Полная занятость, удаленная работа</PTag>

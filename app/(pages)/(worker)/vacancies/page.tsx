@@ -11,12 +11,6 @@ export default async function VacanciesPage() {
     return <div className="dark:text-white">авторизуйтесь</div>;
   }
 
-  const { role } = user;
-
-  if (role !== "WORKER") {
-    return <div className="dark:text-white">Вы не ищите работу.</div>;
-  }
-
   const vacanies = await prisma.vacancy.findMany({
     take: 5,
     orderBy: {

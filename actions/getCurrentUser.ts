@@ -4,11 +4,6 @@ import prisma from "@/libs/prismadb";
 import { decrypt } from "@/libs/session/session";
 import { UserDto } from "@/libs/session/user-dto";
 
-interface ITokenData extends UserDto {
-  iat: number;
-  exp: number;
-}
-
 export const getCurrentUser = async () => {
   try {
     const token = cookies().get("session")?.value || "";
@@ -16,8 +11,7 @@ export const getCurrentUser = async () => {
       return null;
     }
 
-    const decoded = (await decrypt(token)) as ITokenData;
-    // console.log("🚀 ~ getCurrentUser ~ decoded:", decoded);
+    const decoded = (await decrypt(token)) as UserDto;
     if (!decoded) {
       return null;
     }

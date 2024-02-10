@@ -11,11 +11,7 @@ export default async function ResumePage() {
     return <div className="dark:text-white">авторизуйтесь</div>;
   }
 
-  const { role, email, name, resume } = user;
-
-  if (role !== "WORKER") {
-    return <div className="dark:text-white">Вы не ищите работу.</div>;
-  }
+  const { email, name, resume } = user;
 
   if (!resume) return <ResumeForm />;
 

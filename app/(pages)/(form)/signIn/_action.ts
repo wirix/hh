@@ -49,18 +49,6 @@ export const sighInAction = async (
     if (!token) {
       return { serverErrorMessage: "Произошла ошибка!" };
     }
-    const upsertToken = await prisma.token.upsert({
-      where: {
-        userId: user.id,
-      },
-      update: {
-        token,
-      },
-      create: {
-        token,
-        userId: user.id,
-      },
-    });
 
     cookies().set("session", token, {
       httpOnly: true,

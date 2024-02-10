@@ -2,6 +2,7 @@ import type { Feedback, Vacancy } from "@prisma/client";
 import type { DetailedHTMLProps, FC, HTMLAttributes } from "react";
 
 import { Button, Card, Experience, LinkTag, PTag } from "@/app/components";
+import { formatSalary } from "@/helpers";
 
 interface IVacancyItem
   extends Vacancy,
@@ -33,7 +34,7 @@ export const VacancyItem: FC<IVacancyItem> = ({
           {name.slice(0, 42)}
         </LinkTag>
         <PTag className="font-bold" size="lg" color="white">
-          {salary} {currency}
+          {formatSalary(salary, currency)}
         </PTag>
         <PTag size="sm" color="white">
           {city}

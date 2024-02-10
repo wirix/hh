@@ -17,7 +17,7 @@ export const HeaderDesktop = ({ role }: { role: Role | null }) => {
 
   const logout = async () => {
     try {
-      const res = await apiTypedRoutes.logout.get();
+      await apiTypedRoutes.logout.get();
       router.push("/register");
     } catch (e: any) {
       console.log(e);

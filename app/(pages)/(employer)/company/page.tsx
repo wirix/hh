@@ -14,14 +14,7 @@ export default async function CompanyPage() {
     );
   }
 
-  const { id: userId, role } = user;
-  if (role !== "EMPLOYER") {
-    return (
-      <div className="dark:text-white">
-        Вы не работодатель, чтобы посетить эту страницу.
-      </div>
-    );
-  }
+  const { id: userId } = user;
 
   const company = await prisma.company.findUnique({
     where: { userId },

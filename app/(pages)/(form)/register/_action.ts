@@ -63,13 +63,6 @@ export const registerAction = async (
       };
     }
 
-    const createToken = await prisma.token.create({
-      data: {
-        token,
-        userId: user.id,
-      },
-    });
-
     cookies().set("session", token, {
       httpOnly: true,
       expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),

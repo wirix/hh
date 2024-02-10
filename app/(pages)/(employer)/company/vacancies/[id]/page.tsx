@@ -19,15 +19,6 @@ export default async function ListResume({ params }: { params: IParams }) {
     );
   }
 
-  const { role } = user;
-  if (role === "WORKER") {
-    return (
-      <div className="dark:text-white">
-        Вы не работодатель, чтобы посетить эту страницу.
-      </div>
-    );
-  }
-
   const vacancy = await prisma.vacancy.findUnique({
     where: {
       id: vacancyId,
