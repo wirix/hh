@@ -11,7 +11,6 @@ export const HeaderLink = ({
   title,
   href,
   isDesktop,
-  isActive,
   className,
 }: IHeaderLink) => {
   return (
@@ -21,7 +20,6 @@ export const HeaderLink = ({
         "mr-8 flex items-center justify-center text-black last:mr-0 dark:text-gray-200",
         {
           ["hidden"]: !isDesktop,
-          ["text-blue-600 dark:text-blue-400"]: isActive,
         },
         className,
       )}
