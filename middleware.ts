@@ -1,8 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-import { decrypt, updateSession } from "@/lib/session/session";
-
+import { decrypt, updateSession } from "@/lib";
 import { useRoutes } from "./hooks";
 
 const formRoutes = ["/signIn", "/register"];
