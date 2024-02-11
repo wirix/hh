@@ -5,9 +5,9 @@ import cn from "classnames";
 import type { DetailedHTMLProps } from "react";
 
 import { Button, Card, HTag, PTag } from "@/app/components";
+import { formatSalary } from "@/helpers";
 
 import { useRespondVacancy } from "../../useRespondVacancy";
-import { formatSalary } from "@/helpers";
 
 interface IVacancyCard
   extends DetailedHTMLProps<
