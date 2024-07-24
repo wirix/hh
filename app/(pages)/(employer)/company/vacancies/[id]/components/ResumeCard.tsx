@@ -1,9 +1,9 @@
 "use client";
 
-import cn from "classnames";
 import type { DetailedHTMLProps, InputHTMLAttributes } from "react";
 
 import { Button, Card, PTag } from "@/app/components";
+import { cn } from "@/lib/utils";
 
 import type { UserType } from "./Content";
 

@@ -1,7 +1,8 @@
-import cn from "classnames";
 import Link from "next/link";
+import { useState } from "react";
 
 import type { IRoutes } from "@/hooks";
+import { cn } from "@/lib/utils";
 
 interface IHeaderLink extends IRoutes {
   className?: string;
@@ -13,6 +14,8 @@ export const HeaderLink = ({
   isDesktop,
   className,
 }: IHeaderLink) => {
+  const [isAuth] = useState();
+
   return (
     <Link
       href={href}

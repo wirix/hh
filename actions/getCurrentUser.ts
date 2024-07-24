@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
 
-import prisma from "@/libs/prismadb";
-import { decrypt } from "@/libs/session/session";
-import { UserDto } from "@/libs/session/user-dto";
+import prisma from "@/prisma/prismadb";
+import { decrypt } from "@/prisma/session/session";
+import { UserDto } from "@/prisma/session/user-dto";
 
 export const getCurrentUser = async () => {
   try {

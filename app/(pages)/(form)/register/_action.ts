@@ -6,8 +6,8 @@ import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { v4 as uuidv4 } from "uuid";
 
-import prisma from "@/libs/prismadb";
-import { encrypt } from "@/libs/session/session";
+import prisma from "@/prisma/prismadb";
+import { encrypt } from "@/prisma/session/session";
 
 import { IResponseAction } from "../response-types";
 import { FormDataSchema } from "./schema";

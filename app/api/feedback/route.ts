@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { getCurrentUser } from "@/actions";
-import prisma from "@/libs/prismadb";
+import prisma from "@/prisma/prismadb";
 import { NextResponseError } from "@/utils";
 
 export interface IFeedback {

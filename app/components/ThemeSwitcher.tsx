@@ -1,9 +1,10 @@
 "use client";
 
-import cn from "classnames";
 import { useTheme } from "next-themes";
 import type { IconBaseProps } from "react-icons";
 import { FaMoon, FaSun } from "react-icons/fa";
+
+import { cn } from "@/lib/utils";
 
 interface IThemeSwitcher extends IconBaseProps {}
 
@@ -31,5 +32,5 @@ export const ThemeSwitcher = ({ className, ...props }: IThemeSwitcher) => {
     );
   };
 
-  return <>{renderThemeChanger()}</>;
+  return renderThemeChanger();
 };

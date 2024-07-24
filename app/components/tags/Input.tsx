@@ -1,4 +1,3 @@
-import cn from "classnames";
 import {
   DetailedHTMLProps,
   FC,
@@ -9,6 +8,7 @@ import {
 import type { FieldError } from "react-hook-form";
 
 import { PTag } from "@/app/components";
+import { cn } from "@/lib/utils";
 
 export interface IInput
   extends DetailedHTMLProps<

@@ -1,5 +1,6 @@
-import cn from "classnames";
 import type { DetailedHTMLProps, FC, HTMLAttributes } from "react";
+
+import { cn } from "@/lib/utils";
 
 interface ICard
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {

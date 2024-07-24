@@ -6,7 +6,7 @@ import moment from "moment";
 
 import { getCurrentUser } from "@/actions";
 import { LinkTag, PTag } from "@/app/components";
-import prisma from "@/libs/prismadb";
+import prisma from "@/prisma/prismadb";
 
 export default async function FeedbackPage() {
   const user = await getCurrentUser();

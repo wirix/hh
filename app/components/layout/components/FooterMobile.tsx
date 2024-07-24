@@ -1,12 +1,26 @@
 "use client";
 
 import type { Role } from "@prisma/client";
+import { DetailedHTMLProps, HTMLAttributes } from "react";
 
 import { useRoutes } from "@/hooks";
+import { cn } from "@/lib/utils";
 
 import { FooterLink } from "./FooterLink";
 
-export const FooterMobile = ({ role }: { role: Role | null }) => {
+interface FooterMobileProps
+  extends Omit<
+    DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+    "role"
+  > {
+  role: Role | null;
+}
+
+export const FooterMobile = ({
+  role,
+  className,
+  ...props
+}: FooterMobileProps) => {
   const routes = useRoutes();
 
   const getSuitRoutes = () => {
@@ -34,7 +48,13 @@ export const FooterMobile = ({ role }: { role: Role | null }) => {
   };
 
   return (
-    <div className="fixed bottom-0 z-10 flex w-full flex-wrap items-center border-t-[1px] lg:hidden">
+    <div
+      className={cn(
+        "fixed bottom-0 z-10 flex w-full flex-wrap items-center border-t-[1px] lg:hidden",
+        className,
+      )}
+      {...props}
+    >
       {getSuitRoutes()}
     </div>
   );

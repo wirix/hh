@@ -2,17 +2,29 @@
 
 import { Role } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import { DetailedHTMLProps, HTMLAttributes } from "react";
 import { CgProfile } from "react-icons/cg";
 import { TbLogout2 } from "react-icons/tb";
 
 import { LinkTag, ThemeSwitcher } from "@/app/components";
-import { useRoutes } from "@/hooks";
+import { cn } from "@/lib/utils";
 import { apiTypedRoutes } from "@/utils";
 
-import { HeaderLink } from "./HeaderLink";
+import { NavRoutes } from ".";
 
-export const HeaderDesktop = ({ role }: { role: Role | null }) => {
-  const routes = useRoutes();
+interface HeaderDesktopProps
+  extends Omit<
+    DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+    "role"
+  > {
+  role: Role | null;
+}
+
+export const HeaderDesktop = ({
+  role,
+  className,
+  ...props
+}: HeaderDesktopProps) => {
   const router = useRouter();
 
   const logout = async () => {
@@ -26,33 +38,17 @@ export const HeaderDesktop = ({ role }: { role: Role | null }) => {
     }
   };
 
-  const getSuitRoutes = () => {
-    if (role) {
-      return (
-        <>
-          {routes.map((route) => {
-            if (route.role.includes(role)) {
-              return <HeaderLink key={route.href} {...route} />;
-            }
-          })}
-        </>
-      );
-    }
-
-    return (
-      <>
-        {routes.map((route) => {
-          if (!route.isAuth) {
-            return <HeaderLink key={route.href} {...route} />;
-          }
-        })}
-      </>
-    );
-  };
-
   return (
-    <div className="hidden py-8 lg:flex lg:items-center lg:justify-between">
-      <div className="lg:flex">{getSuitRoutes()}</div>
+    <div
+      className={cn(
+        "hidden py-8 lg:flex lg:items-center lg:justify-between",
+        className,
+      )}
+      {...props}
+    >
+      <div className="lg:flex">
+        <NavRoutes role={role} />
+      </div>
       {role ? (
         <div className="flex items-center justify-center">
           <ThemeSwitcher className="mr-4" />

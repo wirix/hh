@@ -1,21 +1,18 @@
 "use server";
 
 import type { Company } from "@prisma/client";
-import cn from "classnames";
 import Image from "next/image";
 import type { DetailedHTMLProps, HTMLAttributes } from "react";
 
 import { Card, HTag, PTag } from "@/app/components";
+import { cn } from "@/lib/utils";
 
 interface ICompanyCard
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   company: Company;
 }
 
-export async function CompanyCard({
-  company,
-  className,
-}: ICompanyCard) {
+export async function CompanyCard({ company, className }: ICompanyCard) {
   return (
     <Card
       color="whiteShadow"

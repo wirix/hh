@@ -2,13 +2,13 @@
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import type { Company } from "@prisma/client";
-import cn from "classnames";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 
 import { Button, Card } from "@/app/components";
 import { Input } from "@/app/components/tags/Input";
+import { cn } from "@/lib/utils";
 import { apiTypedRoutes } from "@/utils";
 
 export interface ICompanyForm

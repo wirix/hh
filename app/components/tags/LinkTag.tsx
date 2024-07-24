@@ -1,6 +1,7 @@
-import cn from "classnames";
 import Link from "next/link";
 import type { AnchorHTMLAttributes, FC } from "react";
+
+import { cn } from "@/lib/utils";
 
 interface ILinkTag extends AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;

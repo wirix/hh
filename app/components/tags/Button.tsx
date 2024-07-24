@@ -1,5 +1,6 @@
-import cn from "classnames";
 import type { ButtonHTMLAttributes, DetailedHTMLProps, FC } from "react";
+
+import { cn } from "@/lib/utils";
 
 interface IButton
   extends DetailedHTMLProps<

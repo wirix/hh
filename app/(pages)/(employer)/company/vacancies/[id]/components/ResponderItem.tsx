@@ -1,11 +1,9 @@
-"use client";
-
-import classNames from "classnames";
 import Image from "next/image";
 import type { DetailedHTMLProps, HTMLAttributes } from "react";
 import { CgProfile } from "react-icons/cg";
 
 import { Button, Card, PTag } from "@/app/components";
+import { cn } from "@/lib/utils";
 
 import { UserType } from "./Content";
 
@@ -17,7 +15,7 @@ interface IResponderItem
 }
 
 export const ResponderItem = ({ user, onResumeClick }: IResponderItem) => {
-  if (!user) {  
+  if (!user) {
     return <div>Нет данных о пользователе.</div>;
   }
 
@@ -27,7 +25,7 @@ export const ResponderItem = ({ user, onResumeClick }: IResponderItem) => {
       className="relative mb-4 flex items-center overflow-hidden bg-slate-800 p-2 last:mb-0 dark:shadow-none"
     >
       <span
-        className={classNames("absolute left-0 h-full w-1", {
+        className={cn("absolute left-0 h-full w-1", {
           ["bg-green-600"]: user.feedback[0]?.isInvite === true,
           ["bg-red-600"]: user.feedback[0]?.isInvite === false,
           ["bg-gray-600"]: user.feedback[0]?.isInvite === null,

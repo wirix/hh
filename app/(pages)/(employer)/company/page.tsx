@@ -1,7 +1,7 @@
 "use server";
 
 import { getCurrentUser } from "@/actions";
-import prisma from "@/libs/prismadb";
+import prisma from "@/prisma/prismadb";
 
 import { Overlay } from "./components";
 import CompanyInfo from "./components/CompanyInfo";
