@@ -8,7 +8,6 @@ import { ToastContainer } from "react-toastify";
 
 import { i18n } from "@/i18n.config";
 
-import { Layout } from "../components";
 import { ProviderTheme } from "./theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -26,7 +25,7 @@ export default async function RootLayout({
     <html lang={i18n.defaultLocale}>
       <body className={inter.className + " dark:bg-gray-900"} id="__next">
         <ProviderTheme>
-          <Layout>{children}</Layout>
+          {children}
           <ToastContainer position="bottom-right" />
         </ProviderTheme>
       </body>

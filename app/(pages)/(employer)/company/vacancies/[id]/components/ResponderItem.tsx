@@ -2,7 +2,7 @@ import Image from "next/image";
 import type { DetailedHTMLProps, HTMLAttributes } from "react";
 import { CgProfile } from "react-icons/cg";
 
-import { Button, Card, PTag } from "@/app/components";
+import { Button, Card, PTag } from "@/components/custom";
 import { cn } from "@/lib/utils";
 
 import { UserType } from "./Content";

@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-import { decrypt, updateSession } from "@/prisma/session/session";
+import { decrypt, updateSession } from "@/lib/session/session";
 
 import { useRoutes } from "./hooks";
 

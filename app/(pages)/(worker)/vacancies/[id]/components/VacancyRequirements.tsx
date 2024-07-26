@@ -2,7 +2,7 @@
 
 import type { DetailedHTMLProps, HTMLAttributes } from "react";
 
-import { HTag, PTag } from "@/app/components";
+import { HTag, PTag } from "@/components/custom";
 
 interface IVacancyRequirements
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {

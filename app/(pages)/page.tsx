@@ -1,3 +1,5 @@
+import { Layout } from "@/components/custom";
+
 export default async function Home() {
-  return <div className="dark:text-white">Menu</div>;
+  return <Layout>Menu</Layout>;
 }

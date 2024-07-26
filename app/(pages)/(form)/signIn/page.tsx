@@ -1,7 +1,7 @@
 "use client";
 
-import { LinkTag, SubmitButton } from "@/app/components";
-import { Input } from "@/app/components/tags/Input";
+import { LinkTag, SubmitButton } from "@/components/custom";
+import { Input } from "@/components/custom/tags/Input";
 
 import { useActionForm } from "../useActionForm";
 import { IFormData, sighInAction } from "./_action";

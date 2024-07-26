@@ -7,7 +7,7 @@ import {
 } from "react";
 import type { FieldError } from "react-hook-form";
 
-import { PTag } from "@/app/components";
+import { PTag } from "@/components/custom";
 import { cn } from "@/lib/utils";
 
 export interface IInput

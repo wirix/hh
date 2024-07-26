@@ -3,7 +3,7 @@
 import type { Role, Vacancy } from "@prisma/client";
 import type { DetailedHTMLProps } from "react";
 
-import { Button, Card, HTag, PTag } from "@/app/components";
+import { Button, Card, HTag, PTag } from "@/components/custom";
 import { formatSalary } from "@/helpers";
 import { cn } from "@/lib/utils";
 

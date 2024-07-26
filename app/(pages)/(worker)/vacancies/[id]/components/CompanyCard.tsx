@@ -4,7 +4,7 @@ import type { Company } from "@prisma/client";
 import Image from "next/image";
 import type { DetailedHTMLProps, HTMLAttributes } from "react";
 
-import { Card, HTag, PTag } from "@/app/components";
+import { Card, HTag, PTag } from "@/components/custom";
 import { cn } from "@/lib/utils";
 
 interface ICompanyCard

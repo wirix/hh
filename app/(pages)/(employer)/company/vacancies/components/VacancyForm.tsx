@@ -7,16 +7,15 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 
-import { Button, Card, PTag } from "@/app/components";
-import { Input } from "@/app/components/tags/Input";
-import { apiTypedRoutes } from '@/utils';
+import { Button, Card } from "@/components/custom";
+import { Input } from "@/components/custom/tags/Input";
+import { apiTypedRoutes } from "@/utils";
 
 export interface IVacancyForm {
   name: string;
   country: string;
   city: string;
   currency: Currency;
-  isHome: boolean;
   salary: number;
   text?: string;
   responsibilities: string;
@@ -30,7 +29,6 @@ const VacancySchema = Yup.object().shape({
   currency: Yup.string()
     .required("Поле обязательно!")
     .oneOf([Currency.RUB, Currency.USD]),
-  isHome: Yup.boolean().required("Поле обязательно!"),
   salary: Yup.number().required("Обнаружен неразрешимый символ"),
   text: Yup.string(),
   responsibilities: Yup.string().required("Поле обязательно!"),
@@ -52,11 +50,11 @@ export const VacancyForm = ({
   } = useForm<IVacancyForm>({
     resolver: yupResolver(VacancySchema),
   });
-  
+
   const onSubmit = async (data: IVacancyForm) => {
     try {
       setIsSubmitting(true);
-      const res = await apiTypedRoutes.companyVacancy.post(data)
+      const res = await apiTypedRoutes.companyVacancy.post(data);
       toast.success("Успешно создана!");
       setIsOpened(false);
     } catch (e) {
@@ -150,15 +148,6 @@ export const VacancyForm = ({
             error={errors.text}
             className={"mb-2"}
           />
-          <div className="flex items-center justify-start">
-            <Input
-              size={0}
-              className="w-4"
-              {...register("isHome")}
-              type="checkbox"
-            />
-            <PTag className="ml-4">{"Можно работать из дома"}</PTag>
-          </div>
           <Button type="submit" className="text-lg" disabled={isSubmitting}>
             {"Создать"}
           </Button>

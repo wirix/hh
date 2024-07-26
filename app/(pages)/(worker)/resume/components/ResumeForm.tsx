@@ -5,7 +5,7 @@ import type { Resume } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
-import { Button, Card, Input } from "@/app/components";
+import { Button, Card, Input } from "@/components/custom";
 import { apiTypedRoutes } from "@/utils";
 
 import { ResumeSchema } from "../resume-validation";

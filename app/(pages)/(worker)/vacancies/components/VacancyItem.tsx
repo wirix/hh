@@ -4,7 +4,7 @@ import type { Company, Vacancy } from "@prisma/client";
 import type { DetailedHTMLProps, FC, HTMLAttributes } from "react";
 import { MdOutlineWorkOutline } from "react-icons/md";
 
-import { Button, Card, Experience, LinkTag, PTag } from "@/app/components";
+import { Button, Card, Experience, LinkTag, PTag } from "@/components/custom";
 import { formatSalary } from "@/helpers";
 import { cn } from "@/lib/utils";
 

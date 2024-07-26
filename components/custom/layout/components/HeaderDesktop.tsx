@@ -3,10 +3,9 @@
 import { Role } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
-import { CgProfile } from "react-icons/cg";
 import { TbLogout2 } from "react-icons/tb";
 
-import { LinkTag, ThemeSwitcher } from "@/app/components";
+import { LinkTag, ThemeSwitcher } from "@/components/custom";
 import { cn } from "@/lib/utils";
 import { apiTypedRoutes } from "@/utils";
 
@@ -51,15 +50,16 @@ export const HeaderDesktop = ({
       </div>
       {role ? (
         <div className="flex items-center justify-center">
-          <ThemeSwitcher className="mr-4" />
-          <LinkTag href="/profile" className="mr-4">
-            <CgProfile size="32px" className="text-black dark:text-white" />
-          </LinkTag>
-          <TbLogout2
-            size="32px"
-            onClick={logout}
-            className="сursor-pointer text-black dark:text-white"
-          />
+          <span className="cursor-pointer">
+            <ThemeSwitcher className="mr-4" />
+          </span>
+          <span className="cursor-pointer">
+            <TbLogout2
+              size="32px"
+              onClick={logout}
+              className="сursor-pointer text-black dark:text-white"
+            />
+          </span>
         </div>
       ) : (
         <LinkTag href="/signIn" color="green">

@@ -4,7 +4,7 @@ import type { Feedback, Resume, User, Vacancy } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
-import { HTag } from "@/app/components";
+import { HTag } from "@/components/custom";
 import { apiTypedRoutes } from "@/utils";
 
 import { ResponderItem } from "./ResponderItem";

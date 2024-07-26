@@ -2,7 +2,7 @@
 
 import type { DetailedHTMLProps, InputHTMLAttributes } from "react";
 
-import { Button, Card, PTag } from "@/app/components";
+import { Button, Card, PTag } from "@/components/custom";
 import { cn } from "@/lib/utils";
 
 import type { UserType } from "./Content";

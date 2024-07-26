@@ -4,7 +4,7 @@ import type { Company } from "@prisma/client";
 import Image from "next/image";
 import { IoMdPhotos } from "react-icons/io";
 
-import { Card, HTag, PTag } from "@/app/components";
+import { Card, HTag, PTag } from "@/components/custom";
 
 export default async function CompanyInfo({
   company,

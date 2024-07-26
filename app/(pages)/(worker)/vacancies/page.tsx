@@ -1,20 +1,45 @@
 "use server";
 
+import { City, ExperienceTime, ScheduleWork } from "@prisma/client";
+
 import { getCurrentUser } from "@/actions";
 import prisma from "@/prisma/prismadb";
 
 import { VacancyItem } from "./components";
 
-export default async function VacanciesPage() {
+export default async function VacanciesPage({
+  searchParams,
+}: {
+  searchParams: any;
+}) {
   const user = await getCurrentUser();
   if (!user) {
     return <div className="dark:text-white">авторизуйтесь</div>;
   }
 
+  const { isAscendDate, schedulesWork, experienceTime, cities, salary } =
+    searchParams as Record<string, string>;
+
   const vacanies = await prisma.vacancy.findMany({
-    take: 5,
+    take: 7,
     orderBy: {
-      createdAt: "desc",
+      createdAt: isAscendDate === "true" ? "asc" : "desc",
+    },
+    where: {
+      experience: experienceTime as ExperienceTime,
+      scheduleWork: {
+        in:
+          schedulesWork && !!schedulesWork.split(",").length
+            ? (schedulesWork.split(",") as ScheduleWork[])
+            : ["FLEX", "FULL_DAY", "REMOTE"],
+      },
+      salary: { gte: salary ? Number(salary) : 0 },
+      city: {
+        in:
+          cities && !!cities.split(",").length
+            ? (cities.split(",") as City[])
+            : ["KRASNOYARSK", "MOSCOW", "SAINT_PETERSBURG"],
+      },
     },
     include: {
       company: true,

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { Button, HTag } from "@/app/components";
+import { Button, HTag } from "@/components/custom";
 
 import { VacancyForm } from "./VacancyForm";
 

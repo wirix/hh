@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 
-import { Button, Card } from "@/app/components";
-import { Input } from "@/app/components/tags/Input";
+import { Button, Card } from "@/components/custom";
+import { Input } from "@/components/custom/tags/Input";
 import { cn } from "@/lib/utils";
 import { apiTypedRoutes } from "@/utils";
 

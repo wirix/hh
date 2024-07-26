@@ -2,7 +2,7 @@
 
 import type { DetailedHTMLProps, HTMLAttributes } from "react";
 
-import { Hr, HTag, PTag } from "@/app/components";
+import { Hr, HTag, PTag } from "@/components/custom";
 
 interface IContent
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {

@@ -2,7 +2,7 @@
 
 import { DetailedHTMLProps, HTMLAttributes, useState } from "react";
 
-import { Button, Portal } from "@/app/components";
+import { Button, Portal } from "@/components/custom";
 
 import { CompanyForm } from "./CompanyForm";
 
