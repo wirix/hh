@@ -3,8 +3,6 @@ import { Currency } from "@prisma/client";
 export const formatSalary = (salary: number, currency: Currency) => {
   const getLocale = () => {
     switch (currency) {
-      case "USD":
-        return "en-US";
       case "RUB":
         return "ru-RU";
       default:

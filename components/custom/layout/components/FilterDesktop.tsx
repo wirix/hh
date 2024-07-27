@@ -5,6 +5,11 @@ import { useRouter } from "next/navigation";
 import { DetailedHTMLProps, HTMLAttributes, useEffect, useState } from "react";
 
 import { SalaryEnum } from "@/app/(pages)/(worker)/vacancies/layout";
+import {
+  CITY_OPTIONS,
+  EXPERIENCE_TIME_OPTIONS,
+  SCHEDULE_WORK_OPTIONS,
+} from "@/components/constants";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -43,48 +48,6 @@ interface FilterParams {
     countVacancies: { [key in SalaryEnum]: number };
   };
 }
-
-const schedulesJobOptions = [
-  {
-    value: ScheduleWork.FULL_DAY,
-    label: "Полный день",
-  },
-  {
-    value: ScheduleWork.REMOTE,
-    label: "Удаленная работа",
-  },
-  { value: ScheduleWork.FLEX, label: "Гибкий день" },
-];
-//пока не используется. для того чтобы vacancies получал параметры по умолчанию
-//все если добавится в фильтр здесь новый график, так со остальными также
-export const allSchedulesValues = schedulesJobOptions.map(
-  (option) => option.value,
-);
-
-const jobExperienceTimeOptions = [
-  { value: ExperienceTime.NOT, label: "Нет опыта" },
-  {
-    value: ExperienceTime.FROM_ONE_TO_THREE,
-    label: "От 1 года до 3 лет",
-  },
-  {
-    value: ExperienceTime.FROM_THREE_TO_SIX,
-    label: "От 3 до 6 лет",
-  },
-  {
-    value: ExperienceTime.SIX_MORE,
-    label: "Более 6 лет",
-  },
-] as const;
-
-const citiesOptions = [
-  { value: City.MOSCOW, label: "Москва" },
-  {
-    value: City.SAINT_PETERSBURG,
-    label: "Санкт-Петербург",
-  },
-  { value: City.KRASNOYARSK, label: "Красноярск" },
-] as const;
 
 export const FilterDesktop = ({
   salaryOptions,
@@ -241,26 +204,26 @@ export const FilterDesktop = ({
       </div>
       <div className="mt-4">
         <h3 className="mb-2 font-bold">График работы</h3>
-        {schedulesJobOptions.map((option) => (
-          <span
-            key={option.value}
-            className="mb-2 flex select-none items-center"
-          >
-            <Checkbox
-              checked={filterParams.schedulesWork.value.has(option.value)}
-              onCheckedChange={(_) => handleSchedulesWorkChange(option.value)}
-              id={option.value}
-              className="mr-1"
-            />
-            <label
-              htmlFor={option.value}
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              {option.label}
-            </label>
-            <span className="ml-2 italic text-gray-400">111</span>
-          </span>
-        ))}
+        {Object.entries(SCHEDULE_WORK_OPTIONS).map(([key, label]) => {
+          const option = key as ScheduleWork;
+          return (
+            <span key={option} className="mb-2 flex select-none items-center">
+              <Checkbox
+                checked={filterParams.schedulesWork.value.has(option)}
+                onCheckedChange={(_) => handleSchedulesWorkChange(option)}
+                id={option}
+                className="mr-1"
+              />
+              <label
+                htmlFor={option}
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                {label}
+              </label>
+              <span className="ml-2 italic text-gray-400">111</span>
+            </span>
+          );
+        })}
       </div>
       <div className="mt-4">
         <h3 className="mb-2 font-bold">Опыт работы</h3>
@@ -268,45 +231,48 @@ export const FilterDesktop = ({
           defaultValue="NOT"
           onValueChange={handlExperienceTimeChange}
         >
-          {jobExperienceTimeOptions.map((option) => (
-            <div
-              key={option.value}
-              className="flex select-none items-center space-x-2"
-            >
-              <RadioGroupItem value={option.value} id={option.value} />
-              <Label
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                htmlFor={option.value}
+          {Object.entries(EXPERIENCE_TIME_OPTIONS).map(([key, label]) => {
+            const option = key as ExperienceTime;
+            return (
+              <div
+                key={option}
+                className="flex select-none items-center space-x-2"
               >
-                {option.label}
-              </Label>
-              <span className="ml-2 italic text-gray-400">111</span>
-            </div>
-          ))}
+                <RadioGroupItem value={option} id={option} />
+                <Label
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  htmlFor={option}
+                >
+                  {label}
+                </Label>
+                <span className="ml-2 italic text-gray-400">111</span>
+              </div>
+            );
+          })}
         </RadioGroup>
       </div>
       <div className="mt-4">
         <h3 className="mb-2 font-bold">Регионы</h3>
-        {citiesOptions.map((option) => (
-          <span
-            key={option.value}
-            className="mb-2 flex select-none items-center"
-          >
-            <Checkbox
-              checked={filterParams.cities.value.has(option.value)}
-              onCheckedChange={(_) => handleCitiesChange(option.value)}
-              id={option.value}
-              className="mr-1"
-            />
-            <label
-              htmlFor={option.value}
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              {option.label}
-            </label>
-            <span className="ml-2 italic text-gray-400">111</span>
-          </span>
-        ))}
+        {Object.entries(CITY_OPTIONS).map(([key, label]) => {
+          const option = key as City;
+          return (
+            <span key={option} className="mb-2 flex select-none items-center">
+              <Checkbox
+                checked={filterParams.cities.value.has(option)}
+                onCheckedChange={(_) => handleCitiesChange(option)}
+                id={option}
+                className="mr-1"
+              />
+              <label
+                htmlFor={option}
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                {label}
+              </label>
+              <span className="ml-2 italic text-gray-400">111</span>
+            </span>
+          );
+        })}
       </div>
       <div className="mt-4">
         <h3 className="mb-2 font-bold">Уровень дохода</h3>

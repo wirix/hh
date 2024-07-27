@@ -1,6 +1,6 @@
 "use server";
 
-import { getCurrentUser } from "@/actions";
+import { getCurrentUser } from "@/lib";
 
 import { ResumeForm } from "./components";
 import Content from "./components/Content";

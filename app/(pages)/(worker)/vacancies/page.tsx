@@ -2,7 +2,7 @@
 
 import { City, ExperienceTime, ScheduleWork } from "@prisma/client";
 
-import { getCurrentUser } from "@/actions";
+import { getCurrentUser } from "@/lib";
 import prisma from "@/prisma/prismadb";
 
 import { VacancyItem } from "./components";

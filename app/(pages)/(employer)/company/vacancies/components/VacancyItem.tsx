@@ -2,7 +2,7 @@ import type { Feedback, Vacancy } from "@prisma/client";
 import type { DetailedHTMLProps, FC, HTMLAttributes } from "react";
 
 import { Button, Card, Experience, LinkTag, PTag } from "@/components/custom";
-import { formatSalary } from "@/helpers";
+import { formatSalary } from "@/utils";
 
 interface IVacancyItem
   extends Vacancy,

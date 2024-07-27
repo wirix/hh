@@ -4,8 +4,8 @@ import "moment/locale/ru";
 
 import moment from "moment";
 
-import { getCurrentUser } from "@/actions";
 import { LinkTag, PTag } from "@/components/custom";
+import { getCurrentUser } from "@/lib";
 import prisma from "@/prisma/prismadb";
 
 export default async function FeedbackPage() {

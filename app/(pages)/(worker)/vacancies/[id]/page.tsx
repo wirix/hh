@@ -1,6 +1,6 @@
 "use server";
 
-import { getCurrentUser } from "@/actions";
+import { getCurrentUser } from "@/lib";
 import prisma from "@/prisma/prismadb";
 
 import { CompanyCard, VacancyCard, VacancyRequirements } from "./components";

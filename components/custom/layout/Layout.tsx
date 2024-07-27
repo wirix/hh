@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 
-import { getCurrentUser } from "@/actions";
+import { getCurrentUser } from "@/lib";
 
 import { Container } from "../../../components/custom/container/Container";
 import { FooterMobile, HeaderDesktop } from "./components";
@@ -38,7 +38,7 @@ export const Layout = async ({
           </div>
         )}
         <div
-          className={`col-start-${leftSide ? 2 : 1} row-end-3 col-end-${rightSide ? 3 : 4} row-start-2`}
+          className={`col-start-${leftSide ? 2 : 1} col-end-${rightSide ? 3 : 4} row-start-2 row-end-3`}
         >
           {children}
         </div>

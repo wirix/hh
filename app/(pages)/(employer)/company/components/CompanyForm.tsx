@@ -8,7 +8,7 @@ import * as Yup from "yup";
 
 import { Button, Card } from "@/components/custom";
 import { Input } from "@/components/custom/tags/Input";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils";
 import { apiTypedRoutes } from "@/utils";
 
 export interface ICompanyForm

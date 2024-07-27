@@ -3,7 +3,7 @@
 import type { DetailedHTMLProps, InputHTMLAttributes } from "react";
 
 import { Button, Card, PTag } from "@/components/custom";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils";
 
 import type { UserType } from "./Content";
 

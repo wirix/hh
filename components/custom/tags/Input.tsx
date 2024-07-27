@@ -8,7 +8,7 @@ import {
 import type { FieldError } from "react-hook-form";
 
 import { PTag } from "@/components/custom";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils";
 
 export interface IInput
   extends DetailedHTMLProps<

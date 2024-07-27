@@ -5,7 +5,7 @@ import Image from "next/image";
 import type { DetailedHTMLProps, HTMLAttributes } from "react";
 
 import { Card, HTag, PTag } from "@/components/custom";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils";
 
 interface ICompanyCard
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {

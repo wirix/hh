@@ -4,7 +4,7 @@ import type { Role } from "@prisma/client";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
 
 import { useRoutes } from "@/hooks";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils";
 
 import { FooterLink } from "./FooterLink";
 

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 import type { IRoutes } from "@/hooks";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils";
 
 interface IHeaderLink extends IRoutes {
   className?: string;

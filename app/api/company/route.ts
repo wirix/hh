@@ -2,8 +2,8 @@ import { Role } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { NextResponse } from "next/server";
 
-import { getCurrentUser } from "@/actions";
 import { ICompanyForm } from "@/app/(pages)/(employer)/company/components";
+import { getCurrentUser } from "@/lib";
 import prisma from "@/prisma/prismadb";
 import { NextResponseError } from "@/utils";
 

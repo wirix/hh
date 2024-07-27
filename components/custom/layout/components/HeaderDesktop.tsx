@@ -6,7 +6,7 @@ import { DetailedHTMLProps, HTMLAttributes } from "react";
 import { TbLogout2 } from "react-icons/tb";
 
 import { LinkTag, ThemeSwitcher } from "@/components/custom";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils";
 import { apiTypedRoutes } from "@/utils";
 
 import { NavRoutes } from ".";
