@@ -164,6 +164,7 @@ export const FilterDesktop = ({
     searchParams.set("experienceTime", filterParams.experienceTime.value);
     searchParams.set("cities", Array.from(filterParams.cities.value).join(","));
     searchParams.set("salary", filterParams.salary.value);
+    searchParams.set("page", "1");
     router.push(`/vacancies?${searchParams.toString()}`);
     router.refresh();
   }, [filterParams]);

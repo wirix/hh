@@ -1,11 +1,21 @@
 "use server";
 
-import { City, ExperienceTime, ScheduleWork } from "@prisma/client";
+import {
+  City,
+  Company,
+  ExperienceTime,
+  Prisma,
+  ScheduleWork,
+  Vacancy,
+} from "@prisma/client";
 
+import { Pagination } from "@/components/custom";
 import { getCurrentUser } from "@/lib";
 import prisma from "@/prisma/prismadb";
 
 import { VacancyItem } from "./components";
+
+const PAGE_SIZE = 2;
 
 export default async function VacanciesPage({
   searchParams,
@@ -17,11 +27,15 @@ export default async function VacanciesPage({
     return <div className="dark:text-white">авторизуйтесь</div>;
   }
 
-  const { isAscendDate, schedulesWork, experienceTime, cities, salary } =
+  const { isAscendDate, schedulesWork, experienceTime, cities, salary, page } =
     searchParams as Record<string, string>;
 
-  const vacanies = await prisma.vacancy.findMany({
-    take: 7,
+  // проверить все searchParams на валидность через zod мб
+  const skipItems = (Number(page) - 1) * PAGE_SIZE ?? 0;
+
+  const query: Prisma.VacancyFindManyArgs = {
+    take: PAGE_SIZE,
+    skip: skipItems,
     orderBy: {
       createdAt: isAscendDate === "true" ? "asc" : "desc",
     },
@@ -44,7 +58,12 @@ export default async function VacanciesPage({
     include: {
       company: true,
     },
-  });
+  };
+
+  const [vacanies, total] = (await prisma.$transaction([
+    prisma.vacancy.findMany(query),
+    prisma.vacancy.count({ where: query.where }),
+  ])) as [Array<Vacancy & { company: Company }>, number];
 
   if (!vacanies.length) {
     return <div className="dark:text-white">Вакансий нет.</div>;
@@ -60,6 +79,11 @@ export default async function VacanciesPage({
           {...v}
         />
       ))}
+      <Pagination
+        activePage={Number(page)}
+        totalItems={total}
+        itemsPage={PAGE_SIZE}
+      />
     </>
   );
 }
