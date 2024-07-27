@@ -31,7 +31,7 @@ export default async function VacanciesPage({
     searchParams as Record<string, string>;
 
   // проверить все searchParams на валидность через zod мб
-  const skipItems = (Number(page) - 1) * PAGE_SIZE ?? 0;
+  const skipItems = (Number(page ? page : 1) - 1) * PAGE_SIZE ?? 0;
 
   const query: Prisma.VacancyFindManyArgs = {
     take: PAGE_SIZE,
