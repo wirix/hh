@@ -4,8 +4,7 @@ import type { Role, Vacancy } from "@prisma/client";
 import type { DetailedHTMLProps } from "react";
 
 import { Button, Card, HTag, PTag } from "@/components/custom";
-import { formatSalary } from "@/utils";
-import { cn } from "@/utils";
+import { cn, formatSalary } from "@/utils";
 
 import { useRespondVacancy } from "../../useRespondVacancy";
 
