@@ -1,6 +1,6 @@
 "use client";
 
-import { yupResolver } from "@hookform/resolvers/yup";
+import { zodResolver } from "@hookform/resolvers/zod";
 import type { Resume } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -19,7 +19,7 @@ export const ResumeForm = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<IResumeForm>({
-    resolver: yupResolver(ResumeSchema),
+    resolver: zodResolver(ResumeSchema),
   });
 
   const onSubmit = async (data: IResumeForm) => {

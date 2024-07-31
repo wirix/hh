@@ -26,9 +26,7 @@ const VacancySchema = Yup.object().shape({
   name: Yup.string().required("Поле обязательно!").min(6, "Минимум 6 символа"),
   country: Yup.string().required("Поле обязательно!"),
   city: Yup.string().required("Поле обязательно!"),
-  currency: Yup.string()
-    .required("Поле обязательно!")
-    .oneOf([Currency.RUB, Currency.USD]),
+  currency: Yup.string().required("Поле обязательно!").oneOf([Currency.RUB]),
   salary: Yup.number().required("Обнаружен неразрешимый символ"),
   text: Yup.string(),
   responsibilities: Yup.string().required("Поле обязательно!"),

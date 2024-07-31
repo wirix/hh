@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useEffect, useMemo } from "react";
 
 import {
   Pagination as PaginationLib,
@@ -11,20 +12,44 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useFilterParamsStore } from "@/store";
 
 export const Pagination = ({
   activePage,
   totalItems,
-  itemsPage = 4,
+  pageSize = 4,
 }: {
   activePage: number;
   totalItems: number;
-  itemsPage?: number;
+  pageSize?: number;
 }) => {
-  const searchParams = new URLSearchParams(window.location.search);
   const router = useRouter();
+  const filterParams = useFilterParamsStore((state) => state.filterParams);
+  const searchParams = useMemo(() => {
+    const params = new URLSearchParams();
+    params.set("isAscendDate", filterParams.isAscendDate.value.toString());
+    params.set("experienceTime", filterParams.experienceTime.value);
+    params.set(
+      "salary",
+      filterParams.salary.countVacancies[
+        filterParams.salary.value
+      ].value.toString(),
+    );
+    params.set(
+      "schedulesWork",
+      Array.from(filterParams.schedulesWork.value).join(","),
+    );
+    params.set("cities", Array.from(filterParams.cities.value).join(","));
+    params.set("page", filterParams.activePage.toString());
+    return params;
+  }, [filterParams]);
 
-  const totalPages = Math.ceil(totalItems / itemsPage);
+  useEffect(() => {
+    router.push(`/vacancies?${searchParams.toString()}`);
+    router.refresh();
+  }, [filterParams, activePage, router]);
+
+  const totalPages = Math.ceil(totalItems / pageSize);
   if (totalPages <= 1) return null;
 
   const togglePage = (count: 1 | -1) => {

@@ -7,8 +7,6 @@ import { NextResponseError } from "@/utils";
 
 interface IResume extends Omit<Resume, "id" | "userId"> {
   body: string;
-  country: string;
-  city: string;
 }
 
 export async function POST(req: Request) {

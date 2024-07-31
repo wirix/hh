@@ -2,9 +2,8 @@
 
 import { City, ExperienceTime, ScheduleWork } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { DetailedHTMLProps, HTMLAttributes, useEffect, useState } from "react";
+import { DetailedHTMLProps, HTMLAttributes, useEffect, useMemo } from "react";
 
-import { SalaryEnum } from "@/app/(pages)/(worker)/vacancies/layout";
 import {
   CITY_OPTIONS,
   EXPERIENCE_TIME_OPTIONS,
@@ -21,32 +20,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { SalaryEnum, useFilterParamsStore } from "@/store";
 
 interface FilterDesktopProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  salaryOptions: Readonly<
-    {
-      countVacancies: number;
-      data: number;
-      id: string;
-    }[]
-  >;
-}
-
-interface Option<T> {
-  value: T;
-  countVacancies: number;
-}
-
-interface FilterParams {
-  isAscendDate: Option<boolean>;
-  schedulesWork: Option<Set<ScheduleWork>>;
-  experienceTime: Option<ExperienceTime>;
-  cities: Option<Set<City>>;
-  salary: {
-    value: string;
-    countVacancies: { [key in SalaryEnum]: number };
-  };
+  salaryOptions: {
+    count: number;
+    value: number;
+  }[];
 }
 
 export const FilterDesktop = ({
@@ -55,125 +36,50 @@ export const FilterDesktop = ({
   ...props
 }: FilterDesktopProps) => {
   const router = useRouter();
-  const searchParams = new URLSearchParams();
-  // вынести в стор для хранения текущих параметров, redux-toolkit
-  const [filterParams, setFilterParams] = useState<FilterParams>({
-    isAscendDate: { value: true, countVacancies: 111 },
-    schedulesWork: {
-      value: new Set([
-        ScheduleWork.FULL_DAY,
-        ScheduleWork.REMOTE,
-        ScheduleWork.FLEX,
-      ]),
-      countVacancies: 111,
-    },
-    experienceTime: {
-      value: ExperienceTime.NOT,
-      countVacancies: 111,
-    },
-    cities: {
-      value: new Set([City.MOSCOW]),
-      countVacancies: 111,
-    },
-    salary: {
-      value: salaryOptions[0].data.toString(),
-      countVacancies: {
-        [SalaryEnum.RANGE_1]: 111,
-        [SalaryEnum.RANGE_2]: 111,
-        [SalaryEnum.RANGE_3]: 111,
-        [SalaryEnum.RANGE_4]: 111,
-      },
-    },
-  });
 
-  const handleIsAscendDateChange = (value: "true" | "false") => {
-    setFilterParams((prev) => ({
-      ...prev,
-      isAscendDate: {
-        ...prev.isAscendDate,
-        value: value === "true",
-      },
-    }));
-  };
+  const {
+    filterParams,
+    setIsAscendDate,
+    setSchedulesWork,
+    setExperienceTime,
+    setCities,
+    setSalary,
+    setCountVacancies,
+  } = useFilterParamsStore();
 
-  const handleSchedulesWorkChange = (value: ScheduleWork) => {
-    setFilterParams((prev) => {
-      const newSchedulesWork = new Set(prev.schedulesWork.value);
-      if (newSchedulesWork.has(value)) {
-        newSchedulesWork.delete(value);
-      } else {
-        newSchedulesWork.add(value);
-      }
-      return {
-        ...prev,
-        schedulesWork: {
-          ...prev.schedulesWork,
-          value: newSchedulesWork,
-        },
-      };
-    });
-  };
-
-  const handlExperienceTimeChange = (value: ExperienceTime) => {
-    setFilterParams((prev) => ({
-      ...prev,
-      experienceTime: {
-        ...prev.experienceTime,
-        value,
-      },
-    }));
-  };
-
-  const handleCitiesChange = (value: City) => {
-    setFilterParams((prev) => {
-      const newCitiesWork = new Set(prev.cities.value);
-      if (newCitiesWork.has(value)) {
-        newCitiesWork.delete(value);
-      } else {
-        newCitiesWork.add(value);
-      }
-      return {
-        ...prev,
-        cities: {
-          ...prev.cities,
-          value: newCitiesWork,
-        },
-      };
-    });
-  };
-
-  const handleSalaryChange = (value: string) => {
-    setFilterParams((prev) => ({
-      ...prev,
-      salary: {
-        ...prev.salary,
-        value,
-      },
-    }));
-  };
-
-  useEffect(() => {
-    searchParams.set(
-      "isAscendDate",
-      filterParams.isAscendDate.value.toString(),
+  const searchParams = useMemo(() => {
+    const params = new URLSearchParams();
+    params.set(
+      "salary",
+      filterParams.salary.countVacancies[
+        filterParams.salary.value
+      ].value.toString(),
     );
-    searchParams.set(
+    params.set(
       "schedulesWork",
       Array.from(filterParams.schedulesWork.value).join(","),
     );
-    searchParams.set("experienceTime", filterParams.experienceTime.value);
-    searchParams.set("cities", Array.from(filterParams.cities.value).join(","));
-    searchParams.set("salary", filterParams.salary.value);
-    searchParams.set("page", "1");
-    router.push(`/vacancies?${searchParams.toString()}`);
-    router.refresh();
+    params.set("isAscendDate", filterParams.isAscendDate.value.toString());
+    params.set("cities", Array.from(filterParams.cities.value).join(","));
+    params.set("experienceTime", filterParams.experienceTime.value);
+    params.set("page", filterParams.activePage.toString());
+    return params;
   }, [filterParams]);
+
+  useEffect(() => {
+    setCountVacancies(salaryOptions);
+  }, []);
+
+  useEffect(() => {
+    router.push(`/vacancies?${searchParams}`);
+    router.refresh();
+  }, [filterParams, router]);
 
   return (
     <div className={className} {...props}>
       <div>
         <Select
-          onValueChange={handleIsAscendDateChange}
+          onValueChange={(value) => setIsAscendDate(value === "true")}
           defaultValue={String(filterParams.isAscendDate.value)}
         >
           <SelectTrigger className="w-[180px]">
@@ -211,7 +117,7 @@ export const FilterDesktop = ({
             <span key={option} className="mb-2 flex select-none items-center">
               <Checkbox
                 checked={filterParams.schedulesWork.value.has(option)}
-                onCheckedChange={(_) => handleSchedulesWorkChange(option)}
+                onCheckedChange={(_) => setSchedulesWork(option)}
                 id={option}
                 className="mr-1"
               />
@@ -228,10 +134,7 @@ export const FilterDesktop = ({
       </div>
       <div className="mt-4">
         <h3 className="mb-2 font-bold">Опыт работы</h3>
-        <RadioGroup
-          defaultValue="NOT"
-          onValueChange={handlExperienceTimeChange}
-        >
+        <RadioGroup defaultValue="NOT" onValueChange={setExperienceTime}>
           {Object.entries(EXPERIENCE_TIME_OPTIONS).map(([key, label]) => {
             const option = key as ExperienceTime;
             return (
@@ -260,7 +163,7 @@ export const FilterDesktop = ({
             <span key={option} className="mb-2 flex select-none items-center">
               <Checkbox
                 checked={filterParams.cities.value.has(option)}
-                onCheckedChange={(_) => handleCitiesChange(option)}
+                onCheckedChange={(_) => setCities(option)}
                 id={option}
                 className="mr-1"
               />
@@ -278,27 +181,30 @@ export const FilterDesktop = ({
       <div className="mt-4">
         <h3 className="mb-2 font-bold">Уровень дохода</h3>
         <RadioGroup
-          defaultValue={filterParams.salary.value}
-          onValueChange={handleSalaryChange}
+          defaultValue={filterParams.salary.value.toString()}
+          onValueChange={(e) => setSalary(e as unknown as SalaryEnum)}
         >
-          {salaryOptions.map((option) => {
-            if (!option.countVacancies) {
+          {salaryOptions.map((option, index) => {
+            if (!option.count) {
               return null;
             }
             return (
               <div
-                key={option.id}
+                key={index}
                 className="flex select-none items-center space-x-2"
               >
-                <RadioGroupItem value={String(option.data)} id={option.id} />
+                <RadioGroupItem
+                  value={index.toString()}
+                  id={index.toString()}
+                />
                 <Label
                   className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  htmlFor={option.id}
+                  htmlFor={index.toString()}
                 >
-                  От {option.data}руб
+                  От {option.value}руб
                 </Label>
                 <span className="ml-2 italic text-gray-400">
-                  {option.countVacancies}
+                  {option.count}
                 </span>
               </div>
             );

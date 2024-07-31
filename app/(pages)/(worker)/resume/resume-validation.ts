@@ -1,9 +1,12 @@
-import * as Yup from "yup";
+import { City } from "@prisma/client";
+import { z } from "zod";
 
-export const ResumeSchema = Yup.object().shape({
-  text: Yup.string().required("Поле обязательно!"),
-  country: Yup.string().required("Поле обязательно!"),
-  city: Yup.string().required("Поле обязательно!"),
-  namePosition: Yup.string().required("Поле обязательно!"),
-  age: Yup.number().required("Поле обязательно!"),
+import { CITY_OPTIONS } from "@/components/constants";
+
+export const ResumeSchema = z.object({
+  text: z.string().min(10),
+  country: z.string().min(10),
+  city: z.enum([City.MOSCOW, City.SAINT_PETERSBURG, City.KRASNOYARSK]),
+  namePosition: z.string().min(10),
+  age: z.number().min(10),
 });
