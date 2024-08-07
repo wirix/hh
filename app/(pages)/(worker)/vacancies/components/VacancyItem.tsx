@@ -19,6 +19,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useWindowSize } from "@/hooks";
 import { formatSalary } from "@/utils";
 import { cn } from "@/utils";
 
@@ -54,6 +55,7 @@ export const VacancyItem: FC<IVacancyItem> = ({
   } = useRespondVacancy({
     vacancyId: id,
   });
+  const { width, height } = useWindowSize();
 
   const timeAgo = formatDistanceToNow(new Date(createdAt), {
     addSuffix: true,
@@ -63,7 +65,7 @@ export const VacancyItem: FC<IVacancyItem> = ({
   return (
     <Card
       className={cn(
-        "grid grid-cols-[60px_1fr] grid-rows-[60px_20px_48px] gap-2 p-4",
+        "grid grid-cols-[30px_1fr] grid-rows-[30px_30px] gap-1 p-4 lg:grid-cols-[60px_1fr] lg:grid-rows-[60px_20px_48px] lg:gap-2",
         className,
       )}
       color="whiteShadow"
@@ -73,8 +75,8 @@ export const VacancyItem: FC<IVacancyItem> = ({
           className="col-end-2"
           src={company.img}
           alt=""
-          width={60}
-          height={60}
+          width={width < 1024 ? 30 : 60}
+          height={width < 1024 ? 30 : 60}
         />
       </CardHeader>
       <CardContent className="col-start-2 row-start-1 row-end-2 p-0">
@@ -82,15 +84,14 @@ export const VacancyItem: FC<IVacancyItem> = ({
         <CardTitle>
           <LinkTag
             color="gray"
-            size="2xl"
             href={`/vacancies/${id}`}
-            className="bold"
+            className="xl lg:2xl bold row-start-2"
           >
             {name}
           </LinkTag>
         </CardTitle>
       </CardContent>
-      <CardContent className="col-start-2 col-end-3 row-start-2 row-end-2 flex items-center p-0">
+      <CardContent className=" hidden lg:col-start-2 lg:col-end-3 lg:row-start-2 lg:row-end-2 lg:flex lg:items-center lg:p-0">
         <CardDescription className="mr-1">{CITY_OPTIONS[city]}</CardDescription>
         <IoLocationOutline />
         <span className="mx-4">
@@ -112,7 +113,7 @@ export const VacancyItem: FC<IVacancyItem> = ({
         <CardDescription className="mr-1">{timeAgo}</CardDescription>
         <CiCalendar />
       </CardContent>
-      <CardFooter className="col-start-2 col-end-3 row-start-3 row-end-3 line-clamp-2 p-0">
+      <CardFooter className="hidden lg:col-start-2 lg:col-end-3 lg:row-start-3 lg:row-end-3 lg:line-clamp-2 lg:p-0">
         {text}
       </CardFooter>
       {/* 

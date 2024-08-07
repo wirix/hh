@@ -20,17 +20,17 @@ export const NavRoutes = ({ role }: { role: Role | null }) => {
           })}
         </>
       );
+    } else {
+      return (
+        <>
+          {routes.map((route) => {
+            if (route.role.length === 0) {
+              return <HeaderLink key={route.href} {...route} />;
+            }
+          })}
+        </>
+      );
     }
-
-    return (
-      <>
-        {routes.map((route) => {
-          if (!route.isAuth) {
-            return <HeaderLink key={route.href} {...route} />;
-          }
-        })}
-      </>
-    );
   };
 
   return getSuitRoutes();

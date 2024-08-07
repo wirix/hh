@@ -13,7 +13,7 @@ export const Container: FC<ContainerProps> = ({
   return (
     <div
       className={cn(
-        `container min-h-screen w-[1280px] pt-2 lg:pt-0`,
+        `lg: ml-auto mr-auto min-h-screen w-full pl-4 pr-4 lg:pl-12 lg:pr-12`,
         className,
       )}
       {...props}

@@ -3,7 +3,7 @@
 import { getCurrentUser } from "@/lib";
 import prisma from "@/prisma/prismadb";
 
-import { CompanyCard, VacancyCard, VacancyRequirements } from "./components";
+import { VacancyCard, VacancyRequirements } from "./components";
 
 interface IParams {
   id?: string;
@@ -43,7 +43,7 @@ export default async function VacancyContent({ params }: { params: IParams }) {
         vacancy={vacancy}
         className="col-span-1 row-span-2"
       />
-      <CompanyCard className="col-[2/3] row-span-1" company={vacancy.company} />
+      {/* <CompanyCard className="col-[2/3] row-span-1" company={vacancy.company} /> */}
       <VacancyRequirements
         vacancyText={vacancy.text}
         responsibilities={vacancy.responsibilities}

@@ -12,7 +12,6 @@ export interface IRoutes {
   Icon: IconType;
   isDesktop?: boolean;
   role: Role[];
-  isAuth: boolean;
 }
 
 export const useRoutes = () => {
@@ -23,7 +22,6 @@ export const useRoutes = () => {
       Icon: ImProfile,
       isDesktop: true,
       role: [Role.WORKER],
-      isAuth: true,
     },
     {
       href: "/feedback",
@@ -31,7 +29,6 @@ export const useRoutes = () => {
       Icon: TbCurlyLoop,
       isDesktop: true,
       role: [Role.WORKER],
-      isAuth: true,
     },
     {
       href: "/vacancies",
@@ -39,7 +36,6 @@ export const useRoutes = () => {
       Icon: MdOutlineWorkOutline,
       isDesktop: true,
       role: [Role.WORKER],
-      isAuth: false,
     },
     {
       href: "/profile",
@@ -47,7 +43,6 @@ export const useRoutes = () => {
       Icon: CgProfile,
       isDesktop: false,
       role: [Role.WORKER, Role.EMPLOYER],
-      isAuth: true,
     },
     {
       href: "/company",
@@ -55,7 +50,6 @@ export const useRoutes = () => {
       Icon: HiViewGrid,
       isDesktop: true,
       role: [Role.EMPLOYER],
-      isAuth: true,
     },
     {
       href: "/company/vacancies",
@@ -63,7 +57,6 @@ export const useRoutes = () => {
       Icon: HiViewGrid,
       isDesktop: true,
       role: [Role.EMPLOYER],
-      isAuth: true,
     },
   ];
 

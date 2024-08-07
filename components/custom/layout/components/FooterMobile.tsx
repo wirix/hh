@@ -50,7 +50,7 @@ export const FooterMobile = ({
   return (
     <div
       className={cn(
-        "fixed bottom-0 z-10 flex w-full flex-wrap items-center border-t-[1px] lg:hidden",
+        "fixed top-0 z-10 flex w-full flex-wrap items-center border-t-[1px] lg:hidden",
         className,
       )}
       {...props}
